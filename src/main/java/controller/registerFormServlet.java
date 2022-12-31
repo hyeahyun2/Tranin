@@ -29,7 +29,7 @@ public class registerFormServlet extends HttpServlet {
 		String address = address1 + " " + address2;
 		
 		MemberInsertDao dao = new MemberInsertDao();
-		boolean state = dao.register(memberId, password, nickName, zipCode, address);
+		boolean state = dao.register(memberId, password, nickName, address, zipCode);
 		
 		if(state){ // 회원가입 성공
 			request.getSession().setAttribute("memberId", memberId);
