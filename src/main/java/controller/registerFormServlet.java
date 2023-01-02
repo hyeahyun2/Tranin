@@ -25,7 +25,7 @@ public class registerFormServlet extends HttpServlet {
 		String zipCode = request.getParameter("zipCode");
 		String address1 = request.getParameter("address1");
 		String address2 = request.getParameter("address2");
-		
+
 		String address = address1 + " " + address2;
 		
 		MemberInsertDao dao = new MemberInsertDao();
@@ -33,6 +33,7 @@ public class registerFormServlet extends HttpServlet {
 		
 		if(state){ // 회원가입 성공
 			request.getSession().setAttribute("memberId", memberId);
+			request.getSession().setAttribute("nickname", nickName);
 			response.sendRedirect("index.jsp");
 		}
 		else { // 회원가입 실패

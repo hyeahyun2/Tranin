@@ -20,13 +20,15 @@ public class loginFormServlet extends HttpServlet {
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
 
+
+
         MemberSelectLoginDao dao = new MemberSelectLoginDao();
 
-        boolean state = dao.login(memberId,password);
+        String state = dao.login(memberId,password);
 
 
-        if(state){ // 회원가입 성공
-            request.getSession().setAttribute("memberId", memberId);
+        if(state != null){ // 회원가입 성공
+            request.getSession().setAttribute("nickname", state);
             response.sendRedirect("index.jsp");
         }
         else { // 회원가입 실패
