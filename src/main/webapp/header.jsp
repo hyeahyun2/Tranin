@@ -3,10 +3,11 @@
   <div id="upperSmallNav">
     <h1 class="hidden">기타관련</h1>
     <%
-    String memberId = null;
-    memberId = (String)session.getAttribute("memberId");
-    if(memberId != null){
+    String nickname = null;
+    nickname = (String)session.getAttribute("nickname");
+    if(nickname != null){
     	%>
+    <a><%=nickname%>님 환영합니다!</a>
    	<a href='myPage'>마이페이지</a>
    	<a href="logout.jsp" class='logOut'>로그아웃</a>
     	<%
