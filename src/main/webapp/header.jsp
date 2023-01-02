@@ -8,7 +8,7 @@
     if(memberId != null){
     	%>
    	<a href='myPage'>마이페이지</a>
-   	<a href=logOut class='logOut'>로그아웃</a>
+   	<a href="logout.jsp" class='logOut'>로그아웃</a>
     	<%
     }
     else {

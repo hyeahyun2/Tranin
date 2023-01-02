@@ -3,10 +3,23 @@
 #upperSmallNav a {color: #000;}
 div#headerWrap ul > li > a {color: #000;}
 
+#logo_sh{
+  width:250px;
+  height: 200px;
+  background-image: url(../image/mainLogo.png);
+  background-size: center;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+}
+
 /* 로그인 */
 
-#check_sh{
+.check_sh{
+  margin:0;
+  width: 300px;
+  height: 10px;
   color:red;
+  text-align: center;
 }
 
 #loginWrap_sh{
@@ -14,12 +27,8 @@ div#headerWrap ul > li > a {color: #000;}
   height: 100vh;
 }
 #login_sh{
-    width: 800px;
-    height: 80vh;
-    margin: 0 auto;
-    padding-top:190px
 }
-#login_sh h1{
+#loginWrap_sh h1{
   text-align: center;
   color:gray;
   text-shadow: 2px 2px lightgray;
@@ -28,17 +37,16 @@ div#headerWrap ul > li > a {color: #000;}
   width: 600px;
   height: 80vh;
   margin:0 auto;
-  
+
 }
 #list_sh{
-
 
 }
 #list_sh li{
   width: 450px;
   height: 50px;
-  margin: 30px auto;
-  
+  margin: 0 auto;
+
 }
 #list_sh li span{
   position:absolute;
@@ -61,31 +69,35 @@ input[type="text"]{
   width: 450px;
   height: 50px;
   box-shadow: 5px 5px pink;
+  padding: 0 30px;
 }
 input[type="text"]::placeholder{
   display:block;
-  color: black;
+  color: lightgray;
   font-size: 20px;
+  padding: 0 30px;
 }
 input[type="password"]{
   width: 450px;
   height: 50px;
   box-shadow: 5px 5px pink;
+  padding: 0 30px;
 }
 input[type="password"]::placeholder{
   display:block;
-  color: black;
+  color: lightgray;
   font-size: 20px;
+  padding: 0 30px;
 }
 input[type="checkbox"]{
 }
-input[type="button"]{
+input[type="submit"]{
   border:0;
   background-color: pink;
   border-radius: 5px;
   width: 450px;
   height: 50px;
- 
+
 }
 #linkList_sh{
   position:absolute;
@@ -97,16 +109,16 @@ input[type="button"]{
 
 }
 #linkList_sh a{
-display:block;
-text-align: center;
-width: 200px;
-height: 20px;
+  display:block;
+  text-align: center;
+  width: 200px;
+  height: 20px;
 
 }
 #alterLogin_sh{
   width: 600px;
   position:absolute;
-  top:570px;
+  top:620px;
   display:flex;
   justify-content: space-evenly;
   left:50%;
@@ -114,16 +126,16 @@ height: 20px;
 
 }
 #alterLogin_sh div{
-text-align: center;
-width: 200px;
-height: 70px;
+  text-align: center;
+  width: 200px;
+  height: 70px;
 }
 #naver_sh{
-border:2px solid green;
-background-color: green;
-color:white;
-text-align: center;
-line-height: 70px;
+  border:2px solid green;
+  background-color: green;
+  color:white;
+  text-align: center;
+  line-height: 70px;
 
 }
 #kakao_sh{
