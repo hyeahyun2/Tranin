@@ -24,73 +24,7 @@
 </head>
 
 <body>
-  <div id="upperSmallNav">
-    <h1 class="hidden">기타관련</h1>
-    <%
-    String memberId = null;
-    memberId = (String)session.getAttribute("memberId");
-    if(memberId != null){
-    	%>
-   	<a href='myPage'>마이페이지</a>
-   	<a href=logOut class='logOut'>로그아웃</a>
-    	<%
-    }
-    else {
-    	%>
-    <a href="login.jsp">로그인</a>              
-    <a href="register.jsp">회원가입</a>
-    	<%
-    	
-    }
-    	%>
-    <%--
-	MemberDto loginSession = (MemberDto)session.getAttribute("session_member");
-    if(loginSession!=null){
-    	out.print(
-				"<a>"+
-				loginSession.getNickName()
-				);
-		out.print("</a>");
-		out.print("<a href='myPage'>마이페이지</a>");
-		out.print("<a href=logOut class='logOut'>로그아웃</a>");
-    }else{
-        out.print("<a href=loginForm>로그인</a>");
-        out.print("<a href=signForm>회원가입</a>");
-    	out.print(
-				"<article class='object'>"+
-				"로그인 해주세요"
-				);
-		out.print("</article>");
-    }
-	--%>
-  </div>
-  <div id="headerWrap">
-    <header id="header">
-      <h1 class="logo"><a href="./index.html">logo</a></h1>
-      <nav id="gnb">
-        <h2 class="hidden">주요이용메뉴</h2>
-        <ul id="gnbList">
-          <li class="gnbListChild"><a href="./sale.jsp">팝니다</a></li>
-          <li class="gnbListChild"><a href="#">삽니다</a></li>
-          <li class="gnbListChild"><a href="#">커뮤니티</a>
-            <ul class="snb">
-              <li><a href="#">후기</a></li>
-              <li><a href="#">인기글</a></li>
-              <li><a href="#">자유게시판</a></li>
-              <li><a href="#">정보게시판</a></li>
-            </ul>
-          </li>
-          <li class="gnbListChild"><a href="#">고객센터</a>
-            <ul class="snb">
-              <li><a href="./notice.html">공지사항</a></li>
-              <li><a href="./FAQ.html">FAQ</a></li>
-              <li><a href="#">신고하기</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  </div>
+<%@ include file="header.jsp" %>
   <main>
     <div class="leftNav">
       <h2 class="hidden">페이지넘버</h2>
@@ -490,21 +424,7 @@
     </section>
   </section>
 
-  <!-- 유수현 영역2 시작 -->
-  <div class="footerWrap page onePage6">
-    <footer class="page8" id="footer">
-      <p class="us">about us</p>
-      <div id="membersWrap">
-        <p class="member0_sh member_sh"><a href="#" target="_blank">개인정보처리방침</a></p>
-        <p class="member1_sh member_sh"><a href="hyehyun.html" target="_blank">김혜현</a></p>
-        <p class="member2_sh member_sh"><a href="beomsu.html" target="_blank">오범수</a></p>
-        <p class="member3_sh member_sh"><a href="haejun.html" target="_blank">오해준</a></p>
-        <p class="member4_sh member_sh"><a href="https://suhyun980716.github.io/LandingPage/Landing%20Page/index.html" target="_blank">유수현</a></p>
-        <p class="member5_sh member_sh"><a href="https://github.com/hyeahyun2/TeamProject" target="_blank">GitHub</a></p>
-      </div>
-    </footer>
-    <!-- 유수현 영역2 끝 -->
-  </div>
+	<%@ include file="footer.jsp" %>
 </body>
 </html>
 
