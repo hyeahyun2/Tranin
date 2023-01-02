@@ -65,7 +65,7 @@ div#headerWrap ul > li > a {
 }
 #category {
   position: absolute;
-  right: 270px;
+  right: 150px;
   height: 25px;
   overflow: hidden;
   transition: 0.5s;
@@ -87,7 +87,7 @@ div#headerWrap ul > li > a {
   border-radius: 5px;
   text-align: center;
   transition: 0.5s;
-  height: 150px;
+  height: 125px;
   background-color: #fff;
   padding: 0 30px;
 }
