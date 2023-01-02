@@ -17,7 +17,7 @@ const moreBtn = contentWrap.querySelector(".moreBtn");
 let clickNum = 0; // 클릭 수
 function moreList(){
   // page = this.getAttribute();
-  xhr.open('GET', `./saleList.html`); //HTTP 요청 초기화. 통신 방식과 url 결정
+  xhr.open('GET', `./saleList.jsp`); //HTTP 요청 초기화. 통신 방식과 url 결정
   xhr.send(); // url에 요청 보내기
   // 이벤트 등록. XMLHttpRequest 객체의 readyState 프로퍼티 값이 변할 때마다 자동으로 호출
   xhr.onreadystatechange = ()=>{
