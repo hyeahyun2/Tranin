@@ -11,16 +11,17 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,400&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/index.css" />
-  <script type="text/javascript" src="assets/js/jquery-3.6.1.js"></script>
-  <script type="text/javascript" src="assets/js/jquery-migrate-1.4.1.min.js"></script>
-  <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
-  <script src="assets/js/common.js" defer></script>
-  <script src="assets/js/header.js" defer></script>
-  <script src="assets/js/onePage.js" defer></script>
-  <script src="assets/js/section1.js" defer></script>
-  <script src="assets/js/section4.js" defer></script>
-  <script src="assets/js/section3.js" defer></script>
+  <link rel="stylesheet" href="../assets/css/index.css" />
+  <script type="text/javascript" src="../assets/js/jquery-3.6.1.js"></script>
+  <script type="text/javascript" src="../assets/js/jquery-migrate-1.4.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/jquery-ui.js"></script>
+  <script src="../assets/js/common.js" defer></script>
+  <script src="../assets/js/header.js?v=2" defer></script>
+  <script src="../assets/js/floatingMenu.js" defer></script>
+  <script src="../assets/js/onePage.js" defer></script>
+  <script src="../assets/js/section1.js" defer></script>
+  <script src="../assets/js/section4.js" defer></script>
+  <script src="../assets/js/section3.js" defer></script>
 </head>
 
 <body>

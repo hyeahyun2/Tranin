@@ -5,8 +5,8 @@
       <h2 class="hidden">rightQuick</h2>
       <nav>
         <ul>
-          <li>
-            <a href="#">채팅상담</a>
+          <li id="chatTag">
+            <a href="../chat/chatMain.jsp">채팅상담</a>
           </li>
           <li>
             <a href="#">찜목록</a>

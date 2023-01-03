@@ -9,13 +9,13 @@
     	%>
     <a><%=nickname%>님 환영합니다!</a>
    	<a href='myPage'>마이페이지</a>
-   	<a href="UM/logout.jsp" class='logOut'>로그아웃</a>
+   	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
     	<%
     }
     else {
     	%>
-    <a href="UM/login.jsp">로그인</a>
-    <a href="UM/register.jsp">회원가입</a>
+    <a href="../UM/login.jsp">로그인</a>
+    <a href="../UM/register.jsp">회원가입</a>
     	<%
     	
     }
@@ -27,7 +27,7 @@
       <nav id="gnb">
         <h2 class="hidden">주요이용메뉴</h2>
         <ul id="gnbList">
-          <li class="gnbListChild"><a href="./sale/sale.jsp">팝니다</a></li>
+          <li class="gnbListChild"><a href="../sale/sale.jsp">팝니다</a></li>
           <li class="gnbListChild"><a href="#">삽니다</a></li>
           <li class="gnbListChild"><a href="#">커뮤니티</a>
             <ul class="snb">
@@ -39,8 +39,8 @@
           </li>
           <li class="gnbListChild"><a href="#">고객센터</a>
             <ul class="snb">
-              <li><a href="./notice.html">공지사항</a></li>
-              <li><a href="./FAQ.html">FAQ</a></li>
+              <li><a href="../notice.html">공지사항</a></li>
+              <li><a href="../FAQ.html">FAQ</a></li>
               <li><a href="#">신고하기</a></li>
             </ul>
           </li>
