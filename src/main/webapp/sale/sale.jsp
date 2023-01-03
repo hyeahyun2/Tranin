@@ -10,19 +10,19 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,400&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
 	rel="stylesheet" />
-<link rel="stylesheet" href="assets/css/common.css">
-<link rel="stylesheet" href="assets/css/reset.css">
-<link rel="stylesheet" href="assets/css/sale.css">
-<link rel="stylesheet" href="assets/css/footer.css">
-<script type="text/javascript" src="assets/js/jquery-3.6.1.js"></script>
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/reset.css">
+<link rel="stylesheet" href="../assets/css/sale.css">
+<link rel="stylesheet" href="../assets/css/footer.css">
+<script type="text/javascript" src="../assets/js/jquery-3.6.1.js"></script>
 <script type="text/javascript"
 	src="assets/js/jquery-migrate-1.4.1.min.js"></script>
-<script type="text/javascript" src="assets/js/jquery-ui.js"></script>
-<script src="assets/js/sale.js" defer></script>
-<script src="assets/js/header.js" defer></script>
+<script type="text/javascript" src="../assets/js/jquery-ui.js"></script>
+<script src="../assets/js/sale.js" defer></script>
+<script src="../assets/js/header.js" defer></script>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+	<%@ include file="../include/header.jsp"%>
 	<div id="content">
 		<h1>
 			<a href="#">장터</a>
@@ -56,11 +56,11 @@
 			<div class="moreBtn">더보기</div>
 		</div>
 	</div>
-	<%@ include file="floatingMenu.jsp"%>
+	<%@ include file="../include/floatingMenu.jsp"%>
 	<!-- write & top button -->
 	<div id="fixedBtn">
 		<a href="#" class="writeNow">글쓰기</a> <a href="#" class="topBtn">top</a>
 	</div>
-	<%@ include file="footer.jsp"%>
+	<%@ include file="../include/footer.jsp"%>
 </body>
 </html>
