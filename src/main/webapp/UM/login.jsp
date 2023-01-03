@@ -42,7 +42,7 @@
     </form>
     <div id="linkList_sh">
         <a href="lostAndFound.jsp">로그인/비밀번호 찾기</a>
-        <a href="register.jsp">회원가입</a>
+        <a href="registerFormServlet">회원가입</a>
     </div>
     <div id="alterLogin_sh">
         <div id="naver_sh">네이버 로그인</div>
