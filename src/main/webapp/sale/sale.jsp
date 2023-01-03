@@ -25,7 +25,7 @@
 	<%@ include file="../include/header.jsp"%>
 	<div id="content">
 		<h1>
-			<a href="#">장터</a>
+			<a href="./sale.jsp">장터</a>
 		</h1>
 		<div id="contentWrap">
 			<div id="selectWrap">
