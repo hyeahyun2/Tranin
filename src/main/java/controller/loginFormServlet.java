@@ -32,7 +32,7 @@ public class loginFormServlet extends HttpServlet {
             response.sendRedirect("index.jsp");
         }
         else { // 회원가입 실패
-            response.sendRedirect("register.jsp");
+            response.sendRedirect("/UM/register.jsp");
         }
     }
 

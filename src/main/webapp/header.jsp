@@ -9,13 +9,13 @@
     	%>
     <a><%=nickname%>님 환영합니다!</a>
    	<a href='myPage'>마이페이지</a>
-   	<a href="logout.jsp" class='logOut'>로그아웃</a>
+   	<a href="UM/logout.jsp" class='logOut'>로그아웃</a>
     	<%
     }
     else {
     	%>
-    <a href="login.jsp">로그인</a>              
-    <a href="register.jsp">회원가입</a>
+    <a href="UM/login.jsp">로그인</a>
+    <a href="UM/register.jsp">회원가입</a>
     	<%
     	
     }

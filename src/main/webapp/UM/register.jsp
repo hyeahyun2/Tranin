@@ -5,19 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<link rel="stylesheet" href="./assets/css/reset.css">
-<link rel="stylesheet" href="./assets/css/footer.css">
-<link rel="stylesheet" href="./assets/css/common.css">
-<link rel="stylesheet" href="./assets/css/register.css">
+<link rel="stylesheet" href="../assets/css/reset.css">
+<link rel="stylesheet" href="../assets/css/footer.css">
+<link rel="stylesheet" href="../assets/css/common.css">
+<link rel="stylesheet" href="../assets/css/register.css">
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
-<script src="./assets/js/jquery-3.6.1.js"></script>
-<script src="./assets/js/register.js" defer></script>
+<script src="../assets/js/jquery-3.6.1.js"></script>
+<script src="../assets/js/register.js" defer></script>
 </head>
 <body>
   <div id="logo_sh"></div>
     <div id="listWrap_sh">
         <h1 id="title_sh">회원가입</h1>
-    <form name ="member_insert" id="list_sh" action="registerFormServlet" method="post">
+    <form name ="member_insert" id="list_sh" action="../registerFormServlet" method="post">
         <ul id="forms_sh">
         <li> <span> 아이디</span> <input type="text" name="memberId" placeholder=" 아이디" id="id_sh"></li>
         <li><div class="check_sh check1"></div></li>

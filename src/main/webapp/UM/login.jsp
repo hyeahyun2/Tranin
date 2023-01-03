@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="./assets/css/footer.css">
-    <link rel="stylesheet" href="./assets/css/common.css">
-    <link rel="stylesheet" href="./assets/css/login.css">
-    <script src="./assets/js/login.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <script src="../assets/js/login.js" defer></script>
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <sript>
@@ -21,7 +21,7 @@
 <div id="loginWrap_sh">
     <h1>로그인</h1>
     <div id="login_sh"></div>
-    <form action="loginFormServlet" name="member_insert" id="form" method="post">
+    <form action="../loginFormServlet" name="member_insert" id="form" method="post">
         <div id="listWrap_sh">
             <ul id="list_sh">
                 <li><span>아이디</span><input type="text" placeholder=" 아이디" name="memberId" id="id_sh"></li>
@@ -41,8 +41,8 @@
         </div>
     </form>
     <div id="linkList_sh">
-        <a href="#">로그인/비밀번호 찾기</a>
-        <a href="#">회원가입</a>
+        <a href="lostAndFound.jsp">로그인/비밀번호 찾기</a>
+        <a href="register.jsp">회원가입</a>
     </div>
     <div id="alterLogin_sh">
         <div id="naver_sh">네이버 로그인</div>

@@ -1,5 +1,5 @@
 <%
   session.removeAttribute("nickname");
 
-  response.sendRedirect("./index.jsp");
+  response.sendRedirect("../index.jsp");
 %>
