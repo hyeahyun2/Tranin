@@ -8,13 +8,13 @@
 <link rel="stylesheet" href="../assets/css/reset.css">
 <link rel="stylesheet" href="../assets/css/footer.css">
 <link rel="stylesheet" href="../assets/css/common.css">
-<link rel="stylesheet" href="../assets/css/register.css">
+<link rel="stylesheet" href="../assets/css/register.css%3F">
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script src="../assets/js/jquery-3.6.1.js"></script>
 <script src="../assets/js/register.js" defer></script>
 </head>
 <body>
-  <div id="logo_sh"></div>
+  <div id="logo_sh"><a href="../index.jsp" id="main"></a></div>
     <div id="listWrap_sh">
         <h1 id="title_sh">회원가입</h1>
     <form name ="member_insert" id="list_sh" action="../registerFormServlet" method="post">

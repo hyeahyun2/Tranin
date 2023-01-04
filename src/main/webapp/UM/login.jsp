@@ -17,7 +17,7 @@
     </sript>
 </head>
 <body>
-<div id="logo_sh"></div>
+<div id="logo_sh"><a href="../index.jsp" id="main"></a></div>
 <div id="loginWrap_sh">
     <h1>로그인</h1>
     <div id="login_sh"></div>

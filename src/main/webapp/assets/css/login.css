@@ -11,6 +11,12 @@ div#headerWrap ul > li > a {color: #000;}
   background-repeat: no-repeat;
   margin: 0 auto;
 }
+#main{
+display:block;
+  width:250px;
+  height: 200px;
+  margin: 0 auto;
+}
 
 /* 로그인 */
 
