@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/lostAndFoundForm_process")
 public class lostAndFoundForm_process extends HttpServlet {
@@ -25,10 +26,19 @@ public class lostAndFoundForm_process extends HttpServlet {
         String state = dao.finding(pw,nickname);
 
         if(state != null){ // 성공
-            response.sendRedirect("UM/pwEditDone.jsp");
+
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('비밀번호가 변경되었습니다.')</script>");
+            out.println("<script>location.href='/UM/pwEditDone.jsp'</script>");
+            out.flush();
+            out.close();
         }
         else { //실패
-            response.sendRedirect("index.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('비밀번호 변경에 실패하였습니다. 다시 시도해주세요')</script>");
+            out.println("<script>location.href='/UM/lostAndFound_process.jsp'</script>");
+            out.flush();
+            out.close();
         }
     }
 }

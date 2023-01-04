@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/lostAndFoundForm")
 public class lostAndFoundServlet extends HttpServlet {
@@ -26,10 +27,18 @@ public class lostAndFoundServlet extends HttpServlet {
 
         if(state != null){ // 성공
             request.getSession().setAttribute("passChecked", state);
-            response.sendRedirect("UM/lostAndFound_process.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('"+nickName+"님 새로운 비밀번호를 설정해주세요.')</script>");
+            out.println("<script>location.href='/UM/lostAndFound_process.jsp'</script>");
+            out.flush();
+            out.close();
         }
         else { //실패
-            response.sendRedirect("index.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('이메일/별명을 다시 확인하여 주십시요.')</script>");
+            out.println("<script>location.href='/UM/lostAndFound.jsp'</script>");
+            out.flush();
+            out.close();
         }
 
     }

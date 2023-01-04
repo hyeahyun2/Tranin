@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.rmi.ServerException;
 import java.rmi.server.ServerCloneException;
 
@@ -29,10 +30,18 @@ public class loginFormServlet extends HttpServlet {
 
         if(state != null){ // 회원가입 성공
             request.getSession().setAttribute("nickname", state);
-            response.sendRedirect("index.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('"+ request.getSession().getAttribute("nickname")+"님 환영합니다!')</script>");
+            out.println("<script>location.href='index.jsp'</script>");
+            out.flush();
+            out.close();
         }
         else { // 회원가입 실패
-            response.sendRedirect("/UM/register.jsp");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('로그인에 실패 하였습니다. 다시 시도해주세요.')</script>");
+            out.println("<script>location.href='/UM/login.jsp'</script>");
+            out.flush();
+            out.close();
         }
     }
 

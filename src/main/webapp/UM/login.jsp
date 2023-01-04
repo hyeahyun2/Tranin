@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ page import="dao.MemberSelectLoginDao" %>
+<%@ page import="controller.loginFormServlet" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +12,6 @@
     <script src="../assets/js/login.js" defer></script>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <sript>
-
-
-    </sript>
 </head>
 <body>
 <div id="logo_sh"><a href="../index.jsp" id="main"></a></div>
