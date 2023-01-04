@@ -69,7 +69,7 @@
           <button class="PCBtn_sh">이용안내 넘기기</button>
         </div>
         <div id="PCSliderWrap_sh" class="see">
-          <img src="assets/sh_images/pc.svg" alt="PC의 모습" class="img">
+          <img src="../assets/sh_images/pc.svg" alt="PC의 모습" class="img">
           <ul class="PCSlider1_sh">
             <li class="PCSlider_sh PCSlider1"><a href="#">회원가입</a></li>
             <li class="PCSlider_sh PCSlider2"><a href="#">글 작성</a></li>
@@ -85,7 +85,7 @@
           <button class="MBtn_sh">이용안내 넘기기</button>
         </div>
         <div id="MSliderWrap_sh" class="unsee">
-          <img src="assets/sh_images/phone.svg" alt="mobile의 모습" class="img">
+          <img src="../assets/sh_images/phone.svg" alt="mobile의 모습" class="img">
           <ul class="MSlider_sh">
             <li class="MSlider MSlider1"><a href="#">회원가입</a></li>
             <li class="MSlider MSlider2"><a href="#">글 작성</a></li>
