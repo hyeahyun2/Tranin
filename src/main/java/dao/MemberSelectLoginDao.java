@@ -15,7 +15,6 @@ public class MemberSelectLoginDao {
             db.rs=db.pstmt.executeQuery();
             while(db.rs.next()){
                 if(id.equals(db.rs.getString("id"))){
-                    System.out.println("로그인 정보 일치");
                     return db.rs.getString("nickname");
                 }else{
                     System.out.println("로그인 정보 불일치");
