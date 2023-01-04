@@ -41,7 +41,7 @@
         </div>
     </form>
     <div id="linkList_sh">
-        <a href="lostAndFound.jsp">로그인/비밀번호 찾기</a>
+        <a href="lostAndFound.jsp">비밀번호 찾기</a>
         <a href="registerFormServlet">회원가입</a>
     </div>
     <div id="alterLogin_sh">
@@ -65,5 +65,6 @@
                                                target="_blank">GitHub</a></p>
         </div>
     </footer>
+</div>
 </body>
 </html>
