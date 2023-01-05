@@ -21,7 +21,6 @@
             <form action="../lostAndFoundForm_process" method="post">
                 <h1>새 비밀번호 확인</h1>
                 <ul id="forms_sh">
-                    <li id="idWrap"><p>별명</p><br><input type="text" name="nickname" placeholder=" 아이디" id="Id"></li>
                     <li><p>새 비밀번호</p><br><input type="password" name="password" placeholder=" 새로운 비밀번호를 입력하세요"></li>
                     <li><p>비밀번호 확인</p><br><input type="password" name="password_cf" placeholder=" 비밀번호 확인"></li>
                     <button type="submit" value="비밀번호 수정" id="btn">비밀번호 수정</button>

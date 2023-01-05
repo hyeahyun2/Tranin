@@ -18,7 +18,17 @@ public class lostAndFoundForm_process extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         String pw = request.getParameter("password");
+        String pwcf = request.getParameter("password_cf");
         String nickname = request.getParameter("nickname");
+
+
+        if(!pw.equals(pwcf)){
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('새 비밀번호가 일치 하지 않습니다. 다시 확인해 주세요')</script>");
+            out.println("<script>location.href='/UM/lostAndFound_process.jsp'</script>");
+            out.flush();
+            out.close();
+        }
 
         MemberPasswordUpdateDao dao = new MemberPasswordUpdateDao();
 
@@ -39,6 +49,8 @@ public class lostAndFoundForm_process extends HttpServlet {
             out.println("<script>location.href='/UM/lostAndFound_process.jsp'</script>");
             out.flush();
             out.close();
+
+
         }
     }
 }
