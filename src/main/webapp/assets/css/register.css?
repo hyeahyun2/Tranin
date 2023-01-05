@@ -4,6 +4,12 @@
 #upperSmallNav a {color: #000;}
 div#headerWrap ul > li > a {color: #000;}
 
+
+
+#flex{
+    display: flex;
+    flex-direction: column;
+}
 #logo_sh{
     width:250px;
     height: 200px;
