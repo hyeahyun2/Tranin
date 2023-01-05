@@ -4,25 +4,23 @@
 <html>
 <head>
 	<%
-	String userID = null;
-	String toID = null;
-	if(session.getAttribute("userID") != null){
-		userID = (String)session.getAttribute("userID");
+	String myNick = null;
+	String toNick = null;
+	if(session.getAttribute("nickname") != null){
+		myNick = (String)session.getAttribute("nickname");
 	}
-	if(request.getParameter("toID") != null){
-		toID = (String)request.getParameter("toID");
+	if(request.getParameter("toNick") != null){
+		toNick = (String)request.getParameter("toNick");
 	}
 	%>
 <meta charset="UTF-8">
 <title>채팅</title>
-<link rel="stylesheet" href="./css/chatting.css">
-<script src="./js/chatting.js?v=<%=System.currentTimeMillis()%>" defer></script>
+<link rel="stylesheet" href="../assets/css/chatting.css">
+<script src="../assets/js/chatting.js?v=<%=System.currentTimeMillis()%>" defer></script>
 </head>
 <body>
-	<span class="getInfo userID"><%= userID %></span>
-	<span class="getInfo toID"><%= toID %></span>
 	<div id="head">
-		<h1 class="header"><span><%= toID %></span></h1>
+		<h1 class="header"><span><%= toNick %></span></h1>
 		<a href="./chatMain.jsp">뒤로가기</a>
 	</div>
 	<div class="chat-content">

@@ -1,13 +1,12 @@
 const xhr = new XMLHttpRequest();
-let fromID = document.querySelector('.userID').innerText;
-let toID = document.querySelector('.header').innerText;
-console.log(document.querySelector('.userID').innerText);
+let toNick = document.querySelector('.header').innerText;
+console.log(toNick);
 
 // 채팅 내역 db로 보내기
 function submitFunction(){
 	let chatContent = document.querySelector("#chatInput").value;
 	// 비동기 통신
-	xhr.open("POST", "./chatSubmetServlet", true);
+	xhr.open("POST", "../chatSubmetServlet", true);
 	//xhr.setRequestHeader("인코딩?방식", ""); 
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	
@@ -24,18 +23,17 @@ function submitFunction(){
 			}
 		}
 	}
-	xhr.send("fromID=" + fromID + 
-		"&toID=" + toID + 
+	xhr.send("toNick=" + toNick + 
 		"&chatContent=" + encodeURIComponent(chatContent)); // header에 포함하고자 하는 key와 값
 	document.querySelector("#chatInput").value = ""; // 값 비워주기
 }
 
-let lastChatID = 0; // 가장 마지막 채팅의 chatID 값
+let lastChatNO = 0; // 가장 마지막 채팅의 chatID 값
 // 채팅 리스트 불러오기
 function chatListFunction(type){
 	console.log(type);
 	// 비동기 통신
-	xhr.open("POST", "./chatListServlet", true);
+	xhr.open("POST", "../chatListServlet", true);
 	//xhr.setRequestHeader("인코딩?방식", ""); 
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	
@@ -47,15 +45,18 @@ function chatListFunction(type){
 			let parsed = JSON.parse(data); // json형태로 파싱
 			let result = parsed.result;	
 			for(let i=0; i<result.length; i++){
+				// result[i][0] : fromNick
+				// result[i][1] : ToNick
+				// result[i][2] : chatContent
+				// result[i][3] : chatTime
 				addChat(result[i][0].value, result[i][2].value, result[i][3].value);
 			}
-			// chatID값 가져오기
-			lastChatID = Number(parsed.last);
+			// chat_no값 가져오기
+			lastChatNO = Number(parsed.last);
 		}
 	}
-	xhr.send("fromID=" + fromID + 
-		"&toID=" + toID + 
-		"&listType=" + type); // header에 포함하고자 하는 key와 값
+	xhr.send("toNick=" + toNick + 
+		"&listType=" + type); // listType : 첫 로딩시 "ten", 나머지 경우 chat_no값
 }
 
 // 채팅 리스트 화면에 추가
@@ -74,17 +75,17 @@ function addChat(chatName, chatContent, chatTime){
       }
     });
     
-	if(chatName ==fromID) classType = "chatMine";
+	if(chatName ==fromNick) classType = "chatMine";
 	var template = `<div class="chatLine ${classType}">
 		<span class="chat-box">${chatContent}</span>
 		<span class="chat-time">${time}</span>
 		</div>`;
 	document.querySelector(".chat-content").insertAdjacentHTML("beforeend", template);
 }
-// 3초 간격으로 새로운 채팅 내용 가져오기
+// 1초 간격으로 새로운 채팅 내용 가져오기
 function getInfiniteChat(){
 	setInterval(function(){
-		chatListFunction(lastChatID);
+		chatListFunction(lastChatNO);
 	}, 1000);
 }
 
@@ -92,7 +93,7 @@ function getInfiniteChat(){
 window.addEventListener("load", function(){
 	setTimeout(function(){
 	chatListFunction('ten');
-	getInfiniteChat();
+	//getInfiniteChat();
 	}, 10)
 })
 

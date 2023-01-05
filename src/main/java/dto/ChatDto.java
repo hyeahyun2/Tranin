@@ -1,7 +1,7 @@
 package dto;
 
 /* create table tranin_chat(
-	chat_no int PRIMARY key,
+	chat_no bigint PRIMARY key,
 	from_no int ,
 	to_no int,
 	chat_content varchar(300),
@@ -10,30 +10,31 @@ package dto;
 	CONSTRAINT to_fk foreign key(to_no) REFERENCES tranin_member(no)
 	);
 */
-public class ChatDTO {
-	int chatID;
-	String fromID;
-	String toID;
+public class ChatDto {
+	long chatNO;
+	int fromNo;
+	int toNo;
 	String chatContent;
 	String chatTime;
 	
-	public int getChatID() {
-		return chatID;
+	// getter setter
+	public long getChatNO() {
+		return chatNO;
 	}
-	public void setChatID(int chatID) {
-		this.chatID = chatID;
+	public void setChatNO(long chatNO) {
+		this.chatNO = chatNO;
 	}
-	public String getFromID() {
-		return fromID;
+	public int getFromNo() {
+		return fromNo;
 	}
-	public void setFromID(String fromID) {
-		this.fromID = fromID;
+	public void setFromNo(int fromNo) {
+		this.fromNo = fromNo;
 	}
-	public String getToID() {
-		return toID;
+	public int getToNo() {
+		return toNo;
 	}
-	public void setToID(String toID) {
-		this.toID = toID;
+	public void setToNo(int toNo) {
+		this.toNo = toNo;
 	}
 	public String getChatContent() {
 		return chatContent;
@@ -47,5 +48,4 @@ public class ChatDTO {
 	public void setChatTime(String chatTime) {
 		this.chatTime = chatTime;
 	}
-	
 }
