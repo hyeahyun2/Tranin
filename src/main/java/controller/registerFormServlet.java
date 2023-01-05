@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ public class registerFormServlet extends HttpServlet {
 		String zipCode = request.getParameter("zipCode");
 		String address1 = request.getParameter("address1");
 		String address2 = request.getParameter("address2");
-		
+
 		String address = address1 + " " + address2;
 		
 		MemberInsertDao dao = new MemberInsertDao();
@@ -33,10 +34,19 @@ public class registerFormServlet extends HttpServlet {
 		
 		if(state){ // 회원가입 성공
 			request.getSession().setAttribute("memberId", memberId);
-			response.sendRedirect("index.jsp");
+			request.getSession().setAttribute("nickname", nickName);
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('"+ request.getSession().getAttribute("nickname")+"님 환영합니다!')</script>");
+			out.println("<script>location.href='index.jsp'</script>");
+			out.flush();
+			out.close();
 		}
 		else { // 회원가입 실패
-			response.sendRedirect("register.jsp");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('회원가입에 실패 하였습니다. 다시 시도해주세요.')</script>");
+			out.println("<script>location.href='/UM/register.jsp'</script>");
+			out.flush();
+			out.close();
 		}
 	}
 

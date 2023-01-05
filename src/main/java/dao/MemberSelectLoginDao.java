@@ -2,10 +2,10 @@ package dao;
 
 public class MemberSelectLoginDao {
 
-    public boolean login(String id, String pw) {
+    public String login(String id, String pw) {
 
         DBProperty db = new DBProperty();
-        String sql = "SELECT id, pw from tranin_member where id=? and pw=?";
+        String sql = "SELECT id, pw, nickname from tranin_member where id=? and pw=?";
         int upd = 0;
         try {
             db.pstmt = db.conn.prepareStatement(sql);
@@ -15,11 +15,10 @@ public class MemberSelectLoginDao {
             db.rs=db.pstmt.executeQuery();
             while(db.rs.next()){
                 if(id.equals(db.rs.getString("id"))){
-                    System.out.println("로그인 정보 일치");
-                    return true;
+                    return db.rs.getString("nickname");
                 }else{
                     System.out.println("로그인 정보 불일치");
-                    return false;
+                    return null;
                 }
             }
 
@@ -34,6 +33,6 @@ public class MemberSelectLoginDao {
             }
         }
 
-        return false;
+        return null;
     }
 }
