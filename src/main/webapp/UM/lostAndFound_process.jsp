@@ -15,12 +15,18 @@
     <title>Title</title>
 </head>
 <body>
+<%
+    String nickname = null;
+    nickname = (String)session.getAttribute("passChecked");
+    if(nickname != null){
+%>
 <div id="wrap">
     <div id="logo">
         <div id="formWrap">
             <form action="../lostAndFoundForm_process" method="post">
                 <h1>새 비밀번호 확인</h1>
                 <ul id="forms_sh">
+                    <input type="hidden" name="nickname" placeholder=" 아이디" id="Id" value="<%=nickname%>">
                     <li><p>새 비밀번호</p><br><input type="password" name="password" placeholder=" 새로운 비밀번호를 입력하세요"></li>
                     <li><p>비밀번호 확인</p><br><input type="password" name="password_cf" placeholder=" 비밀번호 확인"></li>
                     <button type="submit" value="비밀번호 수정" id="btn">비밀번호 수정</button>
@@ -47,5 +53,9 @@
     </footer>
 </div>
 </div>
+<%
+    }
+%>
+
 </body>
 </html>

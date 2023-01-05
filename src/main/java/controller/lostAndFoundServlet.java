@@ -26,7 +26,7 @@ public class lostAndFoundServlet extends HttpServlet {
         String state = dao.finding(memberId,nickName);
 
         if(state != null){ // 성공
-            request.getSession().setAttribute("passChecked", state);
+            request.getSession().setAttribute("passChecked", nickName);
             PrintWriter out = response.getWriter();
             out.println("<script>alert('"+nickName+"님 새로운 비밀번호를 설정해주세요.')</script>");
             out.println("<script>location.href='/UM/lostAndFound_process.jsp'</script>");
