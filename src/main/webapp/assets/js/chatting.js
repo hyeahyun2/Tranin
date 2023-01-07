@@ -1,6 +1,5 @@
 const xhr = new XMLHttpRequest();
 let toNick = document.querySelector('.header').innerText;
-console.log(toNick);
 
 // 채팅 내역 db로 보내기
 function submitFunction(){
@@ -14,13 +13,15 @@ function submitFunction(){
 		if(xhr.readyState != XMLHttpRequest.DONE) return;
 		if(xhr.status == 200){ // 준완
 			let result = xhr.response;
-			console.log("result : " + result);
+			//console.log("result : " + result);
+			/*
 			if(result == 1){
 				console.log("성공적으로 메세지를 보냈습니다");
 			}
 			else {
 				console.log("메세지 전송에 실패했습니다.");
 			}
+			 */
 		}
 	}
 	xhr.send("toNick=" + toNick + 
@@ -44,7 +45,7 @@ function chatListFunction(type){
 			if(data == "") return; // 공백일 경우 제외
 			let parsed = JSON.parse(data); // json형태로 파싱
 			let result = parsed.result;	
-			for(let i=0; i<result.length; i++){
+			for(let i=result.length-1; i>=0; i--){
 				// result[i][0] : fromNick
 				// result[i][1] : ToNick
 				// result[i][2] : chatContent
@@ -65,7 +66,7 @@ function addChat(chatName, chatContent, chatTime){
 	// 날짜 , 시간 나눠주기
 	let timeArray = chatTime.split(' ');
 	timeArray = timeArray.map(element => element.trim());
-	let regDate = /^\d{4}-\d{1,2}-\d{1,2}$/;
+	let regDate = /^\d{4}-\d{1,2}-\d{1,2}$/; // 날짜 유효성 검사 틀
 	let date = ""; // 날짜
 	let time = ""; // 시간
 	timeArray.forEach(element => {
@@ -74,8 +75,16 @@ function addChat(chatName, chatContent, chatTime){
         time += element + " ";
       }
     });
-    
-	if(chatName ==fromNick) classType = "chatMine";
+    // 오전, 오후 구별
+    let timeType = "오전";
+    let hour = Number(time.substr(0, 2));
+    let min = time.substr(2, 3);
+    if(hour > 12) {
+		hour -= 12;
+		timeType = "오후";
+	}
+	time = timeType + " " + hour + min;
+	if(chatName != toNick) classType = "chatMine";
 	var template = `<div class="chatLine ${classType}">
 		<span class="chat-box">${chatContent}</span>
 		<span class="chat-time">${time}</span>
@@ -93,7 +102,7 @@ function getInfiniteChat(){
 window.addEventListener("load", function(){
 	setTimeout(function(){
 	chatListFunction('ten');
-	//getInfiniteChat();
+	getInfiniteChat();
 	}, 10)
 })
 

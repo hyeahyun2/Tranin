@@ -21,12 +21,12 @@ public class ChatDao {
 				+ "HAVING to_no = ? OR from_no = ?";
 		 * */
 		// from_no, from_nick, to_no, to_nick
-		String sql = "select from_no, "
-				+ "(SELECT nickname from tranin_member where `no`= c.from_no) as from_nick "
-				+ ", to_no, (SELECT nickname from tranin_member where `no`= c.to_no) as to_nick "
-				+ "from tranin_chat c "
-				+ "where c.from_no = (SELECT `no` from tranin_member where nickname = ?) or "
-				+ "c.to_no = (SELECT `no` from tranin_member where nickname = ?)";
+		String sql = "SELECT c.from_no, m1.nickname AS from_nick, c.to_no, m2.nickname AS to_nick "
+				+ "FROM tranin_chat c "
+				+ "JOIN tranin_member m1 ON c.from_no = m1.`no` "
+				+ "JOIN tranin_member m2 ON c.to_no = m2.`no` "
+				+ "WHERE m1.nickname = ? OR m2.nickname = ? "
+				+ "GROUP BY from_nick, to_nick";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
@@ -93,11 +93,79 @@ public class ChatDao {
 		DBProperty db = new DBProperty();
 		ArrayList<ChatDto> chatList = null;
 		
-		String sql = "select * from chat where "
-				+ "((fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) "
-				+ "AND chatID > (select Max(chatID) - ? from chat) order by chatTime";
+		// chat_no, from_no, from_nick, to_no, to_nick, cht_content, chat_time
+		String sql = "SELECT chat_no, from_no, m1.nickname AS from_nick, to_no, m2.nickname AS to_nick, chat_content, chat_time "
+				+ "from tranin_chat c "
+				+ "join tranin_member m1 on c.from_no = m1.`no` " // m1 : from member의 정보
+				+ "join tranin_member m2 on c.to_no = m2.`no` " // m2 : to member의 정보
+				+ "WHERE ((m1.nickname = ? and m2.nickname = ?) or (m1.nickname = ? and m2.nickname = ?)) " // 챗 받은사람과 보낸사람 일치
+				+ "order by chat_time DESC " // 시간 역순 (최신순)
+				+ "limit ?"; // 불러올 리스트 수
 		
 		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, fromNick);
+			db.pstmt.setString(2, toNick);
+			db.pstmt.setString(3, toNick);
+			db.pstmt.setString(4, fromNick);
+			db.pstmt.setInt(5, number);
+			db.rs = db.pstmt.executeQuery();
+			chatList = new ArrayList<ChatDto>();
+			while(db.rs.next()) {
+				ChatDto chat = new ChatDto();
+				chat.setChatNO(db.rs.getLong("chat_no"));
+				chat.setFromNo(db.rs.getInt("from_no"));
+				chat.setToNo(db.rs.getInt("to_no"));
+				chat.setChatContent(db.rs.getString("chat_content"));
+				chat.setChatTime(db.rs.getString("chat_time"));
+				chatList.add(chat);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return chatList;
+	}
+	
+	// 새로운 채팅 내역 가져오기
+	public ArrayList<ChatDto> getChatListByNo(String fromNick, String toNick, String chatNo){
+		DBProperty db = new DBProperty();
+		ArrayList<ChatDto> chatList = null;
+		
+		// chat_no, from_no, from_nick, to_no, to_nick, cht_content, chat_time
+		String sql = "SELECT chat_no, from_no, m1.nickname AS from_nick, to_no, m2.nickname AS to_nick, chat_content, chat_time "
+				+ "FROM tranin_chat c "
+				+ "JOIN tranin_member m1 ON c.from_no = m1.`no` "
+				+ "JOIN tranin_member m2 ON c.to_no = m2.`no` "
+				+ "WHERE ((m1.nickname = ? AND m2.nickname = ?) OR (m1.nickname = ? AND m2.nickname = ?)) "
+					+ "AND chat_no > ? "
+				+ "ORDER BY chat_time DESC";
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, fromNick);
+			db.pstmt.setString(2, toNick);
+			db.pstmt.setString(3, toNick);
+			db.pstmt.setString(4, fromNick);
+			db.pstmt.setInt(5, Integer.parseInt(chatNo));
+			db.rs = db.pstmt.executeQuery();
+			chatList = new ArrayList<ChatDto>();
+			while(db.rs.next()) {
+				ChatDto chat = new ChatDto();
+				chat.setChatNO(db.rs.getLong("chat_no"));
+				chat.setFromNo(db.rs.getInt("from_no"));
+				chat.setToNo(db.rs.getInt("to_no"));
+				chat.setChatContent(db.rs.getString("chat_content"));
+				chat.setChatTime(db.rs.getString("chat_time"));
+				chatList.add(chat);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -26,7 +26,6 @@ public class ChatListServlet extends HttpServlet {
         String fromNick = (String)request.getSession().getAttribute("nickname");
         String toNick = request.getParameter("toNick");
         String listType = request.getParameter("listType");
-        System.out.println(fromNick + ", " + toNick + ", " + listType);
         
         // 공백 or 비어있는 경우
         if(fromNick == null || fromNick.equals("")
@@ -55,6 +54,8 @@ public class ChatListServlet extends HttpServlet {
     	
     	ChatDao chatDao = new ChatDao();
     	MemberInfoDao memberDao = new MemberInfoDao();
+    	
+    	result.append("{\"result\":["); 
     	ArrayList<ChatDto> chatList = chatDao.getChatListByRecent(fromNick, toNick, 10);
     	if(chatList.size() == 0) return "";
 		for(int i=0; i<chatList.size(); i++) {
@@ -68,7 +69,7 @@ public class ChatListServlet extends HttpServlet {
 			if(i != chatList.size() - 1) result.append(",");
 		}
 		// json문장 끝 , 가장 마지막 chatID 담기
-		result.append("], \"last\":\"" + chatList.get(chatList.size()-1).getChatNO() + "\"}");
+		result.append("], \"last\":\"" + chatList.get(0).getChatNO() + "\"}");
     	return result.toString();
     }
     
@@ -76,7 +77,25 @@ public class ChatListServlet extends HttpServlet {
     public String getNew(String fromNick, String toNick, String chatNo) {
     	StringBuffer result = new StringBuffer("");
     	
-    	return result.toString();
+    	ChatDao chatDao = new ChatDao();
+    	MemberInfoDao memberDao = new MemberInfoDao();
+    	
+    	result.append("{\"result\":[");
+    	ArrayList<ChatDto> chatList = chatDao.getChatListByNo(fromNick, toNick, chatNo);
+    	if(chatList.size() == 0) return "";
+    	for(int i=0; i<chatList.size(); i++) {
+			String from = memberDao.getNickname(chatList.get(i).getFromNo());
+			String to = memberDao.getNickname(chatList.get(i).getToNo());
+			result.append("[{\"value\": \"" + from + "\"},");
+			result.append("{\"value\": \"" + to + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChatContent() + "\"},");
+			result.append("{\"value\": \"" + chatList.get(i).getChatTime() + "\"}]");
+			if(i != chatList.size() - 1) result.append(",");
+		}
+    	
+    	// json문장 끝 , 가장 마지막 chatID 담기
+		result.append("], \"last\":\"" + chatList.get(0).getChatNO() + "\"}");
+		return result.toString();
     }
 
 }
