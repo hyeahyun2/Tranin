@@ -46,7 +46,6 @@
         <div id="kakao_sh">카카오 로그인</div>
     </div>
 </div>
-</div>
 <div class="footerWrap page onePage6">
     <footer class="page8" id="footer">
         <p class="us">about us</p>
