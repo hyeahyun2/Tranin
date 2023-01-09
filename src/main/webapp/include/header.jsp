@@ -5,19 +5,33 @@
     <%
     String nickname = null;
     nickname = (String)session.getAttribute("nickname");
+    
+    String manager = null;
+    manager = (String)session.getAttribute("manager");
+    
     if(nickname != null){
     	%>
     <a><%=nickname%>님 환영합니다!</a>
-   	<a href='myPage'>마이페이지</a>
+   	<a href='../myPage/myPage'>마이페이지</a>
    	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
     	<%
     }
-    else {
+    else if(manager != null) {
     	%>
-    <a href="../UM/login.jsp">로그인</a>
-    <a href="../UM/register.jsp">회원가입</a>
-    	<%
     	
+    <a><%=manager%>님 환영합니다!</a>
+   	<a href='../myPage/myPage'>관리페이지</a>
+   	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
+    	
+    	<%
+    } else {
+    	%>
+    
+    <a href="../UM/login.jsp">로그인</a>
+    <a href="../manage/manageLogin.jsp">관리자 로그인</a>
+    <a href="../UM/register.jsp">회원가입</a>
+    	
+    	<%
     }
     	%>
   </div>
