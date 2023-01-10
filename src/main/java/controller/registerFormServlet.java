@@ -26,11 +26,12 @@ public class registerFormServlet extends HttpServlet {
 		String zipCode = request.getParameter("zipCode");
 		String address1 = request.getParameter("address1");
 		String address2 = request.getParameter("address2");
+		int loginChk = Integer.parseInt(request.getParameter("loginChk"));
 
 		String address = address1 + " " + address2;
 		
 		MemberInsertDao dao = new MemberInsertDao();
-		boolean state = dao.register(memberId, password, nickName, address, zipCode);
+		boolean state = dao.register(memberId, password, nickName, address, zipCode,loginChk);
 		
 		if(state){ // 회원가입 성공
 			request.getSession().setAttribute("memberId", memberId);

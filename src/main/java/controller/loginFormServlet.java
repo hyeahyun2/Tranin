@@ -3,6 +3,7 @@ package controller;
 import dao.MemberSelectLoginDao;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +19,17 @@ public class loginFormServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
 
+
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
+        String loginChk = request.getParameter("loginChk");
 
+        if (loginChk != null) { // 체크한 경우
+            Cookie c = new Cookie("id", memberId);
+            c.setMaxAge(60 * 60);
+            c.setPath("/");
+            response.addCookie(c);
+        }
 
 
         MemberSelectLoginDao dao = new MemberSelectLoginDao();
@@ -29,9 +38,9 @@ public class loginFormServlet extends HttpServlet {
 
 
         if(state != null){ // 회원가입 성공
-            request.getSession().setAttribute("nickname", state);
+            request.getSession().setAttribute("nickname", memberId);
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('"+ request.getSession().getAttribute("nickname")+"님 환영합니다!')</script>");
+            out.println("<script>alert('"+ request.getSession().getAttribute("nickname")+"으로 로그인 하셨습니다.')</script>");
             out.println("<script>location.href='index.jsp'</script>");
             out.flush();
             out.close();

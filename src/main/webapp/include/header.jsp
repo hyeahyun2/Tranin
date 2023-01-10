@@ -5,32 +5,52 @@
     <%
     String nickname = null;
     nickname = (String)session.getAttribute("nickname");
-    
+
     String manager = null;
     manager = (String)session.getAttribute("manager");
-    
+
+      Cookie[] c = request.getCookies();
+      if (c != null) {
+        for (Cookie cf : c) {
+          if (cf.getName().equals("id")){
+            String ids = cf.getValue();
+            session.setAttribute("id", ids);
+          }
+        }
+      }
+
+      String id = (String) session.getAttribute("id");
+
     if(nickname != null){
     	%>
-    <a><%=nickname%>님 환영합니다!</a>
+    <a><%=nickname.split("@")[0]%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>마이페이지</a>
    	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
     	<%
     }
     else if(manager != null) {
     	%>
-    	
+
     <a><%=manager%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>관리페이지</a>
    	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
-    	
+
     	<%
+    } else if(id != null) {
+        %>
+
+    <a><%=id.split("@")[0]%>님 환영합니다!</a>
+    <a href='../myPage/myPage'>관리페이지</a>
+    <a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
+
+    <%
     } else {
     	%>
-    
+
     <a href="../UM/login.jsp">로그인</a>
     <a href="../manage/manageLogin.jsp">관리자 로그인</a>
     <a href="../UM/register.jsp">회원가입</a>
-    	
+
     	<%
     }
     	%>

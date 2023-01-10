@@ -12,8 +12,30 @@
     <script src="../assets/js/login.js" defer></script>
     <meta charset="UTF-8">
     <title>Insert title here</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            const check = document.getElementById("loginChk");
+
+            check.addEventListener("input", function(){
+                if(check.checked){
+                    alert("공공컴퓨터일 경우 이 옵션을 꺼주십시오.")
+                }
+            })
+        })
+    </script>
 </head>
 <body>
+<%
+    Cookie[] c = request.getCookies();
+    if (c != null) {
+        for (Cookie cf : c) {
+            if (cf.getName().equals("id")) {
+                response.sendRedirect("/mainPage/welcome.jsp");
+            }
+        }
+    }
+%>
+
 <div id="logo_sh"><a href="../index.jsp" id="main"></a></div>
 <div id="loginWrap_sh">
     <h1>로그인</h1>
@@ -30,8 +52,7 @@
                     <div class="check_sh check2"></div>
                 </li>
                 <div id="checkBox_sh">
-                    <li>자동 로그인 <input type="checkbox"></li>
-                    <li>아이디 저장 <input type="checkbox"></li>
+                    <li>로그인 유지 <input type="checkbox" id="loginChk" name="loginChk" vlaue="true"></li>
                 </div>
                 <li><span>로그인</span><input type="submit" value="로그인"></li>
             </ul>
