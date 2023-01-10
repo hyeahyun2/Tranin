@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/login.css">
+    <link rel="stylesheet" href="../assets/css/login.css%3F">
     <script src="../assets/js/login.js" defer></script>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -19,6 +19,7 @@
             check.addEventListener("input", function(){
                 if(check.checked){
                     alert("공공컴퓨터일 경우 이 옵션을 꺼주십시오.")
+                    return false;
                 }
             })
         })
