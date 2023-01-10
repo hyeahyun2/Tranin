@@ -1,46 +1,35 @@
-package controller;
-
-import dao.MemberSelectLoginDao;
+package controller.admin;
 
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.AdminLoginDao;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.rmi.ServerException;
-import java.rmi.server.ServerCloneException;
 
-@WebServlet("/loginFormServlet")
-public class loginFormServlet extends HttpServlet {
+@WebServlet("/manageLogin")
+public class AdminLoginFormServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServerException, IOException{
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
 
-
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
-        String loginChk = request.getParameter("loginChk");
 
-        if (loginChk != null) { // 체크한 경우
-            Cookie c = new Cookie("id", memberId);
-            c.setMaxAge(60 * 60);
-            c.setPath("/");
-            response.addCookie(c);
-        }
-
-
-        MemberSelectLoginDao dao = new MemberSelectLoginDao();
+        AdminLoginDao dao = new AdminLoginDao();
 
         String state = dao.login(memberId,password);
 
-
         if(state != null){ // 회원가입 성공
-            request.getSession().setAttribute("nickname", memberId);
+            request.getSession().setAttribute("manager", state);
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('"+ request.getSession().getAttribute("nickname")+"으로 로그인 하셨습니다.')</script>");
+            out.println("<script>alert('"+ request.getSession().getAttribute("manager")+"님 환영합니다!')</script>");
             out.println("<script>location.href='index.jsp'</script>");
             out.flush();
             out.close();
