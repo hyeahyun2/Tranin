@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../assets/css/reset.css">
     <link rel="stylesheet" href="../assets/css/footer.css">
     <link rel="stylesheet" href="../assets/css/common.css">
-    <link rel="stylesheet" href="../assets/css/login.css%3F">
+    <link rel="stylesheet" href="../assets/css/login.css">
     <meta charset="UTF-8">
     <title>Insert title here</title>
 </head>

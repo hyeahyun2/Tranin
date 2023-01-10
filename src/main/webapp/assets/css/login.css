@@ -111,13 +111,15 @@ input[type="submit"]{
   border-radius: 5px;
   width: 450px;
   height: 50px;
+  margin-top:30px;
 }
 #linkList_sh{
   position:absolute;
-  top:535px;
+  top:565px;
   display:flex;
   left:50%;
   transform:translate(-50%);
+
 
 
 }
@@ -132,7 +134,7 @@ margin-top:-100px;
 #alterLogin_sh{
   width: 500px;
   position:absolute;
-  top:320px;
+  top:360px;
   display:flex;
   justify-content: space-evenly;
   left:50%;
