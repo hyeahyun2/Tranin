@@ -3,8 +3,8 @@
   <div id="upperSmallNav">
     <h1 class="hidden">기타관련</h1>
     <%
-    String nickname = null;
-    nickname = (String)session.getAttribute("nickname");
+    String memberId = null;
+    memberId = (String)session.getAttribute("memberId");
 
     String manager = null;
     manager = (String)session.getAttribute("manager");
@@ -21,9 +21,9 @@
 
       String id = (String) session.getAttribute("id");
 
-    if(nickname != null){
+    if(memberId != null){
     	%>
-    <a><%=nickname.split("@")[0]%>님 환영합니다!</a>
+    <a><%=memberId.split("@")[0]%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>마이페이지</a>
    	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
     	<%

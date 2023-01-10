@@ -38,9 +38,9 @@ public class loginFormServlet extends HttpServlet {
 
 
         if(state != null){ // 회원가입 성공
-            request.getSession().setAttribute("nickname", memberId);
+            request.getSession().setAttribute("memberId", memberId);
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('"+ request.getSession().getAttribute("nickname")+"으로 로그인 하셨습니다.')</script>");
+            out.println("<script>alert('"+ request.getSession().getAttribute("memberId")+"으로 로그인 하셨습니다.')</script>");
             out.println("<script>location.href='index.jsp'</script>");
             out.flush();
             out.close();
