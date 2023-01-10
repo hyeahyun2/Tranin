@@ -39,7 +39,7 @@
           </li>
           <li class="gnbListChild"><a href="#">고객센터</a>
             <ul class="snb">
-              <li><a href="../notice.html">공지사항</a></li>
+              <li><a href="../notice/notice.jsp">공지사항</a></li>
               <li><a href="../FAQ.html">FAQ</a></li>
               <li><a href="#">신고하기</a></li>
             </ul>

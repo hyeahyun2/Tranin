@@ -4,6 +4,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.DBProperty" %>
 <%@ page import="dao.NoticeShowDao" %>
+<%@ page import="dao.NoticeSearchDao" %>
 <%@ page import="dto.NoticeDto" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,19 +13,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
-  <link rel="stylesheet" href="assets/css/common.css">
-  <link rel="stylesheet" href="assets/css/reset.css">
-  <link rel="stylesheet" href="assets/css/notice.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/notice.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
   <script src="assets/js/common.js" defer></script>
   <script src="assets/js/header.js" defer></script>
 </head>
 <body>
-<%@ include file="header.jsp"%>
+<%@ include file="../include/header.jsp"%>
   <section id="noticeWrap_hj">
     <div id="headerWrap_hj">
       <h2 class="header_hj">공지사항</h2>
-      <form action=""><input type="text" size="47" placeholder="검색어를 입력하세요."><a href="#">검색</a></form>
+      <form action="./searchNotice.jsp" method="get"><input type="text" name="searchText" size="47" placeholder="검색어를 입력하세요."><input type="submit" value="검색"></form>
     </div>
     <div id="board_hj">
       <table class="table_hj">
@@ -46,7 +47,7 @@
 		%>
 		  <tr>
             <td><%=a.getNoticeNo() %></td>
-            <td><a href="#"><%=a.getTitle() %></a></td>
+            <td><a href="./showNotice.jsp?id=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
             <td><%=a.getRegDate() %></td>
           </tr>
 		<% 		
@@ -144,7 +145,7 @@
     	<a href="./writeNotice.jsp">글쓰기</a>
     </div>
   </section>
- <%@ include file="footer.jsp"%>
+ <%@ include file="../include/footer.jsp"%>
   
 </body>
 </html>
