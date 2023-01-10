@@ -38,7 +38,7 @@
             <li>
                 <div class="check_sh check5"></div>
             </li>
-            <span><span id="dblCheck2">별명 중복확인</span></span><br>
+            <span><span id="dblCheck2" onclick="checkingNickName()">별명 중복확인</span></span><br>
             <li>
                 <div class="check_sh check6"></div>
             </li>

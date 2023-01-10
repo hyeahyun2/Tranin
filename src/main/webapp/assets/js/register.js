@@ -278,3 +278,14 @@ const checkID = function(){
 	xhr.send("id=" + userIDVal); // header에 포함하고자 하는 key와 값
 } 
 checkIDBtn.addEventListener("click", checkID);
+
+
+const NickBtn = document.getElementById("dblCheck2");
+
+function checkingNickName(){
+    $.ajax({
+
+    })
+}
+
+
