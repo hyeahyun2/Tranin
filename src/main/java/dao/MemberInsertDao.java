@@ -5,10 +5,10 @@ public class MemberInsertDao {
 	
 	
 	// 회원가입
-	public boolean register(String id, String pw, String nick, String zipCode, String address, int loginChk) {
+	public boolean register(String id, String pw, String nick, String zipCode, String address) {
 		
 		DBProperty db = new DBProperty();
-		String sql = "insert into tranin_member(id, pw, nickName, address, zipCode, loginChk) values(?, ?, ?, ?, ?,?)";
+		String sql = "insert into tranin_member(id, pw, nickName, address, zipCode) values(?, ?, ?, ?, ?)";
 		int upd = 0;
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
@@ -17,7 +17,6 @@ public class MemberInsertDao {
 			db.pstmt.setString(3, nick);
 			db.pstmt.setString(4, zipCode);
 			db.pstmt.setString(5, address);
-			db.pstmt.setInt(6, loginChk);
 
 			// 1
 			upd = db.pstmt.executeUpdate(); // 영향 받은 행 개수 반환
