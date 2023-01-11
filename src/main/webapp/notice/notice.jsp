@@ -182,9 +182,15 @@
         %>
         <a href="notice.jsp?pageNum=<%=totalPage%>">마지막 페이지</a>
     </div>
+      <%
+          if(manager != null) {
+      %>
     <div>
     	<a href="./writeNotice.jsp">글쓰기</a>
     </div>
+      <%
+          }
+      %>
   </section>
  <%@ include file="../include/footer.jsp"%>
   
