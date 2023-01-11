@@ -32,7 +32,7 @@ public class MyPageInfoPwModifyController extends HttpServlet {
         MyPageDao dao = new MyPageDao();
         
         if(request.getServletPath().equals("/myPage/myPageInfoPwModify")) {
-        	MemberDto member = dao.getMemberByNickname((String)request.getSession().getAttribute("nickname"));
+        	MemberDto member = dao.getMemberById((String)request.getSession().getAttribute("memberId"));
             
             System.out.println("입력한 기존 비번:"+jsonObject.get("pre"));
             System.out.println("입력한 새 비번:"+jsonObject.get("new"));

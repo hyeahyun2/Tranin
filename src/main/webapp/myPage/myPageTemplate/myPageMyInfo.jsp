@@ -2,8 +2,8 @@
     pageEncoding="UTF-8" import="java.util.*,java.lang.*,dto.MemberDto,dao.MyPageDao"%>
 <%
 	MyPageDao dao=new MyPageDao();
-	String nickname = (String)session.getAttribute("nickname");
-	MemberDto loginedMember = dao.getMemberByNickname(nickname);
+	String memberId = (String)session.getAttribute("memberId");
+	MemberDto loginedMember = dao.getMemberById(memberId);
 %>
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <section id="myPageMyInfo">

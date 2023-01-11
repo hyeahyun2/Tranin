@@ -37,7 +37,7 @@ public class AdminLoginFormServlet extends HttpServlet {
         else { // 회원가입 실패
             PrintWriter out = response.getWriter();
             out.println("<script>alert('로그인에 실패 하였습니다. 다시 시도해주세요.')</script>");
-            out.println("<script>location.href='/UM/login.jsp'</script>");
+            out.println("<script>location.href='/manage/login.jsp'</script>");
             out.flush();
             out.close();
         }

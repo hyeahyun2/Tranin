@@ -29,7 +29,7 @@ public class MyPageInfoModifyController extends HttpServlet {
 		if(request.getServletPath().equals("/myPage/myPageMyInfoModify")) {
 			String myPageMyInfoId = request.getParameter("myPageMyInfoId");
 			String myPageMyInfoPassword = request.getParameter("myPageMyInfoPassword");
-			String myPageMyInfoNickName = (String)request.getSession().getAttribute("nickname");
+			String myPageMyInfoNickName = (String)request.getSession().getAttribute("memberId");
 			String myPageMyAddress = request.getParameter("myPageMyAddress");
 			String myPageMyZipCode = request.getParameter("myPageMyZipCode");
 			System.out.println("별명:"+myPageMyInfoNickName);
@@ -41,7 +41,7 @@ public class MyPageInfoModifyController extends HttpServlet {
 				MyPageDao dao = new MyPageDao();
 				dao.modifyMyPageInfo(myPageMyInfoId,myPageMyInfoPassword,myPageMyInfoNickName,myPageMyAddress,myPageMyZipCode);
 				
-				MemberDto member = dao.getMemberByNickname(myPageMyInfoNickName);
+				MemberDto member = dao.getMemberById(myPageMyInfoNickName);
 				
 				PrintWriter out = response.getWriter();
 				out.println("<script>alert('개인정보 수정 성공!'); location.href='myPage?myPageCategory=0';</script>");
@@ -79,6 +79,5 @@ public class MyPageInfoModifyController extends HttpServlet {
 				out.close();
 			}
 		}
-		
 	}
 }

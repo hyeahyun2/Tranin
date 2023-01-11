@@ -250,7 +250,7 @@ div#headerWrap ul > li > a {
 #myPageAdminNav ul li a{
   color : white
 }
-#myPageAdminNav ul li.active a {
+#myPageAdminNav ul li.enabled {
   color : red;
 }
 #myPageAdminInnerTab section div {

@@ -11,7 +11,7 @@ const myPageMemberOutBtn = document.querySelector("#myPageMemberOutBtn");
 const myPageMemberBannedListBtns = document.querySelectorAll("#myPageMemberBannedList input");
 const myPageAdminInnerTab = document.querySelectorAll("#myPageAdminInnerTab section");
 const myPageAdminNav = document.querySelectorAll("#myPageAdminNav ul li");
-
+/*
 for(let i=0;i<myPageTab.length;i++){
   console.log(i);
   myPageTab[i].addEventListener('click',function(){
@@ -21,6 +21,7 @@ for(let i=0;i<myPageTab.length;i++){
     myPageTab[i].classList.add("active");
   });
 }
+
 for(let i=0;i<myPageMyActivityLeftNavLi.length;i++){
   console.log(i);
   myPageMyActivityLeftNavLi[i].addEventListener('click',function(){
@@ -30,6 +31,7 @@ for(let i=0;i<myPageMyActivityLeftNavLi.length;i++){
     myPageMyActivityLeftNavLi[i].classList.add("enabled");
   });
 }
+
 if(myPageFavoriteUl!=null){
 	myPageFavoriteUl.addEventListener('scroll',function(){
 	  if( myPageFavoriteUl.scrollTop === (myPageFavoriteUl.scrollHeight - myPageFavoriteUl.offsetHeight)){
@@ -40,4 +42,4 @@ if(myPageFavoriteUl!=null){
 	});
 }
 
-
+*/
