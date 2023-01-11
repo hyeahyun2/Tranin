@@ -26,6 +26,14 @@ public class NoticeDto {
 		this.title = title;
 		this.regDate = regDate;
 	}
+	
+	public NoticeDto(int noticeNo, String title, String content, Date regDate) {
+		super();
+		this.noticeNo = noticeNo;
+		this.title = title;
+		this.content = content;
+		this.regDate = regDate;
+	}
 
 	public int getNoticeNo() {
 		return noticeNo;

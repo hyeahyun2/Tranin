@@ -74,6 +74,6 @@ public class MyPageInfoPwModifyController extends HttpServlet {
     			out.close();
             }
         }
-        
-	}
+
+    }
 }

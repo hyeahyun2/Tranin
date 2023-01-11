@@ -4,7 +4,10 @@
 <%@ page import="java.util.*" %>
 <%@ page import="dao.DBProperty" %>
 <%@ page import="dao.NoticeShowDao" %>
+<%@ page import="dao.NoticeSearchDao" %>
 <%@ page import="dto.NoticeDto" %>
+<%@ page import="dao.NoticePagingDao" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,19 +15,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
-  <link rel="stylesheet" href="assets/css/common.css">
-  <link rel="stylesheet" href="assets/css/reset.css">
-  <link rel="stylesheet" href="assets/css/notice.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <script src="assets/js/common.js" defer></script>
-  <script src="assets/js/header.js" defer></script>
+  <link rel="stylesheet" href="../assets/css/common.css">
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/notice.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
+  <script src="../assets/js/common.js" defer></script>
+  <script src="../assets/js/header.js" defer></script>
 </head>
 <body>
-<%@ include file="header.jsp"%>
+<%@ include file="../include/header.jsp"%>
   <section id="noticeWrap_hj">
     <div id="headerWrap_hj">
       <h2 class="header_hj">공지사항</h2>
-      <form action=""><input type="text" size="47" placeholder="검색어를 입력하세요."><a href="#">검색</a></form>
+      <form action="./searchNotice.jsp" method="get"><input type="text" name="searchText" size="47" placeholder="검색어를 입력하세요."><input type="submit" value="검색"></form>
     </div>
     <div id="board_hj">
       <table class="table_hj">
@@ -40,13 +43,18 @@
         <tbody class="tbody_hj">
         <%
         	NoticeShowDao dao = new NoticeShowDao();
-        	List<NoticeDto> list = dao.showNotice();
-		
+	        int pageNum = 1; // 페이지 번호가 전달이 안되면 1페이지
+			if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
+				pageNum = Integer.parseInt(request.getParameter("pageNum"));					
+			}
+        	List<NoticeDto> list = dao.showNotice(pageNum);
+			
+        	
 			for(NoticeDto a : list) {
 		%>
 		  <tr>
             <td><%=a.getNoticeNo() %></td>
-            <td><a href="#"><%=a.getTitle() %></a></td>
+            <td><a href="./showNotice.jsp?id=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
             <td><%=a.getRegDate() %></td>
           </tr>
 		<% 		
@@ -127,24 +135,58 @@
         </tbody>
       </table>
     </div>
-    <div id="pagingWrap_hj" >
-      <ul class="pagingUl_hj">
-        <li><a href="#">5페이지앞으로</a></li>
-        <li><a href="#">앞으로</a></li>
-        <li><a href="#" class="num">1</a></li>
+    <div id="pagingWrap_hj">
+    	<%
+    	int cntListPerPage = 10;
+   
+    	NoticePagingDao npd = new NoticePagingDao();
+		ResultSet rs = npd.getAllNotice();
+		rs.next();
+		int totalRecord = rs.getInt(1);
+		int totalPage = (totalRecord % cntListPerPage == 0) ? totalRecord / cntListPerPage : (totalRecord / cntListPerPage) + 1;
+    	
+		int block = 5; // 페이지 나올 범위
+		int blockTotal = totalPage % block == 0 ? totalPage / block : totalPage / block + 1; // 총 블럭의 수
+		int blockThis = ((pageNum - 1) / block) + 1; // 현재 페이지의 블럭
+		int blockThisFirstPage = ((blockThis - 1) * block) + 1; // 현재 블럭의 첫 페이지
+		int blockThisLastPage = blockThis * block; // 현재 블럭의 마지막 페이지
+		out.println(blockThisLastPage);
+		blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage; 
+    	%>
+        <a href="notice.jsp?pageNum=1">첫 페이지</a>
+        <% 
+        if (blockThis > 1) {
+        %>
+        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>">앞으로</a>
+        <% 
+        }
+        
+       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
+        %>
+        <a href="notice.jsp?pageNum=<%=i%>" class="num"><%=i%></a>
+        <%
+        }
+        %>
+        <%-- 
         <li><a href="#" class="num">2</a></li>
         <li><a href="#" class="num">3</a></li>
         <li><a href="#" class="num">4</a></li>
         <li><a href="#" class="num">5</a></li>
-        <li><a href="#">뒤로</a></li>
-        <li><a href="#">5페이지뒤로</a></li>
-      </ul>
+        --%>
+        <%
+        if(blockThis < blockTotal) {
+        %>
+        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>">뒤로</a>
+        <%
+        }
+        %>
+        <a href="notice.jsp?pageNum=<%=totalPage%>">마지막 페이지</a>
     </div>
     <div>
     	<a href="./writeNotice.jsp">글쓰기</a>
     </div>
   </section>
- <%@ include file="footer.jsp"%>
+ <%@ include file="../include/footer.jsp"%>
   
 </body>
 </html>
