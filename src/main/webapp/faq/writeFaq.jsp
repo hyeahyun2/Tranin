@@ -51,7 +51,7 @@
             <p>새로운 질문과 답변을 작성하세요.</p>
         </div>
         <form action="/writeFaqServlet" id="form" method="post">
-        	<p><input type="hidden" name="noticeNo"> 
+        	<p><input type="hidden" name="faqNo"> 
             <p>제목<br><input type="text" name="title" id="title" size="50" placeholder="제목을 입력하세요."></p>
             <p>내용<br><textarea name="content" id="content" cols="48" rows="30" placeholder="내용을 입력하세요."></textarea></p>
             <input type="button" value="등록" onclick="checkForm()">  
