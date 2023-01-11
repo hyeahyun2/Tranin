@@ -35,5 +35,5 @@ public class writeNoticeServlet extends HttpServlet {
 			response.sendRedirect("index.jsp");
 			
 		}
-    }
+	}
 }
