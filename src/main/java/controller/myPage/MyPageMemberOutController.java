@@ -66,5 +66,5 @@ public class MyPageMemberOutController extends HttpServlet {
     			out.close();
             }
         }
-    }
+	}
 }
