@@ -86,8 +86,8 @@
         <h1 id="title_sh">회원가입</h1>
         <form name="member_insert" id="list_sh" action="../registerFormServlet" method="post">
             <ul id="forms_sh">
-                <li><span> 아이디</span> <input type="text" name="memberId" placeholder=" 아이디" id="id_sh"></li>
-                <li><span> 인증번호</span> <input type="text" name="Authcode" placeholder=" 아이디" id="Authcode"></li>
+                <li><span> 아이디</span> <input type="text" name="memberId" placeholder=" 아이디(이메일)을 입력해주세요" id="id_sh"></li>
+                <li><span> 인증번호</span> <input type="text" name="Authcode" placeholder=" 인증번호를 입력하세요" id="Authcode" required></li>
 
                 <li>
                     <div class="check_sh check1"></div>
