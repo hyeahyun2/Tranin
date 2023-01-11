@@ -130,7 +130,7 @@
                 <p class="member2_sh member_sh"><a href="beomsu.html" target="_blank">오범수</a></p>
                 <p class="member3_sh member_sh"><a href="haejun.html" target="_blank">오해준</a></p>
                 <p class="member4_sh member_sh"><a
-                        href="https://suhyun980716.github.io/LandingPage/Landing%20Page/index.html"
+                        href="/include/suhyun.jsp"
                         target="_blank">유수현</a></p>
                 <p class="member5_sh member_sh"><a href="https://github.com/hyeahyun2/TeamProject"
                                                    target="_blank">GitHub</a></p>
