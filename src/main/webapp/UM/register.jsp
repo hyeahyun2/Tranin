@@ -46,10 +46,10 @@
                     contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                     data: {"email": email},
                     success: function () {
-                        alert("성공")
+                        alert("인증번호를 보내드렸습니다. 번호 입력을 해주십시오")
                     },
                     error: function () {
-                        alert("실패")
+                        alert("인증번호 발송에 실패하였습니다. 다시 시도해십시오.")
                     }
                 })
             })
