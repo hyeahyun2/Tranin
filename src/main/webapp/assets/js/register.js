@@ -280,12 +280,7 @@ const checkID = function(){
 checkIDBtn.addEventListener("click", checkID);
 
 
-const NickBtn = document.getElementById("dblCheck2");
 
-function checkingNickName(){
-    $.ajax({
 
-    })
-}
 
 

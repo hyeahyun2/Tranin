@@ -64,7 +64,7 @@
       <h2>마이페이지</h2>
       <ul>
       <%
-      	if(session.getAttribute("nickname")!=null){
+      	if(session.getAttribute("memberId")!=null){
       %>
         <li id="myInfo"><a href="myPage?myPageCategory=0">내 정보</a></li>
         <li id="myAct"><a href="myPage?myPageCategory=1">내 활동</a></li>
@@ -86,7 +86,7 @@
     <!--탭누르면 카테고리별 파라미터 받아서 알맞은 myPageContent보여주기 -->
     <section id="myPageContent">
     <%
-      	if(session.getAttribute("nickname")!=null){
+      	if(session.getAttribute("memberId")!=null){
     %>
     
 	<%
@@ -106,28 +106,23 @@
 	%>
 		<jsp:include page="myPageTemplate/myPageMemberOut.jsp" />	
 	<%	
-		} else if(request.getAttribute("myPageParam").equals("4")){
-	%>
-		<jsp:include page="myPageTemplate/myPageAdmin.jsp" />
-	<%
 		}
 	%>
-	
 	<%
       	} else {
     %>
 	<%
-		if(request.getAttribute("myPageParam").equals("0")){
+		if(request.getAttribute("myPageManagerParam").equals("0")){
 	%>
 		<jsp:include page="myPageTemplate/myPageManagerInfo.jsp" />		
 	<%	
-		} else if(request.getAttribute("myPageParam").equals("1")){
+		} else if(request.getAttribute("myPageManagerParam").equals("1")){
 	%>
 		<jsp:include page="myPageTemplate/myPageManagerOut.jsp" />	
 	<%	
-		} else if(request.getAttribute("myPageParam").equals("2")){
+		} else if(request.getAttribute("myPageManagerParam").equals("2")){
 	%>
-		<jsp:include page="myPageTemplate/myPageManagerPage.jsp" />	
+		<jsp:include page="myPageTemplate/myPageAdmin.jsp" />	
 	<%	
 		}
 	%>
