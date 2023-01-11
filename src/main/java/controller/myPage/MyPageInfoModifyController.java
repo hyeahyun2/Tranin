@@ -79,6 +79,6 @@ public class MyPageInfoModifyController extends HttpServlet {
 				out.close();
 			}
 		}
-		
-	}
+
+    }
 }

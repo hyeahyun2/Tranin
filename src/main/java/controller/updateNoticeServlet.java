@@ -32,6 +32,6 @@ public class updateNoticeServlet extends HttpServlet {
 		else {
 			System.out.println("글 수정을 실패하였습니다.");
 		}
-	}
+    }
 
 }
