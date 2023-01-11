@@ -130,6 +130,15 @@ input::placeholder{
     margin: 0 auto;
     margin-top: 20px;
 }
+#dblCheck11{
+    display: block;
+    text-align: center;
+    width: 100px;
+    height: 20px;
+    border: 1px solid grey;
+    margin: 0 auto;
+    margin-top: 10px;
+}
 .footerWrap{
     bottom:0;
 }

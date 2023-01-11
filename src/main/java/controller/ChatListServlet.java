@@ -46,7 +46,7 @@ public class ChatListServlet extends HttpServlet {
         		response.getWriter().write("");
         	}
         }
-    }
+	}
     
     // 문서 처음 로딩시 최근 채팅 내역 10개 들고오기
     public String getTen(String fromNick, String toNick) {

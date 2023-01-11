@@ -18,7 +18,6 @@
             NickBtn.addEventListener('click', function () {
                 const form = document.getElementById("list_sh")
                 let nickname = form['nickName'].value
-                console.log("test")
                 $.getJSON('/checkingDuplicate', {"nickname": nickname}, function (data) {
                     console.log(data, form['nickName'].value)
                     switch (data['result']) {
@@ -33,6 +32,52 @@
             })
         })
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const AuthBtn = document.getElementById("dblCheck1");
+            AuthBtn.addEventListener('click', function () {
+                console.log("popo")
+                const form = document.getElementById("list_sh")
+                let email = $("#id_sh").val();
+                console.log(email)
+                $.ajax({
+                    url: "/EmailAuth",
+                    method: "get",
+                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    data: {"email": email},
+                    success: function () {
+                        alert("성공")
+                    },
+                    error: function () {
+                        alert("실패")
+                    }
+                })
+            })
+        })
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const CheckCheck = document.getElementById("dblCheck11");
+            CheckCheck.addEventListener('click', function () {
+                const form = document.getElementById("list_sh")
+                let Authcode = form['Authcode'].value
+                console.log(Authcode)
+                $.ajax({
+                    url: "/EmailDone",
+                    method: "post",
+                    data: {"Authcode": Authcode},
+                    success: function(data){
+                        console.log()
+                        if(data == 1){
+                            alert("인증 성공하였습니다. 회원가입을 계속 진행해주십시오");
+                        }else{
+                            alert("인증에 실패하였습니다. 다시 시도해주세요.")
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body>
 <div id="flex">
@@ -42,10 +87,13 @@
         <form name="member_insert" id="list_sh" action="../registerFormServlet" method="post">
             <ul id="forms_sh">
                 <li><span> 아이디</span> <input type="text" name="memberId" placeholder=" 아이디" id="id_sh"></li>
+                <li><span> 인증번호</span> <input type="text" name="Authcode" placeholder=" 아이디" id="Authcode"></li>
+
                 <li>
                     <div class="check_sh check1"></div>
                 </li>
-                <span id="dblCheck1"> 인증하기</span>
+                <span id="dblCheck1" style="cursor:pointer"> 인증하기</span>
+                <span id="dblCheck11" style="cursor:pointer"> 인증완료하기</span>
                 <li><span> 비밀번호</span> <input type="password" name="password" placeholder=" 비밀번호" id="password_sh"></li>
                 <li>
                     <div class="check_sh check2"></div>
