@@ -9,13 +9,19 @@ import dto.NoticeDto;
 public class NoticeShowDao {
 	DBProperty db = null;
 	
-	public List<NoticeDto> showNotice() {
+	public List<NoticeDto> showNotice(int pageNum) {
 		NoticeDto dto = null;
 		List<NoticeDto> list = new ArrayList<>();
 		db = new DBProperty();
-		String sql = "select * from notice_bd order by notice_no desc";
+		// 페이징 처리
+    	int cntListPerPage = 10;
+    	int startNum = (pageNum - 1) * cntListPerPage; 
+    	String sql = "SELECT * FROM notice_bd ORDER BY notice_no DESC LIMIT ?, ?";
+//		String sql = "select * from notice_bd order by notice_no desc";
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, startNum);
+			db.pstmt.setInt(2, cntListPerPage);
 			db.rs = db.pstmt.executeQuery();
 			while(db.rs.next()) {
 				dto = new NoticeDto(db.rs.getInt("notice_no"), db.rs.getString("title"), db.rs.getDate("reg_Date"));

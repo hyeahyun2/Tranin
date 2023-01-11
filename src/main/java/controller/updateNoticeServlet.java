@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,30 +9,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.NoticeInsertDao;
+import dao.NoticeUpdateDao;
 
-@WebServlet("/writeNoticeServlet")
-public class writeNoticeServlet extends HttpServlet {
+@WebServlet("/updateNoticeServlet")
+public class updateNoticeServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html; charset=UTF=8");
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		NoticeInsertDao nid = new NoticeInsertDao();
+		NoticeUpdateDao dao = new NoticeUpdateDao();
 		
-		boolean state = nid.registContent(title, content);
+		boolean state = dao.updateContent(title, content, noticeNo);
 		
 		if(state) {
 			response.sendRedirect("/notice/notice.jsp");
 		}
 		else {
-			System.out.println("글 등록에 실패하였습니다.");
-			response.sendRedirect("index.jsp");
-			
+			System.out.println("글 수정을 실패하였습니다.");
 		}
 	}
+
 }
