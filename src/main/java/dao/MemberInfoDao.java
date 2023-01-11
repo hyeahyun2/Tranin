@@ -3,15 +3,15 @@ package dao;
 public class MemberInfoDao {
 	
 	// nickname으로 no 얻기
-	public int getMemberNo(String nickname) {
+	public int getMemberNo(String memberId) {
 		DBProperty db = new DBProperty();
 		
 		int myNo = -1;
 		
-		String sql = "SELECT no from tranin_member where nickname = ?";
+		String sql = "SELECT no from tranin_member where id = ?";
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
-			db.pstmt.setString(1, nickname);
+			db.pstmt.setString(1, memberId);
 			db.rs = db.pstmt.executeQuery();
 			if(db.rs.next()) {
 				myNo = db.rs.getInt("no"); // no 얻기
@@ -31,19 +31,19 @@ public class MemberInfoDao {
 		return myNo; // 존재하지 않는 nickname인 경우 -1 반환
 	}
 	
-	// no으로 nickname 얻기
-	public String getNickname(int no) {
+	// no으로 id 얻기
+	public String getMemberId(int no) {
 		DBProperty db = new DBProperty();
 		
-		String nick = null;
+		String id = null;
 		
-		String sql = "SELECT nickname from tranin_member where no = ?";
+		String sql = "SELECT id from tranin_member where no = ?";
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
 			db.pstmt.setInt(1, no);
 			db.rs = db.pstmt.executeQuery();
 			if(db.rs.next()) {
-				nick = db.rs.getString("nickname"); // nickname 얻기
+				id = db.rs.getString("id"); // id 얻기
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -57,6 +57,6 @@ public class MemberInfoDao {
 			}
 		}
 		
-		return nick; // 없는 no인 경우 null 반환
+		return id; // 없는 no인 경우 null 반환
 	}
 }
