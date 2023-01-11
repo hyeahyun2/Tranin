@@ -65,10 +65,5 @@ public class MyPageMemberOutController extends HttpServlet {
     			out.close();
             }
         }
-<<<<<<< HEAD
-        
-	}
-=======
     }
->>>>>>> branch 'master' of https://github.com/hyeahyun2/Tranin.git
 }
