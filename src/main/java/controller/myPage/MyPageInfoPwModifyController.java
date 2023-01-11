@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import Cryptoutils.Sha;
 import dao.MyPageDao;
 import dto.ManagerDto;
 import dto.MemberDto;
@@ -30,15 +31,15 @@ public class MyPageInfoPwModifyController extends HttpServlet {
 		MyUtils myUtils = new MyUtils();
         JSONObject jsonObject = new JSONObject(myUtils.getJSONObjectFromHttpServletRequest(request));
         MyPageDao dao = new MyPageDao();
-        
+        Sha sha = new Sha();
         if(request.getServletPath().equals("/myPage/myPageInfoPwModify")) {
         	MemberDto member = dao.getMemberById((String)request.getSession().getAttribute("memberId"));
-            
+        	
             System.out.println("입력한 기존 비번:"+jsonObject.get("pre"));
             System.out.println("입력한 새 비번:"+jsonObject.get("new"));
-            System.out.println("현재 데이터베이스의 비번:"+member.getPw());
+            System.out.println("현재 데이터베이스의 비번:"+sha.encode(member.getPw()));
             
-            if(member.getPw().equals(jsonObject.get("pre"))) {
+            if(member.getPw().equals(sha.encode((String)jsonObject.get("pre")))) {
             	//입력이 올바른 경우, 새비번으로 교체
             	dao.modifyMyPageInfo(member.getId(),(String)jsonObject.get("new"),member.getNickName(),member.getAddress(),member.getZipCode());
             	PrintWriter out = response.getWriter();
@@ -57,9 +58,9 @@ public class MyPageInfoPwModifyController extends HttpServlet {
             
             System.out.println("입력한 기존 비번:"+jsonObject.get("pre"));
             System.out.println("입력한 새 비번:"+jsonObject.get("new"));
-            System.out.println("현재 데이터베이스의 비번:"+member.getPw());
+            System.out.println("현재 데이터베이스의 비번:"+sha.encode(member.getPw()));
             
-            if(member.getPw().equals(jsonObject.get("pre"))) {
+            if(member.getPw().equals(sha.encode((String)jsonObject.get("pre")))) {
             	//입력이 올바른 경우, 새비번으로 교체
             	dao.modifyManagerInfo(member.getId(),(String)jsonObject.get("new"),member.getName());
             	PrintWriter out = response.getWriter();

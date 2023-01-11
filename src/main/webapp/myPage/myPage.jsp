@@ -70,14 +70,13 @@
         <li id="myAct"><a href="myPage?myPageCategory=1">내 활동</a></li>
         <li id="myTrans"><a href="myPage?myPageCategory=2">구매내역</a></li>
         <li id="myMemberOut"><a href="myPage?myPageCategory=3">탈퇴하기</a></li>
-        <li id="myAdmin"><a href="myPage?myPageCategory=4">관리자페이지</a></li>
         <!--jsp로 나중에 추가 <li><a href="">관리자 페이지</a></li> 누르면 아예 다른페이지로 이동하기-->
       <%
       	} else {
       %>
       		<li id="myInfo"><a href="myPage?myPageManagerCategory=0">내 정보</a></li>
             <li id="myMemberOut"><a href="myPage?myPageManagerCategory=1">탈퇴하기</a></li>
-            <li id="myAdmin"><a href="myPage?myPageManagerCategory=2">관리자페이지</a></li>
+            <li id="myAdmin"><a href="myPage?myPageManagerCategory=2&memberManagerNo=1">관리자페이지</a></li>
       <%
       	}
       %>

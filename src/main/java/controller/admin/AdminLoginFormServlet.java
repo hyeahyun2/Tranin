@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Cryptoutils.Sha;
 import dao.AdminLoginDao;
 
 import java.io.IOException;
@@ -18,13 +19,15 @@ public class AdminLoginFormServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
+        Sha sha = new Sha();
 
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
-
+        String NewPassword = sha.encode(password);
         AdminLoginDao dao = new AdminLoginDao();
-
-        String state = dao.login(memberId,password);
+        System.out.println(password);
+        System.out.println(NewPassword);
+        String state = dao.login(memberId,NewPassword);
 
         if(state != null){ // 회원가입 성공
             request.getSession().setAttribute("manager", state);
