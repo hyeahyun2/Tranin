@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,java.lang.*"%>
+
   <div id="upperSmallNav">
     <h1 class="hidden">기타관련</h1>
     <%
@@ -61,7 +62,7 @@
       <nav id="gnb">
         <h2 class="hidden">주요이용메뉴</h2>
         <ul id="gnbList">
-          <li class="gnbListChild"><a href="../sale/sale.jsp">팝니다</a></li>
+          <li class="gnbListChild"><a href="../market/market.jsp">장터</a></li>
           <li class="gnbListChild"><a href="#">삽니다</a></li>
           <li class="gnbListChild"><a href="#">커뮤니티</a>
             <ul class="snb">

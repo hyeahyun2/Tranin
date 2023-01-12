@@ -129,6 +129,9 @@ div#headerWrap ul > li > a {
   width: 23%; height: 48%;
   margin: 10px 0;
 }
+.post:hover {
+	background-color: #c7c7c7;
+}
 .post .postImg {
   text-indent: -10000px;
   display: block;
@@ -195,7 +198,8 @@ div#headerWrap ul > li > a {
 }
 #fixedBtn .writeNow {
   background-color: #35374d;
-  color: #fff; 
+  color: #fff;
+  font-size: 12px;
 }
 #fixedBtn .topBtn {
   background-color: gold;

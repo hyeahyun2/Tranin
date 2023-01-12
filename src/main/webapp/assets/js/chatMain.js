@@ -14,6 +14,7 @@ function chatIDListFunction(){
 			console.log("ajax 연결 성공");
 			let parsed = JSON.parse(data); // json형태로 파싱
 			let result = parsed.result;	
+			console.log(result);
 			for(let i=0; i<result.length; i++){
 				console.log(result[i].otherMemberNick);
 				addIDList(result[i].otherMemberNick);
@@ -32,6 +33,7 @@ function addIDList(memberNick){
 					        <span>${memberNick}</span>
 				    	</a>
 				    </li>`;
+	console.log(template);
 	document.querySelector("#chatMemberList").insertAdjacentHTML("beforeend", template);
 }
 

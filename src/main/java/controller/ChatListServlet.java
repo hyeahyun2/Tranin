@@ -23,7 +23,9 @@ public class ChatListServlet extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
         
-        String fromNick = (String)request.getSession().getAttribute("nickname");
+        String fromId = (String)request.getSession().getAttribute("memberId");
+        
+        String fromNick = new MemberInfoDao().getNicknameById(fromId);
         String toNick = request.getParameter("toNick");
         String listType = request.getParameter("listType");
         
@@ -59,8 +61,8 @@ public class ChatListServlet extends HttpServlet {
     	ArrayList<ChatDto> chatList = chatDao.getChatListByRecent(fromNick, toNick, 10);
     	if(chatList.size() == 0) return "";
 		for(int i=0; i<chatList.size(); i++) {
-			String from = memberDao.getNickname(chatList.get(i).getFromNo());
-			String to = memberDao.getNickname(chatList.get(i).getToNo());
+			String from = memberDao.getNicknameByNo(chatList.get(i).getFromNo());
+			String to = memberDao.getNicknameByNo(chatList.get(i).getToNo());
 //			System.out.println("getFromID : " + chatList.get(i).getFromID());
 			result.append("[{\"value\": \"" + from + "\"},");
 			result.append("{\"value\": \"" + to + "\"},");
@@ -84,8 +86,8 @@ public class ChatListServlet extends HttpServlet {
     	ArrayList<ChatDto> chatList = chatDao.getChatListByNo(fromNick, toNick, chatNo);
     	if(chatList.size() == 0) return "";
     	for(int i=0; i<chatList.size(); i++) {
-			String from = memberDao.getNickname(chatList.get(i).getFromNo());
-			String to = memberDao.getNickname(chatList.get(i).getToNo());
+			String from = memberDao.getNicknameByNo(chatList.get(i).getFromNo());
+			String to = memberDao.getNicknameByNo(chatList.get(i).getToNo());
 			result.append("[{\"value\": \"" + from + "\"},");
 			result.append("{\"value\": \"" + to + "\"},");
 			result.append("{\"value\": \"" + chatList.get(i).getChatContent() + "\"},");

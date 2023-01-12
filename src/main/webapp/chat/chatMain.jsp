@@ -4,8 +4,8 @@
 <html>
 <head>
 	<%
-    String nickname = null;
-    nickname = (String)session.getAttribute("nickname");
+    String memberId = null;
+    memberId = (String)session.getAttribute("memberId");
     %>
 <meta charset="UTF-8">
 <title>채팅방 목록</title>
@@ -14,7 +14,7 @@
 </head>
 <body>
 	<%
-	if(nickname != null){ // 로그인 상태일 때
+	if(memberId != null){ // 로그인 상태일 때
 	%>
 	<h1 class="header"><span>채팅목록</span></h1>
 	<ul id="chatMemberList">

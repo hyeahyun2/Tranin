@@ -10,12 +10,15 @@ package dto;
 	CONSTRAINT to_fk foreign key(to_no) REFERENCES tranin_member(no)
 	);
 */
+/**
+ * 채팅 내역 DTO
+ * */
 public class ChatDto {
-	long chatNO;
-	int fromNo;
-	int toNo;
-	String chatContent;
-	String chatTime;
+	private long chatNO;
+	private int fromNo;
+	private int toNo;
+	private String chatContent;
+	private String chatTime;
 	
 	// getter setter
 	public long getChatNO() {
