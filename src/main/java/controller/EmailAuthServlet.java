@@ -31,8 +31,8 @@ public class EmailAuthServlet extends HttpServlet {
 
 
         String host = "smtp.googlemail.com";
-        String usr = "yusuhyun0716@gmail.com";
-        String pss = "dthzisevvfoiswst";
+        String user = "yusuhyun0716@gmail.com";
+        String password = "atdcdvpltgfoaltw";
 
         String to_email = email;
 
@@ -65,13 +65,13 @@ public class EmailAuthServlet extends HttpServlet {
 
         Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
             protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-                return new javax.mail.PasswordAuthentication(usr, pss);
+                return new javax.mail.PasswordAuthentication(user, password);
             }
         });
 
         try {
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(usr, "Tranin"));
+            msg.setFrom(new InternetAddress(user, "Tranin"));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
 
             msg.setSubject("안녕하세요 Tranin 인증 메일입니다.");
