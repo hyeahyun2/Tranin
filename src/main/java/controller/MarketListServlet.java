@@ -65,7 +65,6 @@ public class MarketListServlet extends HttpServlet {
 		
 		result.append("], \"postNum\":\"" + postCount + "\"}");
 		
-		System.out.println(result.toString());
 		return result.toString();
 	}
 }

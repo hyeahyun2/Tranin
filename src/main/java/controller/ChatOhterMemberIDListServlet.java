@@ -24,7 +24,7 @@ public class ChatOhterMemberIDListServlet extends HttpServlet {
         // 입력받은 값 변수에 저장
         String memberId = (String)request.getSession().getAttribute("memberId");
         
-        System.out.println("nickname : " + memberId);
+        System.out.println("memberId : " + memberId);
         // 공백 OR 비어있는 경우
         if(memberId == null || memberId.equals("")) {
         	response.getWriter().write(""); // 공백 반환
@@ -44,6 +44,7 @@ public class ChatOhterMemberIDListServlet extends HttpServlet {
     	// 채팅 내역 있는 사용자 no 리스트
     	ChatDao dao = new ChatDao();
     	ArrayList<String> otherNickList = dao.getOtherNickList(memberId);
+    	System.out.println(otherNickList.toString());
 		if(otherNickList.size() == 0) return ""; // 없는 경우 공백 반환
 		
 		/* json 형태로 nickname 리스트 저장 */
