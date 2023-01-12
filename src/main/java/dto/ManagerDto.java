@@ -2,7 +2,7 @@ package dto;
 
 public class ManagerDto {
 	private String id;
-	private String pw;
+	private String pw;//1q2w3e4r!Q!
 	private String name;
 	
 	public ManagerDto(String id, String pw, String name) {

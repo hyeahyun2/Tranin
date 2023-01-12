@@ -76,7 +76,7 @@
       %>
       		<li id="myInfo"><a href="myPage?myPageManagerCategory=0">내 정보</a></li>
             <li id="myMemberOut"><a href="myPage?myPageManagerCategory=1">탈퇴하기</a></li>
-            <li id="myAdmin"><a href="myPage?myPageManagerCategory=2&memberManagerNo=1">관리자페이지</a></li>
+            <li id="myAdmin"><a href="managerPage?myPageManagerCategory=2&memberManagerNo=1">관리자페이지</a></li>
       <%
       	}
       %>

@@ -153,7 +153,13 @@ public class MyPageDao {
 		}
 	}
 	
-	
+	public ResultSet getAllMemberList() throws SQLException {
+		dbProperty = new DBProperty();
+		String sql = "SELECT count(*) FROM tranin_member";
+		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		return rs;
+	}
 	
 	public ArrayList<MemberDto> getMemberList(int pageNum){
 		dbProperty = new DBProperty();
@@ -161,6 +167,7 @@ public class MyPageDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<MemberDto> list = new ArrayList<>();
+		
 		// 페이징 처리
     	int cntListPerPage = 10;
     	int startNum = (pageNum - 1) * cntListPerPage; 
