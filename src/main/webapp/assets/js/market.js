@@ -15,19 +15,32 @@ const posts = document.getElementById("posts");
 const moreBtn = contentWrap.querySelector(".moreBtn");
 
 let clickNum = 0; // 클릭 수
-function moreList(){
+let nowPart = "sell"; // part 초기값
+
+function moreList(part){
   // page = this.getAttribute();
-  xhr.open('GET', `./saleList.jsp`); //HTTP 요청 초기화. 통신 방식과 url 결정
-  xhr.send(); // url에 요청 보내기
-  // 이벤트 등록. XMLHttpRequest 객체의 readyState 프로퍼티 값이 변할 때마다 자동으로 호출
+  //xhr.open('GET', `./marketList.jsp?`); //HTTP 요청 초기화. 통신 방식과 url 결정
+  xhr.open("POST", "../marketListServlet", true);
+  xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
   xhr.onreadystatechange = ()=>{
-    // readyState 프로퍼티의 값이 DONE : 요청한 데이터의 처리가 완료되어 응답할 준비가 완료됨
     if(xhr.readyState !== XMLHttpRequest.DONE) return;
     console.log(xhr.status, xhr.statusText);
     if(xhr.status === 200){ // 서버(url)에 문서가 존재할 때
-      posts.insertAdjacentHTML("beforeend", xhr.response);
+      //posts.insertAdjacentHTML("beforeend", xhr.response);
+      let data = xhr.response;
+      if(data == "") return;
+      let parsed = JSON.parse(data);
+      let result = parsed.result;
+      boardList(result);
       const postUl = posts.querySelectorAll("ul"); // 현재 ul태그들 변수에 저장
       clickNum++;
+      if(clickNum*8 >= Number(parsed.postNum)){ // 게시글 더 없을 경우
+				moreBtn.style.display = 'none'; // 더보기 버튼 비활성화
+			}
+			else {
+				moreBtn.style.display = 'block'; // 더보기 버튼 활성화
+			}
       posts.style.height = `${80 * clickNum}%`; // ul 부모태그 높이 늘리기
       postUl.forEach(element =>{ // ul태그들 높이 조절
         element.style.height = `${100 / clickNum}%`
@@ -39,12 +52,38 @@ function moreList(){
       console.log("Error", xhr.status, xhr.statusText);
     }
   }
+  // 보낼 파라미터 설정
+  xhr.send("part=" + part +
+  		"&clickNum=" + clickNum +
+  		"&loadNum=8");
 }
-window.addEventListener("load", moreList); // 페이지 로드시 디폴트 리스트
-moreBtn.addEventListener("click", moreList); // 클릭시 리스트 추가
+
+// 게시글 추가
+function boardList(result){
+	var template = `<ul>`;
+	for(let i=0; i<result.length; i++){
+		var post = `<li class="post">
+	    		<a href="./marketPost.jsp?no=${result[i].no}" class="postImg">
+	    			<img src="${result[i].titleImage}" alt="${result[i].no}번 판매글 이미지">
+	    		</a>
+	    		<dl>
+	     		 <dt><a href="./marketPost.jsp?no=${result[i].no}" class="postTitle">${result[i].title}</a></dt>
+	      		<dd class="price">${result[i].price}원</dd>
+	     		 <dd class="writer">${result[i].writerNick}</dd>
+	      		<dd class="hits_date"><span class="hits">조회수 ${result[i].hits}</span><span class="writeDate">${result[i].writeDate}</span></dd>
+	   		 	</dl>
+	  		</li>`;
+		template += post;
+	}
+	template += `</ul>`;
+	posts.insertAdjacentHTML("beforeend", template);
+}
+
+window.addEventListener("load", moreList(nowPart)); // 페이지 로드시 디폴트 리스트
+moreBtn.addEventListener("click", moreList(nowPart)); // 클릭시 리스트 추가
 
 
-// 정렬 방식(#array)에 따른 리스트 재나열
+// sell/buy(#array)에 따른 리스트 재나열
 const array = document.getElementById("array");
 const arrList = array.querySelectorAll("li");
 
@@ -53,11 +92,13 @@ arrList.forEach(element => {
     for(let i=0; i<arrList.length; i++){
       arrList[i].classList.remove("select");
     }
+    nowPart = e.currentTarget.getAttribute("class");
     e.currentTarget.classList.add("select"); // 선택된 정렬방식 표시
+    
     // 리스트 초기화 및 다시 불러오기
     posts.innerHTML = null;
     clickNum = 0;
-    moreList();
+    moreList(nowPart);
   })
 });
 
@@ -85,6 +126,6 @@ goryItem.forEach(element => {
     // 리스트 초기화 및 다시 불러오기
     posts.innerHTML = null;
     clickNum = 0;
-    moreList();
+    moreList(nowPart);
   })
 });

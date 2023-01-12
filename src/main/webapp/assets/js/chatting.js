@@ -40,11 +40,13 @@ function chatListFunction(type){
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState != XMLHttpRequest.DONE) return;
-		if(xhr.status == 200){ // 준완
+		if(xhr.status == 200){ // 준완'
+			console.log("status start");
 			let data = xhr.response;
 			if(data == "") return; // 공백일 경우 제외
 			let parsed = JSON.parse(data); // json형태로 파싱
 			let result = parsed.result;	
+			console.log("result 받아옴" + result);
 			for(let i=result.length-1; i>=0; i--){
 				// result[i][0] : fromNick
 				// result[i][1] : ToNick
@@ -54,6 +56,7 @@ function chatListFunction(type){
 			}
 			// chat_no값 가져오기
 			lastChatNO = Number(parsed.last);
+			console.log("lastChatNo : " + lastChatNo);
 		}
 	}
 	xhr.send("toNick=" + toNick + 

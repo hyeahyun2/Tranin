@@ -6,8 +6,8 @@
 	<%
 	String myNick = null;
 	String toNick = null;
-	if(session.getAttribute("nickname") != null){
-		myNick = (String)session.getAttribute("nickname");
+	if(session.getAttribute("memberId") != null){
+		myNick = (String)session.getAttribute("memberId");
 	}
 	if(request.getParameter("toNick") != null){
 		toNick = (String)request.getParameter("toNick");
