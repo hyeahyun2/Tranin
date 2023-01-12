@@ -96,7 +96,7 @@ public class ChatDao {
 				+ "join tranin_member m2 on c.to_no = m2.`no` " // m2 : to member의 정보
 				+ "WHERE ((m1.nickname = ? and m2.nickname = ?) or (m1.nickname = ? and m2.nickname = ?)) " // 챗 받은사람과 보낸사람 일치
 				+ "order by chat_time DESC " // 시간 역순 (최신순)
-				+ "limit ?"; // 불러올 리스트 수
+				+ "limit 0, ?"; // 불러올 리스트 수
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);

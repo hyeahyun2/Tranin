@@ -72,6 +72,7 @@ public class ChatListServlet extends HttpServlet {
 		}
 		// json문장 끝 , 가장 마지막 chatID 담기
 		result.append("], \"last\":\"" + chatList.get(0).getChatNO() + "\"}");
+		System.out.println(result.toString());
     	return result.toString();
     }
     
