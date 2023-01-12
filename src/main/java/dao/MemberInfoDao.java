@@ -33,17 +33,18 @@ public class MemberInfoDao {
 	
 	// no으로 nickname 얻기
 	public String getNicknameByNo(int no) {
+
 		DBProperty db = new DBProperty();
 		
-		String nick = null;
+		String id = null;
 		
-		String sql = "SELECT nickname from tranin_member where no = ?";
+		String sql = "SELECT id from tranin_member where no = ?";
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
 			db.pstmt.setInt(1, no);
 			db.rs = db.pstmt.executeQuery();
 			if(db.rs.next()) {
-				nick = db.rs.getString("nickname"); // nickname 얻기
+				id = db.rs.getString("id"); // id 얻기
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -57,7 +58,7 @@ public class MemberInfoDao {
 			}
 		}
 		
-		return nick; // 없는 no인 경우 null 반환
+		return id; // 없는 no인 경우 null 반환
 	}
 	
 	// nickname으로 id 얻기

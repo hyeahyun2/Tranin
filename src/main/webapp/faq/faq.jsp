@@ -8,55 +8,21 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>자주 찾는 질문</title>
-	<link rel="stylesheet" href="assets/css/common.css">
-	<link rel="stylesheet" href="assets/css/reset.css">
-	<link rel="stylesheet" href="assets/css/FAQ.css">
-	<link rel="stylesheet" href="assets/css/footer.css">
-	<script type="text/javascript" src="assets/js/jquery-3.6.1.js"></script>
-  	<script type="text/javascript" src="assets/js/jquery-migrate-1.4.1.min.js"></script>
-  	<script type="text/javascript" src="assets/js/jquery-ui.js"></script>
-	<script src="assets/js/common.js" defer></script>
-  	<script src="assets/js/header.js" defer></script>
-	<script src="assets/js/FAQ.js" defer></script>
+	<link rel="stylesheet" href="../assets/css/common.css">
+	<link rel="stylesheet" href="../assets/css/reset.css">
+	<link rel="stylesheet" href="../assets/css/faq.css">
+	<link rel="stylesheet" href="../assets/css/footer.css">
+	<script type="text/javascript" src="../assets/js/jquery-3.6.1.js"></script>
+  	<script type="text/javascript" src="../assets/js/jquery-migrate-1.4.1.min.js"></script>
+  	<script type="text/javascript" src="../assets/js/jquery-ui.js"></script>
+	<script src="../assets/js/common.js" defer></script>
+  	<script src="../assets/js/header.js" defer></script>
+	<script src="../assets/js/faq.js" defer></script>
 
 </head>
 
 <body>
-	<!-- header start -->
-	<div id="upperSmallNav">
-		<h1 class="hidden">기타관련</h1>
-		<a href="login.html">로그인</a>
-		<a href="#">회원가입</a>
-		<a href="#">마이페이지</a>
-	</div>
-	<div id="headerWrap">
-		<header id="header">
-			<h1 class="logo"><a href="./index.html">logo</a></h1>
-			<nav id="gnb">
-				<h2 class="hidden">주요이용메뉴</h2>
-				<ul id="gnbList">
-					<li class="gnbListChild"><a href="./sale.html">팝니다</a></li>
-					<li class="gnbListChild"><a href="#">삽니다</a></li>
-					<li class="gnbListChild"><a href="#">커뮤니티</a>
-						<ul class="snb">
-							<li><a href="#">후기</a></li>
-							<li><a href="#">인기글</a></li>
-							<li><a href="#">자유게시판</a></li>
-							<li><a href="#">정보게시판</a></li>
-						</ul>
-					</li>
-					<li class="gnbListChild"><a href="#">고객센터</a>
-						<ul class="snb">
-							<li><a href="./notice.html">공지사항</a></li>
-							<li><a href="#">FAQ</a></li>
-							<li><a href="#">신고하기</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header>
-	</div>
-	<!-- header end -->
+	<%@ include file="../include/header.jsp" %>
 	<section id="faqWrap_hj">
 		<div id="faqHeaderWrap_hj">
 			<h2 class="faqheader_hj">자주 찾는 질문</h2>
@@ -119,24 +85,11 @@
 		<div id="counsel_hj">
 			<a href="#">상담사 연결</a>
 		</div>
+		<div>
+			<a href="./writeFaq">글쓰기</a>
+		</div>
 	</section>
-	<!-- footer start -->
-	<div class="footerWrap page onePage6">
-		<footer class="page8" id="footer">
-			<p class="us">about us</p>
-			<div id="membersWrap">
-				<p class="member0_sh member_sh"><a href="#" target="_blank">개인정보처리방침</a></p>
-				<p class="member1_sh member_sh"><a href="hyehyun.html" target="_blank">김혜현</a></p>
-				<p class="member2_sh member_sh"><a href="beomsu.html" target="_blank">오범수</a></p>
-				<p class="member3_sh member_sh"><a href="haejun.html" target="_blank">오해준</a></p>
-				<p class="member4_sh member_sh"><a href="https://suhyun980716.github.io/LandingPage/Landing%20Page/index.html"
-						target="_blank">유수현</a></p>
-				<p class="member5_sh member_sh"><a href="https://github.com/hyeahyun2/TeamProject" target="_blank">GitHub</a>
-				</p>
-			</div>
-		</footer>
-	</div>
-	<!-- footer end -->
+	<%@ include file="../include/footer.jsp" %>
 </body>
 
 </html>

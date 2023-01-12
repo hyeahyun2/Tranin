@@ -37,7 +37,7 @@ public class ChatOhterMemberIDListServlet extends HttpServlet {
         		e.printStackTrace();
         	}
         }
-    }
+	}
     
     // 채팅 내역 있는 사용자의 [닉네임] 목록 json 형태로 얻기
     public String getOtherMemberNickList(String memberId) {

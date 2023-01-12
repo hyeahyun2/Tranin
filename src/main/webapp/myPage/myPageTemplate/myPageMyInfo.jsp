@@ -2,16 +2,15 @@
     pageEncoding="UTF-8" import="java.util.*,java.lang.*,dto.MemberDto,dao.MyPageDao"%>
 <%
 	MyPageDao dao=new MyPageDao();
-	String nickname = (String)session.getAttribute("nickname");
-	MemberDto loginedMember = dao.getMemberByNickname(nickname);
+	String memberId = (String)session.getAttribute("memberId");
+	MemberDto loginedMember = dao.getMemberById(memberId);
 %>
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <section id="myPageMyInfo">
 	<form accept-charset="UTF-8" id="myPageMyInfoForm" action="myPageMyInfoModify" method="post">
 		<ul>
 			<li>아이디 : <input type="text" readonly name="myPageMyInfoId" value="<%=loginedMember.getId()%>"></li>
-			<li>패스워드 : <input type="password" name="myPageMyInfoPassword" readonly value="<%=loginedMember.getPw()%>"><input type="button" id="pwModi" value="패스워드 변경"></li>
-			<li>패스워드 확인 : <input type="password" autocomplete="off" name="myPageMyInfoPasswordConfirm" value=""></li>
+			<li>패스워드 확인 : <input type="password" autocomplete="off" name="myPageMyInfoPasswordConfirm" value=""><input type="button" id="pwModi" value="패스워드 변경"></li>
 			<li>별명 : <input type="text" readonly name="myPageMyInfoNickName" value="<%=loginedMember.getNickName()%>"></li>
 			<li><span>우편번호 : </span> <input id="zipcode" type="text" name="myPageMyZipCode" readonly placeholder=" 우편번호" value="<%=loginedMember.getZipCode()%>"> <span id="dblCheck3" style="cursor:pointer"> 우편번호 검색</span> </li>
             <li><span>주소 : </span> <input id="address01" type="text" name="myPageMyAddress" placeholder=" 주소" value="<%=loginedMember.getAddress()%>"></li>

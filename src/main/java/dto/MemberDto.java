@@ -1,5 +1,6 @@
 package dto;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class MemberDto {
@@ -28,7 +29,15 @@ public class MemberDto {
 		this.address = address;
 		this.zipCode = zipCode;
 	}
-
+	
+	//manager용
+	public MemberDto(int no, String id, String nickName, String address, String zipCode) {
+		this.no = no;
+		this.id = id;
+		this.nickName = nickName;
+		this.address = address;
+		this.zipCode = zipCode;
+	}
 	public int getNo() {
 		return no;
 	}

@@ -1,5 +1,6 @@
 package controller;
 
+import Cryptoutils.Sha;
 import dao.MemberSelectLoginDao;
 
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.rmi.ServerException;
 import java.rmi.server.ServerCloneException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet("/loginFormServlet")
 public class loginFormServlet extends HttpServlet {
@@ -19,9 +21,14 @@ public class loginFormServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
 
+        Sha sha = new Sha();
 
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
+
+        String NewPassword = sha.encode(password);
+
+
         String loginChk = request.getParameter("loginChk");
 
         if (loginChk != null) { // 체크한 경우
@@ -34,7 +41,7 @@ public class loginFormServlet extends HttpServlet {
 
         MemberSelectLoginDao dao = new MemberSelectLoginDao();
 
-        String state = dao.login(memberId,password);
+        String state = dao.login(memberId,NewPassword);
 
 
         if(state != null){ // 회원가입 성공
@@ -52,6 +59,7 @@ public class loginFormServlet extends HttpServlet {
             out.flush();
             out.close();
         }
+
     }
 
 }

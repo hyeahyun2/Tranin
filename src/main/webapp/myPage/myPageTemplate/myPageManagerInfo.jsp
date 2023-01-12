@@ -10,8 +10,7 @@
 	<form accept-charset="UTF-8" id="myPageMyInfoForm" action="myPageManagerInfoModify" method="post">
 		<ul>
 			<li>아이디 : <input type="text" readonly name="myPageMyInfoId" value="<%=loginedManager.getId()%>"></li>
-			<li>패스워드 : <input type="password" name="myPageMyInfoPassword" readonly value="<%=loginedManager.getPw()%>"><input type="button" id="pwModi" value="패스워드 변경"></li>
-			<li>패스워드 확인 : <input type="password" autocomplete="off" name="myPageMyInfoPasswordConfirm" value=""></li>
+			<li>패스워드 확인 : <input type="password" autocomplete="off" name="myPageMyInfoPasswordConfirm" value=""><input type="button" id="pwModi" value="패스워드 변경"></li>
 			<li>관리자 이름 : <input type="text" readonly name="myPageMyInfoName" value="<%=loginedManager.getName()%>"></li>
 			
 			<li><input type="submit" name="myPageMyInfoModify" value="수정하기"></li>

@@ -64,20 +64,19 @@
       <h2>마이페이지</h2>
       <ul>
       <%
-      	if(session.getAttribute("nickname")!=null){
+      	if(session.getAttribute("memberId")!=null){
       %>
         <li id="myInfo"><a href="myPage?myPageCategory=0">내 정보</a></li>
         <li id="myAct"><a href="myPage?myPageCategory=1">내 활동</a></li>
         <li id="myTrans"><a href="myPage?myPageCategory=2">구매내역</a></li>
         <li id="myMemberOut"><a href="myPage?myPageCategory=3">탈퇴하기</a></li>
-        <li id="myAdmin"><a href="myPage?myPageCategory=4">관리자페이지</a></li>
         <!--jsp로 나중에 추가 <li><a href="">관리자 페이지</a></li> 누르면 아예 다른페이지로 이동하기-->
       <%
       	} else {
       %>
       		<li id="myInfo"><a href="myPage?myPageManagerCategory=0">내 정보</a></li>
             <li id="myMemberOut"><a href="myPage?myPageManagerCategory=1">탈퇴하기</a></li>
-            <li id="myAdmin"><a href="myPage?myPageManagerCategory=2">관리자페이지</a></li>
+            <li id="myAdmin"><a href="myPage?myPageManagerCategory=2&memberManagerNo=1">관리자페이지</a></li>
       <%
       	}
       %>
@@ -86,7 +85,7 @@
     <!--탭누르면 카테고리별 파라미터 받아서 알맞은 myPageContent보여주기 -->
     <section id="myPageContent">
     <%
-      	if(session.getAttribute("nickname")!=null){
+      	if(session.getAttribute("memberId")!=null){
     %>
     
 	<%
@@ -106,28 +105,23 @@
 	%>
 		<jsp:include page="myPageTemplate/myPageMemberOut.jsp" />	
 	<%	
-		} else if(request.getAttribute("myPageParam").equals("4")){
-	%>
-		<jsp:include page="myPageTemplate/myPageAdmin.jsp" />
-	<%
 		}
 	%>
-	
 	<%
       	} else {
     %>
 	<%
-		if(request.getAttribute("myPageParam").equals("0")){
+		if(request.getAttribute("myPageManagerParam").equals("0")){
 	%>
 		<jsp:include page="myPageTemplate/myPageManagerInfo.jsp" />		
 	<%	
-		} else if(request.getAttribute("myPageParam").equals("1")){
+		} else if(request.getAttribute("myPageManagerParam").equals("1")){
 	%>
 		<jsp:include page="myPageTemplate/myPageManagerOut.jsp" />	
 	<%	
-		} else if(request.getAttribute("myPageParam").equals("2")){
+		} else if(request.getAttribute("myPageManagerParam").equals("2")){
 	%>
-		<jsp:include page="myPageTemplate/myPageManagerPage.jsp" />	
+		<jsp:include page="myPageTemplate/myPageAdmin.jsp" />	
 	<%	
 		}
 	%>

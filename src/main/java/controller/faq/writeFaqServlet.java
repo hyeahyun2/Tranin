@@ -1,19 +1,16 @@
-package controller;
+package controller.faq;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.FaqInsertDao;
 import dao.NoticeInsertDao;
 
-@WebServlet("/writeNoticeServlet")
-public class writeNoticeServlet extends HttpServlet {
+public class writeFaqServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -23,12 +20,12 @@ public class writeNoticeServlet extends HttpServlet {
 		String content = request.getParameter("content");
 
 		
-		NoticeInsertDao nid = new NoticeInsertDao();
+		FaqInsertDao nid = new FaqInsertDao();
 		
-		boolean state = nid.registContent(title, content);
+		boolean state = nid.registFaqContent(title, content);
 		
 		if(state) {
-			response.sendRedirect("/notice/notice.jsp");
+			response.sendRedirect("/faq/faq.jsp");
 		}
 		else {
 			System.out.println("글 등록에 실패하였습니다.");
@@ -36,4 +33,5 @@ public class writeNoticeServlet extends HttpServlet {
 			
 		}
 	}
+	
 }
