@@ -31,8 +31,8 @@ public class EmailAuthServlet extends HttpServlet {
 
 
         String host = "smtp.googlemail.com";
-        String my = " ";
-        String popo = " ";
+        String my = "  ";
+        String popo = "  ";
 
         String to_email = email;
 
