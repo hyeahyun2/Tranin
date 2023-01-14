@@ -3,22 +3,22 @@
 <%@ page import="dao.MyPageDao" %>
 <%@ page import="dto.MemberDto" %>
 <%@ page import="java.util.*" %>
-<%
-	int memberManagerNo = Integer.parseInt((String)request.getParameter("memberManagerNo"));
-%>
 <section id="myPageAdmin">
   <div id="myPageAdminLeftNavWrap">
     <nav id="myPageAdminNav">
       <ul>
-        <li class="enabled">통계</li>
-        <li>게시판관리</li>
-        <li>댓글관리</li>
-        <li>멤버관리</li>
-        <li>신고관리</li>
+        <li><a href="managerPage?myPageManagerCategory=2&statusManager=0">통계</a></li>
+        <li><a href="managerPage?myPageManagerCategory=2&boardManager=0">게시판관리</a></li>
+        <li><a href="managerPage?myPageManagerCategory=2&repManager=0">댓글관리</a></li>
+        <li><a href="managerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">멤버관리</a></li>
+        <li><a href="managerPage?myPageManagerCategory=2&reportManager=0">신고관리</a></li>
       </ul>
     </nav>
   </div>
   <div id="myPageAdminInnerTab">
+  	<%
+    	if(request.getParameter("statusManager")!=null){
+    %>
     <section class="active" id="myPageAdminStatus">
       <a href="#">통계에오</a>
       <div id="myPageAdminStatus">
@@ -45,6 +45,9 @@
         </ul>
       </div>
     </section>
+    <%
+    	}else if(request.getParameter("boardManager")!=null){
+    %>
     <section id="myPageAdminBanManage">
       <a href="#">게시판관리</a>
       <div id="myPageAdminBanManage">
@@ -71,6 +74,9 @@
         </ul>
       </div>
     </section>
+    <%
+    	}else if(request.getParameter("repManager")!=null){
+    %>
     <section id="myPageAdminBoardManage">
       <a href="#">댓글관리</a>
       <div id="myPageAdminBoardManage">
@@ -97,16 +103,22 @@
         </ul>
       </div>
     </section>
-    <jsp:include page="../adminTemplate/memberManager.jsp" >
-       <jsp:param name="id" value="<%=memberManagerNo%>" />
-    </jsp:include>
-    <jsp:include page="../adminTemplate/reportMemberManager.jsp" >
-       <jsp:param name="id" value="<%=memberManagerNo%>" />
-    </jsp:include>
+	<%
+    	}else if(request.getParameter("memberManager")!=null){
+    		int memberManagerNo = Integer.parseInt((String)request.getParameter("memberManagerNo"));
+	%>
+    <jsp:include page="../adminTemplate/memberManager.jsp" />
+    <%
+    	}else if(request.getParameter("reportManager")!=null){
+    %>
+    <jsp:include page="../adminTemplate/reportMemberManager.jsp" />
+    <%
+    	}
+    %>
   </div>
 </section>
 <script>
-
+	/*
 	const myAdmin = document.querySelector("#myAdmin");
 	myAdmin.classList.add("active");
 	
@@ -126,10 +138,9 @@
 	  	    	myPageAdminInnerTabSection[j].classList.remove("active");
 	  	    }
 	  	    myPageAdminInnerTabSection[i].classList.add("active");
-	    
 	  });
 	}
 	
-	
+	*/
 	
 </script>

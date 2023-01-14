@@ -38,7 +38,7 @@ public class MarketDto {
 	private String image3;
 	private String image4;
 	private String image5;
-	private boolean isUpd;
+	private int updNo;
 	private boolean tradeAcpt;
 
 	// getter setter
@@ -120,11 +120,11 @@ public class MarketDto {
 	public void setImage5(String image5) {
 		this.image5 = image5;
 	}
-	public boolean isUpd() {
-		return isUpd;
+	public int getUpdNo() {
+		return updNo;
 	}
-	public void setUpd(boolean isUpd) {
-		this.isUpd = isUpd;
+	public void setUpdNo(int updNo) {
+		this.updNo = updNo;
 	}
 	public boolean isTradeAcpt() {
 		return tradeAcpt;

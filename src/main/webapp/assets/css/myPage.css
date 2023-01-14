@@ -242,7 +242,7 @@ div#headerWrap ul > li > a {
 
 /* admin */
 #myPageAdminInnerTab section {
-  display : none;
+  /*display : none;*/
 }
 #myPageAdminInnerTab section.active {
   display : block;
