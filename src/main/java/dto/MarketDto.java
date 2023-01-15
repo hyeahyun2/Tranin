@@ -19,6 +19,25 @@ package dto;
 		CONSTRAINT writer_fk foreign key(writer_no) REFERENCES tranin_member(`no`)
 		-- foreign key 지정 (tranin_member의 `no` 컬럼)
 	);
+	
+	create table tranin_market(
+	market_no int PRIMARY key AUTO_INCREMENT,
+	writer_no int not null, -- 글쓴이
+	title varchar(100) not null, -- 제목
+	content text null, -- 글 내용
+	part ENUM('sell', 'buy') not null, -- 판매글 or 구매글 여부
+	price int null, -- 가격 / 희망가격
+	write_date timestamp not null, -- 글 작성 날짜
+	hits int DEFAULT 0, -- 조회수
+	image_1 varchar(300) null, -- 이미지1 url (메인 이미지)
+	image_2 varchar(300) null, -- 이미지2 url
+	image_3 varchar(300) null, -- 이미지3 url
+	image_4 varchar(300) null, -- 이미지4 url
+	image_5 varchar(300) null, -- 이미지5 url
+	disabled ENUM('true', 'false') DEFAULT 'false', -- 게시글 비활성화 여부 (true시 -> tranin_market_disabled에 추가)
+	CONSTRAINT writer_fk foreign key(writer_no) REFERENCES tranin_member(`no`)
+	-- foreign key 지정 (tranin_member의 `no` 컬럼)
+);
 
  * */
 /**
@@ -38,8 +57,7 @@ public class MarketDto {
 	private String image3;
 	private String image4;
 	private String image5;
-	private int updNo;
-	private boolean tradeAcpt;
+	private String disabled;
 
 	// getter setter
 	public int getMarketNo() {
@@ -120,16 +138,10 @@ public class MarketDto {
 	public void setImage5(String image5) {
 		this.image5 = image5;
 	}
-	public int getUpdNo() {
-		return updNo;
+	public String getDisabled() {
+		return disabled;
 	}
-	public void setUpdNo(int updNo) {
-		this.updNo = updNo;
-	}
-	public boolean isTradeAcpt() {
-		return tradeAcpt;
-	}
-	public void setTradeAcpt(boolean tradeAcpt) {
-		this.tradeAcpt = tradeAcpt;
+	public void setDisabled(String disabled) {
+		this.disabled = disabled;
 	}
 }

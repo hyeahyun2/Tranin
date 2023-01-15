@@ -13,7 +13,7 @@ public class MarketDao {
 
 		String sql = "SELECT market_no, writer_no, title, price, write_date, hits, image_1 "
 				+ "FROM tranin_market "
-				+ "WHERE part = ? AND upd_no IS NULL AND trade_acpt = 'false' "
+				+ "WHERE part = ? AND disabled = 'false' "
 				+ "ORDER BY write_date DESC "
 				+ "LIMIT ?, ?";
 		try {
@@ -53,7 +53,7 @@ public class MarketDao {
 		DBProperty db = new DBProperty();
 		int count = 0;
 		String sql = "SELECT COUNT(*) FROM tranin_market "
-				+ "WHERE part = ? AND upd_no IS NULL AND trade_acpt = 'false'";
+				+ "WHERE part = ? AND disabled = 'false'";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
