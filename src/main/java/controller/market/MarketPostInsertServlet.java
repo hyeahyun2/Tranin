@@ -1,4 +1,4 @@
-package controller;
+package controller.market;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,8 +30,6 @@ public class MarketPostInsertServlet extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 	    response.setContentType("text/html; charset=UTF-8");
 	    
-	    System.out.println("market insert servlet 접속 성공");
-	    
 	    int maxImgSize = 5 * 1024 * 1024;
 	    String imgPath = "C:\\webStudy";
 	    
@@ -47,6 +45,7 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    String title = multi.getParameter("title");
 	    String price = multi.getParameter("price");
 	    String content = multi.getParameter("content");
+	    String ip = request.getRemoteAddr();
 	    
 	    // 가격 형변환
 	    Integer priceInt;
@@ -69,7 +68,7 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    
 	    // insert
 	    MarketDao marketDao = new MarketDao();
-	    int marketNo = marketDao.insertPost(part, writeID, title, priceInt, content, imageList);
+	    int marketNo = marketDao.insertPost(part, writeID, title, priceInt, content, ip, imageList);
 	    
 	    if(marketNo != 0) { // 게시글 등록 성공
 	    	response.sendRedirect("market/marketPost.jsp?marketNo=" + marketNo);

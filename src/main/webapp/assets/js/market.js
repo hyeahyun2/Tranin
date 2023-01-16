@@ -32,7 +32,7 @@ function moreList(part){
       if(data == "") return;
       let parsed = JSON.parse(data);
       let result = parsed.result;
-      boardList(result);
+      boardList(result, part);
       const postUl = posts.querySelectorAll("ul"); // 현재 ul태그들 변수에 저장
       clickNum++;
       if(clickNum*8 >= Number(parsed.postNum)){ // 게시글 더 없을 경우
@@ -63,11 +63,11 @@ function boardList(result){
 	var template = `<ul>`;
 	for(let i=0; i<result.length; i++){
 		var post = `<li class="post">
-	    		<a href="./marketPost.jsp?no=${result[i].no}" class="postImg">
+	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
 	    			<img src="${result[i].titleImage}" alt="${result[i].no}번 판매글 이미지">
 	    		</a>
 	    		<dl>
-	     		 <dt><a href="./marketPost.jsp?no=${result[i].no}" class="postTitle">${result[i].title}</a></dt>
+	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title}</a></dt>
 	      		<dd class="price">${result[i].price}원</dd>
 	     		 <dd class="writer">${result[i].writerNick}</dd>
 	      		<dd class="hits_date"><span class="hits">조회수 ${result[i].hits}</span><span class="writeDate">${result[i].writeDate}</span></dd>

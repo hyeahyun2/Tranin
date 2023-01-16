@@ -1,4 +1,4 @@
-package controller;
+package controller.market;
 
 import java.io.IOException;
 import java.util.ArrayList;

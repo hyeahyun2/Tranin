@@ -1,5 +1,7 @@
 package dao;
 
+import dto.MemberDto;
+
 public class MemberInfoDao {
 	
 	// id으로 nickname 얻기
@@ -38,13 +40,13 @@ public class MemberInfoDao {
 		
 		String id = null;
 		
-		String sql = "SELECT id from tranin_member where no = ?";
+		String sql = "SELECT nickname from tranin_member where no = ?";
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
 			db.pstmt.setInt(1, no);
 			db.rs = db.pstmt.executeQuery();
 			if(db.rs.next()) {
-				id = db.rs.getString("id"); // id 얻기
+				id = db.rs.getString("nickname"); // id 얻기
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -88,5 +90,40 @@ public class MemberInfoDao {
 		}
 		
 		return id; // 존재하지 않을 경우 null 반환
+	}
+	
+	// no로 member 정보 얻기
+	public MemberDto getMemberByNo(int no) {
+
+		DBProperty db = new DBProperty();
+		
+		MemberDto member = null;
+		
+		String sql = "SELECT * from tranin_member where no = ?";
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, no);
+			db.rs = db.pstmt.executeQuery();
+			if(db.rs.next()) {
+				member = new MemberDto();
+				member.setNo(no);
+				member.setId(db.rs.getString("id"));
+				member.setNickName(db.rs.getString("nickname"));
+				member.setAddress(db.rs.getString("address"));
+				member.setZipCode(db.rs.getString("zipcode"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return member; // 없는 no인 경우 null 반환
 	}
 }

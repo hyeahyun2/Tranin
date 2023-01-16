@@ -76,12 +76,12 @@ public class MarketDao {
 	}
 	
 	// 게시글 등록
-	public int insertPost(String part, String writeID, String title, int price, String content, String[] imageList) {
+	public int insertPost(String part, String writeID, String title, int price, String content, String ip, String[] imageList) {
 		DBProperty db = new DBProperty();
 		
 		String sql = "insert into tranin_market "
-				+ "(writer_no, title, content, part, price, write_date, image_1, image_2, image_3, image_4, image_5) "
-				+ "values ((select `no` from tranin_member where id = ?), ?, ?, ?, ?, now(), ?, ?, ?, ?, ?)";
+				+ "(writer_no, title, content, part, price, write_date, ip, image_1, image_2, image_3, image_4, image_5) "
+				+ "values ((select `no` from tranin_member where id = ?), ?, ?, ?, ?, now(), ?, ?, ?, ?, ?, ?)";
 		
 		int ins = 0;
 		int marketNo = 0;
@@ -93,11 +93,12 @@ public class MarketDao {
 			db.pstmt.setString(3, content);
 			db.pstmt.setString(4, part);
 			db.pstmt.setInt(5, price);
-			db.pstmt.setString(6, imageList[0]);
-			db.pstmt.setString(7, imageList[1]);
-			db.pstmt.setString(8, imageList[2]);
-			db.pstmt.setString(9, imageList[3]);
-			db.pstmt.setString(10, imageList[4]);
+			db.pstmt.setString(6, ip);
+			db.pstmt.setString(7, imageList[0]);
+			db.pstmt.setString(8, imageList[1]);
+			db.pstmt.setString(9, imageList[2]);
+			db.pstmt.setString(10, imageList[3]);
+			db.pstmt.setString(11, imageList[4]);
 			ins = db.pstmt.executeUpdate();
 			if(ins != 0) {
 				sql = "select market_no from tranin_market k "
@@ -126,19 +127,70 @@ public class MarketDao {
 		return marketNo; // 실패 : 0, 성공 : market_no 반환
 	}
 	
+	// 조회수 증가시키기
+	public boolean increaseHits(int no) {
+		DBProperty db = new DBProperty();
+		
+		int upd = 0;
+		String sql = "UPDATE tranin_market SET hits = hits + 1 WHERE market_no = ?";
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, no);
+			upd = db.pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return upd != 0;
+	}
 	// market_no로 해당 게시글 정보 불러오기
 	public MarketDto getPostInfoByNo(int no) {
 		DBProperty db = new DBProperty();
 		MarketDto marketPost = null;
 		
-		String sql = "SELECT * FROM tranin_market WHERE market_no = ?";
+		String sql = "SELECT * FROM tranin_market "
+				+ "WHERE market_no = ? AND disabled = 'false'";
 		
 		try {
-			
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, no);
+			db.rs = db.pstmt.executeQuery();
+			if(db.rs.next()) { // 결과 존재하면
+				marketPost = new MarketDto();
+				marketPost.setMarketNo(no);
+				marketPost.setWriterNo(db.rs.getInt("writer_no"));
+				marketPost.setTitle(db.rs.getString("title"));
+				marketPost.setContent(db.rs.getString("content"));
+				marketPost.setPrice(db.rs.getInt("price"));
+				marketPost.setWriteDate(db.rs.getString("write_date"));
+				marketPost.setHits(db.rs.getInt("hits"));
+				marketPost.setImage1(db.rs.getString("image_1"));
+				marketPost.setImage2(db.rs.getString("image_2"));
+				marketPost.setImage3(db.rs.getString("image_3"));
+				marketPost.setImage4(db.rs.getString("image_4"));
+				marketPost.setImage5(db.rs.getString("image_5"));
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
+		// select 결과 존재하지 않을 때 => null 반환
 		return marketPost;
 	}
+	
 }

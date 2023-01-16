@@ -35,8 +35,8 @@
    headerWrap.style.opacity=1;
  });
  
+ 
  /* 채팅 새 창으로 열기 */
-
 chatLink.addEventListener("click", (e)=>{
   e.preventDefault();
   window.open("../chat/chatMain.jsp", "채팅", " width=400, height=500");

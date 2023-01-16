@@ -29,6 +29,7 @@ package dto;
 	price int null, -- 가격 / 희망가격
 	write_date timestamp not null, -- 글 작성 날짜
 	hits int DEFAULT 0, -- 조회수
+	ip VARCHAR(20), -- 글쓴이 ip
 	image_1 varchar(300) null, -- 이미지1 url (메인 이미지)
 	image_2 varchar(300) null, -- 이미지2 url
 	image_3 varchar(300) null, -- 이미지3 url
@@ -52,6 +53,7 @@ public class MarketDto {
 	private int price;
 	private String writeDate;
 	private int hits;
+	private String ip;
 	private String image1;
 	private String image2;
 	private String image3;
@@ -107,6 +109,12 @@ public class MarketDto {
 	}
 	public void setHits(int hits) {
 		this.hits = hits;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	public String getImage1() {
 		return image1;

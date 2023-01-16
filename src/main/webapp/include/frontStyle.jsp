@@ -14,3 +14,4 @@
 	src="../assets/js/jquery-migrate-1.4.1.min.js"></script>
 <script type="text/javascript" src="../assets/js/jquery-ui.js"></script>
 <script src="../assets/js/header.js" defer></script>
+<script src="../assets/js/floatingMenu.js" defer></script>

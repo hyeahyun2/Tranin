@@ -1,4 +1,4 @@
-package controller;
+package controller.chat;
 
 import java.io.IOException;
 import java.net.URLDecoder;
