@@ -11,11 +11,14 @@ public class NoticeSearchDao {
 	
 	private Statement stmt = null;
 	
-	public ArrayList<NoticeDto> getSearch(String text) {
+	public ArrayList<NoticeDto> getSearch(String text, int pageNum) {
 		DBProperty db = new DBProperty();
 		ArrayList<NoticeDto> list = new ArrayList<NoticeDto>(); 
+		// 페이징 처리
+    	int cntListPerPage = 10;
+    	int startNum = (pageNum - 1) * cntListPerPage; 
 		try {
-			String sql = "SELECT * FROM notice_bd WHERE title LIKE '%" + text + "%'";
+			String sql = "SELECT * FROM notice_bd WHERE title LIKE '%" + text + "%' ORDER BY notice_no DESC LIMIT " + startNum + ", " + cntListPerPage;
 			stmt = db.conn.createStatement();
 			System.out.println("text 내용 : "+text);
 			db.rs = stmt.executeQuery(sql);

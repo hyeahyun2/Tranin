@@ -6,31 +6,16 @@ public class FaqDto {
 	private int faqNo;
 	private String title;
 	private String content;
-	private Date regDate;
-	
+		
 	public FaqDto() {
 		super();
 	}
-	
-	public FaqDto(String title, String content) {
-		super();
-		this.title = title;
-		this.content = content;
-	}
 
-	public FaqDto(int faqNo, String title, Date regDate) {
-		super();
-		this.faqNo = faqNo;
-		this.title = title;
-		this.regDate = regDate;
-	}
-
-	public FaqDto(int faqNo, String title, String content, Date regDate) {
+	public FaqDto(int faqNo, String title, String content) {
 		super();
 		this.faqNo = faqNo;
 		this.title = title;
 		this.content = content;
-		this.regDate = regDate;
 	}
 
 	public int getFaqNo() {
@@ -55,14 +40,6 @@ public class FaqDto {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
 	}
 	
 }

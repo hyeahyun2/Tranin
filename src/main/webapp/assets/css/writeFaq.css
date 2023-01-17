@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+#writeFaqWrap_hj { 
+  width: 100%; 
+  max-width: 70%;
+  height: 100%;
+  position: relative;
+  top: 150px;
+  margin: 0 auto;
+  padding-bottom: 25vh; 
+}

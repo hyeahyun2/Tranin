@@ -27,7 +27,7 @@
   <section id="noticeWrap_hj">
     <div id="headerWrap_hj">
       <h2 class="header_hj">공지사항</h2>
-      <form action="./searchNotice.jsp" method="get"><input type="text" name="searchText" size="47" placeholder="검색어를 입력하세요."><input type="submit" value="검색"></form>
+      <form action="./notice.jsp" method="get"><input type="text" name="searchText" size="47" placeholder="검색어를 입력하세요."><input type="submit" value="검색"></form>
     </div>
     <div id="board_hj">
       <table class="table_hj">
@@ -42,12 +42,25 @@
         </thead>
         <tbody class="tbody_hj">
         <%
-        	NoticeShowDao dao = new NoticeShowDao();
-	        int pageNum = 1; // 페이지 번호가 전달이 안되면 1페이지
+        	String searchText = request.getParameter("searchText");
+        
+        	boolean isSearch = searchText != null;
+        	
+        	ArrayList<NoticeDto> list = null;
+        	
+        	int pageNum = 1; // 페이지 번호가 전달이 안되면 1페이지
 			if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
 				pageNum = Integer.parseInt(request.getParameter("pageNum"));					
 			}
-        	List<NoticeDto> list = dao.showNotice(pageNum);
+        	
+        	if (isSearch) {
+        		NoticeSearchDao dao1 = new NoticeSearchDao();
+    			list = dao1.getSearch(searchText, pageNum);
+        	}
+        	else {
+	        	NoticeShowDao dao = new NoticeShowDao();
+	        	list = dao.showNotice(pageNum);        		
+        	}
 			
         	
 			for(NoticeDto a : list) {
@@ -60,6 +73,7 @@
 		<% 		
 			}
 		%>
+		
         <%-- 
           <tr>
             <td>10</td>
@@ -138,9 +152,14 @@
     <div id="pagingWrap_hj">
     	<%
     	int cntListPerPage = 10;
-   
+   		
     	NoticePagingDao npd = new NoticePagingDao();
-		ResultSet rs = npd.getAllNotice();
+    	ResultSet rs = null;
+    	if (isSearch) {
+  			rs = npd.getSearchNotice(searchText);  		
+    	} else {
+			rs = npd.getAllNotice();    		
+    	}
 		rs.next();
 		int totalRecord = rs.getInt(1);
 		int totalPage = (totalRecord % cntListPerPage == 0) ? totalRecord / cntListPerPage : (totalRecord / cntListPerPage) + 1;
@@ -150,7 +169,7 @@
 		int blockThis = ((pageNum - 1) / block) + 1; // 현재 페이지의 블럭
 		int blockThisFirstPage = ((blockThis - 1) * block) + 1; // 현재 블럭의 첫 페이지
 		int blockThisLastPage = blockThis * block; // 현재 블럭의 마지막 페이지
-		out.println(blockThisLastPage);
+		// out.println(blockThisLastPage);
 		blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage; 
     	%>
         <a href="notice.jsp?pageNum=1">첫 페이지</a>
