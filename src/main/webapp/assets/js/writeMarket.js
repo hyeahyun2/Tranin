@@ -1,5 +1,6 @@
-const form = document.insertPost;
+const form = document.getElementById("formId");
 const submitBtn = document.getElementById("submitBtn");
+
 
 function doSubmit() {
 	/* 유효성검사 추가하기!! */

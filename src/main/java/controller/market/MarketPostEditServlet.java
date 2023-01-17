@@ -1,7 +1,6 @@
 package controller.market;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -15,8 +14,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.MarketDao;
 
-@WebServlet("/marketPostInsertServlet")
-public class MarketPostInsertServlet extends HttpServlet{
+@WebServlet("/marketPostEdit")
+public class MarketPostEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -30,6 +29,7 @@ public class MarketPostInsertServlet extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 	    response.setContentType("text/html; charset=UTF-8");
 	    
+	    
 	    int maxImgSize = 5 * 1024 * 1024;
 	    String imgPath = "C:\\webStudy";
 	    
@@ -41,9 +41,11 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    		);
 	    
 	    String part = multi.getParameter("part");
+	    int oldMarketNo = Integer.parseInt(multi.getParameter("oldMarketNo"));
 	    String writeID = multi.getParameter("writeID");
 	    String title = multi.getParameter("title");
 	    String price = multi.getParameter("price");
+	    int hits = Integer.parseInt(multi.getParameter("hits"));
 	    String content = multi.getParameter("content");
 	    String ip = request.getRemoteAddr();
 	    
@@ -66,17 +68,22 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    	}
 	    }
 	    
-	    // insert
+	    /* 게시글 수정하기 */
 	    MarketDao marketDao = new MarketDao();
-	    int marketNo = marketDao.insertPost(part, writeID, title, priceInt, 0, content, ip, imageList);
+	    // 수정된 게시글 insert
+	    int newmarketNo = marketDao.insertPost(part, writeID, title, priceInt, hits, content, ip, imageList);
 	    
-	    if(marketNo != 0) { // 게시글 등록 성공
-	    	response.sendRedirect("/marketPostInfo?no=" + marketNo);
+	    if(newmarketNo != 0) { // 게시글 재등록 완
+	    	// 수정전 게시글 disabled 처리
+	    	boolean state = marketDao.setDisabledByNo(oldMarketNo);
+	    	if(state) {
+	    		// disabled table에 수정전 글 insert
+	    		marketDao.insertToDisabledReportUpdate(oldMarketNo, newmarketNo);
+	    		response.sendRedirect("/marketPostInfo?no=" + newmarketNo);
+	    	}
 	    }
 	    else { // 게시글 등록 실패
 	    	response.sendRedirect("market/market.jsp?error=insertError");
 	    }
 	}
-
-	
 }

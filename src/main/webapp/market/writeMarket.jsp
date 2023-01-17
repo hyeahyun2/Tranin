@@ -30,7 +30,7 @@
 		</h1>
 		
 		<div id="contentWrap">
-			<form action="../marketPostInsertServlet" name="insertPost" method="post" enctype="multipart/form-data">
+			<form action="../marketPostInsertServlet" id="formId" name="insertPost" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="part" value="<%= part %>">
 				<input type="hidden" name="writeID" value="<%= memberId %>">
 				<div>

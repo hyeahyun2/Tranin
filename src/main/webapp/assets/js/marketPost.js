@@ -85,3 +85,10 @@ loveBtn.addEventListener("click", (e)=>{
   }         
   e.currentTarget.style.backgroundImage = `url(./image/love_${loveImg}.png)`;
 })
+
+ /* 채팅 새 창으로 열기 */
+const chatBtn = document.querySelector(".chatBtn");
+chatBtn.addEventListener("click", (e)=>{
+  e.preventDefault();
+  window.open(chatBtn.getAttribute("href"), "채팅", " width=400, height=500");
+})

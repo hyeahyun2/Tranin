@@ -126,4 +126,39 @@ public class MemberInfoDao {
 		
 		return member; // 없는 no인 경우 null 반환
 	}
+	
+	// id로 member 정보 얻기
+		public MemberDto getMemberById(String id) {
+
+			DBProperty db = new DBProperty();
+			
+			MemberDto member = null;
+			
+			String sql = "SELECT * from tranin_member where id = ?";
+			try {
+				db.pstmt = db.conn.prepareStatement(sql);
+				db.pstmt.setString(1, id);
+				db.rs = db.pstmt.executeQuery();
+				if(db.rs.next()) {
+					member = new MemberDto();
+					member.setNo(db.rs.getInt("no"));
+					member.setId(id);
+					member.setNickName(db.rs.getString("nickname"));
+					member.setAddress(db.rs.getString("address"));
+					member.setZipCode(db.rs.getString("zipcode"));
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(db.rs != null) db.rs.close();
+					if(db.pstmt != null) db.pstmt.close();
+					if(db.conn != null) db.conn.close();
+				} catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return member; // 없는 no인 경우 null 반환
+		}
 }
