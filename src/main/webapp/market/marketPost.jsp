@@ -8,6 +8,7 @@
 <title>marketPost</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/marketPost.css?v=<%= System.currentTimeMillis() %>">
+<script src="../assets/js/marketPost.js" defer></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -50,7 +51,7 @@
         if(memberId != null && !writerId.equals(memberId)){
         %>
         <ul class="saleBtn">
-          <li><a href="../chat/chatting.jsp?toNick=<%= writerNick %>">채팅</a></li>
+          <li><a href="../chat/chatting.jsp?toNick=<%= writerNick %>" class="chatBtn">채팅</a></li>
         </ul>
         <%
         } else if(memberId == null) {
@@ -66,8 +67,8 @@
 	    <%
 	    if(writerId.equals(memberId)){ // 로그인멤버 = 판매자
 	    %>
-      <li><a href="#">수정</a></li>
-      <li><a href="#">삭제</a></li>
+      <li><a href="/marketGoEditPage?no=<%= post.getMarketNo() %>">수정</a></li>
+      <li><a href="/marketPostRemove?no=<%= post.getMarketNo() %>">삭제</a></li>
 	    <%
 	    } else { // 로그인멤버 != 판매자
 	    %>

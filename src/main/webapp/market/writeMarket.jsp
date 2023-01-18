@@ -30,7 +30,7 @@
 		</h1>
 		
 		<div id="contentWrap">
-			<form action="../marketPostInsertServlet" name="insertPost" method="post" enctype="multipart/form-data">
+			<form action="../marketPostInsertServlet" id="formId" name="insertPost" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="part" value="<%= part %>">
 				<input type="hidden" name="writeID" value="<%= memberId %>">
 				<div>
@@ -46,8 +46,10 @@
 					<textarea id="postContent" name="content" cols="100" rows="30" placeholder="글 내용을 입력하시오"></textarea>
 				</div>
 				<div>
-					<label for="image">사진</label>
-					<input type="file" id="image" name="image">
+					<label for="btnAtt">사진</label>
+					<input type='file' id='btnAtt' name="image[]" multiple='multiple' />
+			    <div id='att_zone'
+			      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
 				</div>
 				<div>
 					<button type="button" id="submitBtn">등록하기</button>

@@ -76,12 +76,12 @@ public class MarketDao {
 	}
 	
 	// 게시글 등록
-	public int insertPost(String part, String writeID, String title, int price, String content, String ip, String[] imageList) {
+	public int insertPost(String part, String writeID, String title, int price, int hits, String content, String ip, String[] imageList) {
 		DBProperty db = new DBProperty();
 		
 		String sql = "insert into tranin_market "
-				+ "(writer_no, title, content, part, price, write_date, ip, image_1, image_2, image_3, image_4, image_5) "
-				+ "values ((select `no` from tranin_member where id = ?), ?, ?, ?, ?, now(), ?, ?, ?, ?, ?, ?)";
+				+ "(writer_no, title, content, part, price, hits, write_date, ip, image_1, image_2, image_3, image_4, image_5) "
+				+ "values ((select `no` from tranin_member where id = ?), ?, ?, ?, ?, ?, now(), ?, ?, ?, ?, ?, ?)";
 		
 		int ins = 0;
 		int marketNo = 0;
@@ -93,19 +93,20 @@ public class MarketDao {
 			db.pstmt.setString(3, content);
 			db.pstmt.setString(4, part);
 			db.pstmt.setInt(5, price);
-			db.pstmt.setString(6, ip);
-			db.pstmt.setString(7, imageList[0]);
-			db.pstmt.setString(8, imageList[1]);
-			db.pstmt.setString(9, imageList[2]);
-			db.pstmt.setString(10, imageList[3]);
-			db.pstmt.setString(11, imageList[4]);
+			db.pstmt.setInt(6, hits);
+			db.pstmt.setString(7, ip);
+			db.pstmt.setString(8, imageList[0]);
+			db.pstmt.setString(9, imageList[1]);
+			db.pstmt.setString(10, imageList[2]);
+			db.pstmt.setString(11, imageList[3]);
+			db.pstmt.setString(12, imageList[4]);
 			ins = db.pstmt.executeUpdate();
 			if(ins != 0) {
-				sql = "select market_no from tranin_market k "
-						+ "join tranin_member m on k.writer_no = m.`no` "
-						+ "where m.id = ? "
-						+ "order by market_no desc "
-						+ "limit 0, 1";
+				sql = "SELECT market_no FROM tranin_market k "
+						+ "JOIN tranin_member m ON k.writer_no = m.`no` "
+						+ "WHERE m.id = ? "
+						+ "ORDER BY market_no DESC "
+						+ "LIMIT 0, 1";
 				db.pstmt = db.conn.prepareStatement(sql);
 				db.pstmt.setString(1, writeID);
 				db.rs = db.pstmt.executeQuery();
@@ -168,6 +169,7 @@ public class MarketDao {
 				marketPost.setWriterNo(db.rs.getInt("writer_no"));
 				marketPost.setTitle(db.rs.getString("title"));
 				marketPost.setContent(db.rs.getString("content"));
+				marketPost.setPart(db.rs.getString("part"));
 				marketPost.setPrice(db.rs.getInt("price"));
 				marketPost.setWriteDate(db.rs.getString("write_date"));
 				marketPost.setHits(db.rs.getInt("hits"));
@@ -193,4 +195,80 @@ public class MarketDao {
 		return marketPost;
 	}
 	
+	// disabled = true로 변경
+	public boolean setDisabledByNo(int marketNo) {
+		DBProperty db = new DBProperty();
+		
+		int upd = 0;
+		String sql = "UPDATE tranin_market SET disabled = 'true' WHERE market_no = ?";
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, marketNo);
+			upd = db.pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return upd != 0;
+	}
+	
+	// disabled table insert (비활성화이유, 비활성화한marketNo)
+	public void insertToDisabled(String report, int marketNo) {
+		DBProperty db = new DBProperty();
+		
+		int ins = 0;
+		String sql = "INSERT INTO tranin_market_disabled "
+					+ "(market_no, report, reg_date) "
+					+ "values (?, ?, now())";
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, marketNo);
+			db.pstmt.setString(2, report);
+			ins = db.pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	// 글 수정으로 인한 disalbed 테이블 insert
+	public void insertToDisabledReportUpdate(int marketNo, int newMarketNo) {
+		DBProperty db = new DBProperty();
+		
+		int ins = 0;
+		String sql = "INSERT INTO tranin_market_disabled "
+					+ "(market_no, report, new_market_no, reg_date) "
+					+ "values (?, 'update', ?, now())";
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setInt(1, marketNo);
+			db.pstmt.setInt(2, newMarketNo);
+			ins = db.pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
