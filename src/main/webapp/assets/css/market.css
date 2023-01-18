@@ -132,7 +132,9 @@ div#headerWrap ul > li > a {
 	background-color: #c7c7c7;
 }
 .post .postImg {
-  text-indent: -10000px;
+  
+}
+.post .postImg img {
   display: block;
   width: 100%; height: 20vw;
   max-height: 260px;

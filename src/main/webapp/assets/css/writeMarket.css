@@ -59,6 +59,13 @@ form .submitBtn {
 	border:1px solid #00f;
 	z-index:1;
 }
+.imgDiv:first-of-type::after {
+	content: "대표이미지";
+	display: block; background-color: #254b9c;
+	color: #fff;
+	position: absolute;
+	top: 0; left: 0;
+}
 .imgImg {
 	width:100%; height:100%;
 	z-index:none;

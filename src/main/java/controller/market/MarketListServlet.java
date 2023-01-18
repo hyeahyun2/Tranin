@@ -59,7 +59,7 @@ public class MarketListServlet extends HttpServlet {
 			result.append("\"price\": \"" + postList.get(i).getPrice() + "\",");
 			result.append("\"writeDate\": \"" + postList.get(i).getWriteDate() + "\",");
 			result.append("\"hits\": \"" + postList.get(i).getHits() + "\",");
-			result.append("\"titleImage\": \"" + postList.get(i).getImage1() + "\"}");
+			result.append("\"titleImage\": \"" + postList.get(i).getImage()[0] + "\"}");
 			if(i != postList.size() - 1) result.append(",");
 		}
 		

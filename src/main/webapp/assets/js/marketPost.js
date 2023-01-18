@@ -5,6 +5,12 @@ const imgBtn = contentWrap.querySelector(".imgBtn");
 const imgList = imgWrap.querySelectorAll("li");
 const imgbtnList = imgBtn.querySelectorAll("li");
 
+window.addEventListener("load", function(){
+	imgList[0].classList.add("checkImg");
+	imgWrap.style.width = `${imgList.length * 100}%`;
+	imgbtnList[0].classList.add("checkImg");
+})
+
 let imgNum = 0; // 현재 이미지의 index 번호
 let state = 1; // 애니매이션 중일 때 = 0
 function imgMove(){
@@ -91,4 +97,12 @@ const chatBtn = document.querySelector(".chatBtn");
 chatBtn.addEventListener("click", (e)=>{
   e.preventDefault();
   window.open(chatBtn.getAttribute("href"), "채팅", " width=400, height=500");
+})
+
+/* 신고하기 버튼 클릭 시 submit */
+const reportForm = document.reportForm;
+const reportBtn = document.querySelector(".reportBtn");
+reportBtn.addEventListener("click", function(e){
+	e.preventDefault();
+	reportForm.submit();
 })
