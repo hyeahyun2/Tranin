@@ -91,6 +91,7 @@
 	      <li>
 	      <form name="reportForm" action="#" method="post">
 	      	<input type="hidden" name="postNo" value=<%= post.getMarketNo() %>>
+	      	<input type="hidden" name="writerNo" value=<%= post.getWriterNo() %>>
 	      </form>
 	      <a href="#" class="reportBtn">신고하기</a>
 	      </li>
