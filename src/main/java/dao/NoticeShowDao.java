@@ -29,8 +29,15 @@ public class NoticeShowDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+				if(db.rs != null) db.rs.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
 		return list;
 	}
 }

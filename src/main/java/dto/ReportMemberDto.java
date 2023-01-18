@@ -1,49 +1,37 @@
 package dto;
 
+import java.util.Date;
+
 public class ReportMemberDto {
-	private int no;
-	private String id;
-	private String nickName;
 	private int reportNo;
+	private String userId;
 	private String reportId;
-	private String reportNickName;
+	private String reportUrl;
+	private Date regDate;
+	private boolean accept;
+	private boolean reject;
 	
 	public ReportMemberDto() {
 		super();
 	}
 
-	public ReportMemberDto(int no, String id, String nickName, int reportNo, String reportId, String reportNickName) {
+	public ReportMemberDto(String userId, String reportId, String reportUrl) {
 		super();
-		this.no = no;
-		this.id = id;
-		this.nickName = nickName;
-		this.reportNo = reportNo;
+		this.userId = userId;
 		this.reportId = reportId;
-		this.reportNickName = reportNickName;
+		this.reportUrl = reportUrl;
 	}
 
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public ReportMemberDto(int reportNo, String userId, String reportId, String reportUrl, Date regDate, boolean accept,
+			boolean reject) {
+		super();
+		this.reportNo = reportNo;
+		this.userId = userId;
+		this.reportId = reportId;
+		this.reportUrl = reportUrl;
+		this.regDate = regDate;
+		this.accept = accept;
+		this.reject = reject;
 	}
 
 	public int getReportNo() {
@@ -54,6 +42,14 @@ public class ReportMemberDto {
 		this.reportNo = reportNo;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public String getReportId() {
 		return reportId;
 	}
@@ -62,12 +58,36 @@ public class ReportMemberDto {
 		this.reportId = reportId;
 	}
 
-	public String getReportNickName() {
-		return reportNickName;
+	public String getReportUrl() {
+		return reportUrl;
 	}
 
-	public void setReportNickName(String reportNickName) {
-		this.reportNickName = reportNickName;
+	public void setReportUrl(String reportUrl) {
+		this.reportUrl = reportUrl;
 	}
-	
+
+	public Date getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+
+	public boolean isAccept() {
+		return accept;
+	}
+
+	public void setAccept(boolean accept) {
+		this.accept = accept;
+	}
+
+	public boolean isReject() {
+		return reject;
+	}
+
+	public void setReject(boolean reject) {
+		this.reject = reject;
+	}
+
 }
