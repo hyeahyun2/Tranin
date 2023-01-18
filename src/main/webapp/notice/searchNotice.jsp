@@ -37,11 +37,11 @@
           </tr>
         </thead>
         <tbody class="tbody_hj">		
-		<%
-
+		<%--
+		
 			String searchText = request.getParameter("searchText");
 			NoticeSearchDao dao1 = new NoticeSearchDao();
-			ArrayList<NoticeDto> list1 = dao1.getSearch(searchText);
+			// ArrayList<NoticeDto> list1 = dao1.getSearch(searchText);
 			if (list1.size() == 0) {
 						out.println("<td></td>");				
 			   	      	out.println("<td>검색하신 게시물이 없습니다.</td>");
@@ -49,16 +49,17 @@
 			} 
 			if (list1.size() > 0) {		
 		        for(NoticeDto a : list1) {
-		%> 
+		
 			<tr>
            		 <td><%=a.getNoticeNo() %></td>
             	 <td><a href="./showNotice.jsp?id=<%=a.getNoticeNo()%>"><%=a.getTitle() %></a></td>
             	 <td><%=a.getRegDate() %></td>
             </tr>
-        <% 
+        --%> 
+        <%--
         		}
         	}
-		%>
+		--%>
         </tbody>
       </table>
     </div>
