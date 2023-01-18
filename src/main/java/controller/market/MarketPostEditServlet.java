@@ -13,6 +13,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.MarketDao;
+import dto.MarketDto;
 
 @WebServlet("/marketPostEdit")
 public class MarketPostEditServlet extends HttpServlet {
@@ -28,7 +29,6 @@ public class MarketPostEditServlet extends HttpServlet {
 		// 기본 설정
 		request.setCharacterEncoding("utf-8");
 	    response.setContentType("text/html; charset=UTF-8");
-	    
 	    
 	    int maxImgSize = 5 * 1024 * 1024;
 	    String imgPath = "C:\\webStudy";
@@ -70,8 +70,9 @@ public class MarketPostEditServlet extends HttpServlet {
 	    
 	    /* 게시글 수정하기 */
 	    MarketDao marketDao = new MarketDao();
+	    MarketDto oldPost = marketDao.getPostInfoByNo(oldMarketNo);
 	    // 수정된 게시글 insert
-	    int newmarketNo = marketDao.insertPost(part, writeID, title, priceInt, hits, content, ip, imageList);
+	    int newmarketNo = marketDao.insertPost(part, writeID, title, priceInt, oldPost.getHits(), content, ip, imageList);
 	    
 	    if(newmarketNo != 0) { // 게시글 재등록 완
 	    	// 수정전 게시글 disabled 처리

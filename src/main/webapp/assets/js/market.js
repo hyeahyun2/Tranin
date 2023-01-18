@@ -18,6 +18,7 @@ let clickNum = 0; // 클릭 수
 let nowPart = "sell"; // part 초기값
 
 function moreList(part){
+	console.log("clickNum : " + clickNum);
   // page = this.getAttribute();
   //xhr.open('GET', `./marketList.jsp?`); //HTTP 요청 초기화. 통신 방식과 url 결정
   xhr.open("POST", "../marketListServlet", true);
@@ -61,6 +62,7 @@ function moreList(part){
 // 게시글 추가
 function boardList(result){
 	var template = `<ul>`;
+	// <img src="${result[i].titleImage}" alt="${result[i].no}번 판매글 이미지">
 	for(let i=0; i<result.length; i++){
 		var post = `<li class="post">
 	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
@@ -80,7 +82,10 @@ function boardList(result){
 }
 
 window.addEventListener("load", moreList(nowPart)); // 페이지 로드시 디폴트 리스트
-moreBtn.addEventListener("click", moreList(nowPart)); // 클릭시 리스트 추가
+moreBtn.addEventListener("click", function(){
+	console.log("click");
+	moreList(nowPart);
+}); // 클릭시 리스트 추가
 
 
 // sell/buy(#array)에 따른 리스트 재나열

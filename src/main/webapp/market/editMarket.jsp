@@ -34,7 +34,6 @@
 			<form action="/marketPostEdit" name="editPost" id="formId" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="part" value="<%= post.getPart() %>">
 				<input type="hidden" name="oldMarketNo" value="<%= post.getMarketNo() %>">
-				<input type="hidden" name="hits" value="<%= post.getHits() %>">
 				<input type="hidden" name="writeID" value="<%= memberId %>">
 				<div>
 					<label for="title">제목</label>
