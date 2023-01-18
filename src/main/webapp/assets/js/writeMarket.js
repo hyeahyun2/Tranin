@@ -4,6 +4,27 @@ const submitBtn = document.getElementById("submitBtn");
 
 function doSubmit() {
 	/* 유효성검사 추가하기!! */
+	let regExpPrice = /^[0-9]*$/;
+	if(form.title.value == ""){
+		alert("제목을 입력해주세요!");
+		form.title.focus();
+		return false;
+	}
+	if(form.price.value == ""){
+		alert("가격을 입력해주세요!");
+		form.price.focus();
+		return false;
+	}
+	else if(!regExpPrice.test(form.price.value)){
+		alert("가격은 숫자만 사용 가능합니다.")
+		form.price.focus();
+		return false;
+	}
+	else if(Number(form.price.value) < 0){
+		alert("가격은 0원 이상으로 적어주세요!");
+		form.price.focus();
+		return false;
+	}
 	
 	form.submit();
 	
@@ -12,6 +33,13 @@ function doSubmit() {
 // 등록버튼 클릭 -> 글 등록하기
 submitBtn.addEventListener("click", doSubmit);
 
+
+// let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
+// let container = new DataTransfer(); 
+// container.items.add(file);
+// document.querySelector('#file_input').files = container.files;
+// https://curryyou.tistory.com/442
+// 검색 : js File 객체 생성
 
 /* 업로드한 이미지 미리보기 */
 ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
