@@ -38,7 +38,7 @@
           if(manager != null) {
         %>
        	<a href="./updateNotice.jsp?noticeNo=<%=noticeNo%>">수정하기</a>
-       	<a href="#">삭제하기</a>
+       	<a href="/deleteNoticeServlet">삭제하기</a>
        	<a href="./notice.jsp">목록</a>
        	<%
           }
