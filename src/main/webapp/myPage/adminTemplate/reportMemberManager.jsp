@@ -8,17 +8,15 @@
 	 <div id="reportMemberManageWrap">
       <table class="reportMemberManageTable">
 		<tr>
-			<th>회원번호</th>
-			<th>아이디</th>
-			<th>닉네임</th>
-			<th>[신고 대상 회원번호]</th>
-			<th>[신고 대상 아이디]</th>
-			<th>[신고 대상 닉네임]</th>
+			<th>신고한 회원 아이디</th>
+			<th>[신고 대상 회원 아이디]</th>
+			<th>[신고 대상 게시글 URL]</th>
+			<th>요청 날짜</th>
 			<th><a>신고 수락</a></th>
 			<th><a>신고 거절</a></th>
 		</tr>
 		<%
-		
+			
 		%>
 	   </table>
 	</div>

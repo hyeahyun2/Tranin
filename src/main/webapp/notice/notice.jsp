@@ -170,21 +170,58 @@
 		int blockThisFirstPage = ((blockThis - 1) * block) + 1; // 현재 블럭의 첫 페이지
 		int blockThisLastPage = blockThis * block; // 현재 블럭의 마지막 페이지
 		// out.println(blockThisLastPage);
-		blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage; 
+		blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage;
+		if(isSearch) {
     	%>
-        <a href="notice.jsp?pageNum=1">첫 페이지</a>
-        <% 
-        if (blockThis > 1) {
-        %>
-        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>">앞으로</a>
-        <% 
-        }
-        
-       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
-        %>
-        <a href="notice.jsp?pageNum=<%=i%>" class="num"><%=i%></a>
+	        <a href="notice.jsp?pageNum=1&searchText=<%=searchText%>">첫 페이지</a>
+	        <% 
+	        if (blockThis > 1) {
+	        %>
+	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>&searchText=<%=searchText%>">앞으로</a>
+	        <% 
+	        }
+	        
+	       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
+	        %>
+	        <a href="notice.jsp?pageNum=<%=i%>&searchText=<%=searchText%>" class="num"><%=i%></a>
+	        <%
+	        }
+	        %>
+	        <%
+	        if(blockThis < blockTotal) {
+	        %>
+	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>&searchText=<%=searchText%>">뒤로</a>
+	        <%
+	        }
+	        %>
+	        <a href="notice.jsp?pageNum=<%=totalPage%>&searchText=<%=searchText%>">마지막 페이지</a>
         <%
-        }
+		} else {
+        %>
+           <a href="notice.jsp?pageNum=1">첫 페이지</a>
+	        <% 
+	        if (blockThis > 1) {
+	        %>
+	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>">앞으로</a>
+	        <% 
+	        }
+	        
+	       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
+	        %>
+	        <a href="notice.jsp?pageNum=<%=i%>" class="num"><%=i%></a>
+	        <%
+	        }
+	        %>
+	        <%
+	        if(blockThis < blockTotal) {
+	        %>
+	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>">뒤로</a>
+	        <%
+	        }
+	        %>
+	        <a href="notice.jsp?pageNum=<%=totalPage%>">마지막 페이지</a>
+        <%
+		}
         %>
         <%-- 
         <li><a href="#" class="num">2</a></li>
@@ -192,14 +229,6 @@
         <li><a href="#" class="num">4</a></li>
         <li><a href="#" class="num">5</a></li>
         --%>
-        <%
-        if(blockThis < blockTotal) {
-        %>
-        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>">뒤로</a>
-        <%
-        }
-        %>
-        <a href="notice.jsp?pageNum=<%=totalPage%>">마지막 페이지</a>
     </div>
        <%
           if(manager != null) {
