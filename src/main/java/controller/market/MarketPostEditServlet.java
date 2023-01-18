@@ -37,7 +37,7 @@ public class MarketPostEditServlet extends HttpServlet {
 	    response.setContentType("text/html; charset=UTF-8");
 	    
 	    int maxImgSize = 5 * 1024 * 1024;
-	    String imgPath = "C:\\webStudy";
+	    String imgPath = "C:/webStudy/uploadFile";
 	    
 	    int oldMarketNo = 0;
 	    

@@ -66,7 +66,7 @@ function boardList(result){
 	for(let i=0; i<result.length; i++){
 		var post = `<li class="post">
 	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
-	    			<img src="${result[i].titleImage}" alt="${result[i].no}번 판매글 이미지">
+	    			<img src="${result[i].titleImage}" alt="${result[i].no}번 글 이미지">
 	    		</a>
 	    		<dl>
 	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title}</a></dt>
