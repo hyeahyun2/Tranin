@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자주묻는 질문 등록</title>
 <link rel="stylesheet" href="../assets/css/common.css">
 <link rel="stylesheet" href="../assets/css/reset.css">
-<link rel="stylesheet" href="../assets/css/notice.css">
 <link rel="stylesheet" href="../assets/css/footer.css">
 <link rel="stylesheet" href="../assets/css/writeFaq.css">
 <script src="assets/js/common.js" defer></script>

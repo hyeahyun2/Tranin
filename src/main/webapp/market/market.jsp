@@ -7,7 +7,7 @@
 <title>장터</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/market.css?v=<%= System.currentTimeMillis() %>">
-<script src="../assets/js/market.js" defer></script>
+<script src="../assets/js/market.js?v=<%= System.currentTimeMillis() %>" defer></script>
 </head>
 
 <body>

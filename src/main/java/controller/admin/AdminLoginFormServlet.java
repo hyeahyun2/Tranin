@@ -25,6 +25,8 @@ public class AdminLoginFormServlet extends HttpServlet {
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
         String NewPassword = sha.encode(password);
+
+        System.out.println(memberId);
         AdminLoginDao dao = new AdminLoginDao();
         System.out.println(password);
         System.out.println(NewPassword);

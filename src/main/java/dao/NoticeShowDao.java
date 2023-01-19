@@ -9,9 +9,9 @@ import dto.NoticeDto;
 public class NoticeShowDao {
 	DBProperty db = null;
 	
-	public List<NoticeDto> showNotice(int pageNum) {
+	public ArrayList<NoticeDto> showNotice(int pageNum) {
 		NoticeDto dto = null;
-		List<NoticeDto> list = new ArrayList<>();
+		ArrayList<NoticeDto> list = new ArrayList<>();
 		db = new DBProperty();
 		// 페이징 처리
     	int cntListPerPage = 10;
@@ -29,8 +29,15 @@ public class NoticeShowDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+				if(db.rs != null) db.rs.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
 		return list;
 	}
 }

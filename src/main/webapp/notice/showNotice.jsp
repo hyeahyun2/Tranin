@@ -14,6 +14,27 @@
 <link rel="stylesheet" href="../assets/css/showNotice.css">
 <script src="assets/js/common.js" defer></script>
 <script src="assets/js/header.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded',function (){
+            const button = document.getElementById("button");
+            button.addEventListener('click',function (){
+                const title = $("#title").val();
+                const content = $("#content").val();
+                $.ajax({
+                    url:"/insertTodeleteDB",
+                    method:"post",
+                    data:{"title":title,"content":content},
+                    success:function(){
+                        alert("성공")
+                    },
+                    error:function (){
+                        alert("실패")
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -31,14 +52,18 @@
         %>
         제목 : <p><%=a.getTitle()%></p>
         내용 : <p><%=a.getContent() %></p>
+        <form>
+            <input type="hidden" id="title" value="<%=a.getTitle()%>">
+            <input type="hidden" id="content" value="<%=a.getContent()%>">
+        </form>
         <%
         	}
         %>
         <%
-          if(manager != null) {
+         if(manager != null){
         %>
        	<a href="./updateNotice.jsp?noticeNo=<%=noticeNo%>">수정하기</a>
-       	<a href="#">삭제하기</a>
+       	<a id="button" href="/deleteNoticeServlet?notice_no=<%=noticeNo%>">삭제하기</a>
        	<a href="./notice.jsp">목록</a>
        	<%
           }

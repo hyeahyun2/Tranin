@@ -2,7 +2,6 @@ package controller.market;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -13,16 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.DiskFileUpload;
+import org.apache.commons.fileupload.FileItem;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-import org.apache.commons.fileupload.*;
 
 import dao.MarketDao;
 import dto.MarketDto;
 
-@WebServlet("/marketPostInsertServlet")
-public class MarketPostInsertServlet extends HttpServlet{
+@WebServlet("/marketPostEdit")
+public class MarketPostEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -38,7 +38,6 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    
 	    int maxImgSize = 5 * 1024 * 1024;
 	    String imgPath = "C:/webStudy/uploadFile";
-	    
 	    //저장될 위치 정해주기
 	    String realPath = request.getServletContext().getRealPath("resources/images");
 	    File dir = new File(realPath);
@@ -46,13 +45,21 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    	dir.mkdirs(); // 해당 경로를 만들어주기
 	    }
 	    
+	    int oldMarketNo = 0;
+	    
 	    // 파라미터 기본값 설정
 	    String writeID = null;
 	    String ip = request.getRemoteAddr();
+	    String allRemoveImg = request.getParameter("removeImg_load");
+	    String[] removeImgsInLoad = null;
+	    if(allRemoveImg != null) {
+	    	removeImgsInLoad = allRemoveImg.split(","); // 삭제한 이미지 모음
+	    }
 	    
-	    MarketDto post = new MarketDto();
-	    post.setHits(0);
-	    post.setIp(ip);
+	    MarketDao marketDao = new MarketDao();
+	    MarketDto oldPost = new MarketDto();
+	    MarketDto newPost = new MarketDto();
+	    newPost.setIp(ip);
 	    
 	    DiskFileUpload upload = new DiskFileUpload();
 	    upload.setSizeMax(maxImgSize); // 업로드할 파일 최대 사이즈
@@ -64,7 +71,7 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    	Iterator params = items.iterator(); // 전송된 요청 파라미터를 Iterator 클래스로 변환
 	    	
 	    	String[] imageList = new String[5];
-		    int i = 0;
+		    int i = 0; // newPost의 image 인덱스 번호
 	    	while(params.hasNext()){ // 요청 파라미터 없을 때까지 반복
 	    		// 해당 파라미터 가져와서 FileItem 객체로 저장
 	    		FileItem item = (FileItem)params.next(); 
@@ -72,19 +79,42 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    			String name = item.getFieldName(); // 해당 요소의 요청 파라미터 이름(name값)
 	    			switch(name) {// 해당 요소 값 얻기(인코딩:utf-8)
 	    			case "part":
-	    				post.setPart(item.getString("utf-8"));
+	    				newPost.setPart(item.getString("utf-8"));
 	    				break;
 	    			case "writeID":
 	    				writeID = item.getString("utf-8");
 	    				break;
 	    			case "title":
-	    				post.setTitle(item.getString("utf-8"));
+	    				newPost.setTitle(item.getString("utf-8"));
 	    				break;
 	    			case "price":
-	    				post.setPrice(Integer.parseInt(item.getString("utf-8")));
+	    				newPost.setPrice(Integer.parseInt(item.getString("utf-8")));
 	    				break;
 	    			case "content":
-	    				post.setContent(item.getString("utf-8"));
+	    				newPost.setContent(item.getString("utf-8"));
+	    				break;
+	    			case "oldMarketNo":
+	    				oldMarketNo = Integer.parseInt(item.getString("utf-8"));
+	    				oldPost = marketDao.getPostInfoByNo(oldMarketNo);
+	    				// 삭제한 이미지 삭제하기 반영
+	    				if(removeImgsInLoad != null) {
+	    					for(int j=0; j<removeImgsInLoad.length; j++) {
+	    						for(int k=0; k<oldPost.getImage().length; k++) {
+	    							String remveImgUrl = realPath + "/" + removeImgsInLoad[j];
+	    							if(oldPost.getImage()[k] == remveImgUrl) {
+	    								oldPost.setImage(k, null);
+	    							}
+	    						}
+	    					}
+	    				}
+	    				// 삭제하지 않은 이미지는 newPost에 추가
+	    				for(String img : oldPost.getImage()) {
+	    					if(img != null) {
+	    						// i : pewPost의 image의 인덱스번호
+	    						newPost.setImage(i, img);
+	    						i++;
+	    					}
+	    				}
 	    				break;
 	    			}
 	    		}
@@ -92,7 +122,8 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    			String fileFieldName = item.getFieldName(); // 요청 파라미터 이름(name값)
 	    			String fileName = item.getName(); // 업로드된 파일 경로 + 파일명
     				
-    				if(!fileName.equals("")) {
+    				
+    				if(fileName != null) {
     					System.out.println("fileFieldName : " + fileFieldName);
     					System.out.println("fileName : " + fileName);
     					// subString으로 문자열 잘라서 확장자 등 검사에 유용함!!
@@ -100,30 +131,38 @@ public class MarketPostInsertServlet extends HttpServlet{
     					File file = new File(realPath + "/" + fileName); // 파일 저장될 경로 지정
     					item.write(file); // 해당되는 파일 관련 자원 저장하기 (실질적 파일 업로드!!)
     					String image = realPath + "/" + fileName;
-    					post.setImage(i, image); // MarketDto 객체 image 필드 setter
+    					newPost.setImage(i, image); // MarketDto 객체 image 필드 setter
     					i++;
     				}
 	    		}
 	    	}
 	    	
-	    	// insert
-		    MarketDao marketDao = new MarketDao();
-		    if(writeID != null) {
-		    	int marketNo = marketDao.insertPost(post, writeID);
-		    	
-		    	if(marketNo != 0) { // 게시글 등록 성공
-		    		response.sendRedirect("/marketPostInfo?no=" + marketNo);
+	    	// 조회수 이전
+	    	if(oldMarketNo != 0) {
+	    		newPost.setHits(oldPost.getHits());
+	    	}
+	    	else {
+	    		newPost.setHits(0);
+	    	}
+	    	
+	    	/* 게시글 수정하기 */
+		    // 수정된 게시글 insert
+		    int newmarketNo = marketDao.insertPost(newPost, writeID);
+		    
+		    if(newmarketNo != 0) { // 게시글 재등록 완
+		    	// 수정전 게시글 disabled 처리
+		    	boolean state = marketDao.setDisabledByNo(oldMarketNo);
+		    	if(state) {
+		    		// disabled table에 수정전 글 insert
+		    		marketDao.insertToDisabledReportUpdate(oldMarketNo, newmarketNo);
+		    		response.sendRedirect("/marketPostInfo?no=" + newmarketNo);
 		    	}
-		    	else { // 게시글 등록 실패
-		    		response.sendRedirect("market/market.jsp?error=insertError");
-		    	}
+		    }
+		    else { // 게시글 등록 실패
+		    	response.sendRedirect("market/market.jsp?error=insertError");
 		    }
 	    } catch(Exception e) {
 	    	e.printStackTrace();
-	    	response.sendRedirect("market/market.jsp?error=insertError");
 	    }
-	    
 	}
-
-	
 }

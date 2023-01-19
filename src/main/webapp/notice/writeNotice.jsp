@@ -9,7 +9,6 @@
     <title>공지사항 글쓰기</title>
     <link rel="stylesheet" href="../assets/css/common.css">
 	<link rel="stylesheet" href="../assets/css/reset.css">
-	<link rel="stylesheet" href="../assets/css/notice.css">
 	<link rel="stylesheet" href="../assets/css/footer.css">
 	<link rel="stylesheet" href="../assets/css/writeNotice.css">
 	<script src="assets/js/common.js" defer></script>

@@ -8,6 +8,7 @@
 <title>marketPost</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/marketPost.css?v=<%= System.currentTimeMillis() %>">
+<script src="../assets/js/marketPost.js" defer></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -23,18 +24,34 @@
       <div class="postImg">
         <ul class="mainImg">
           <!-- 상품 이미지 개수 유동적으로 변화 -->
-          <li class="checkImg"><img src="#" alt="상품이미지1"></li>
-          <li><img src="#" alt="상품이미지2"></li>
-          <li><img src="#" alt="상품이미지3"></li>
-          <li><img src="#" alt="상품이미지4"></li>
-          <li><img src="#" alt="상품이미지5"></li>
+          <%
+          int imgNum = 0; // 이미지 개수
+         	for(String imgUrl : post.getImage()){
+         		if(imgUrl != null){ // 이미지가 존재하면
+         			imgNum ++;
+         			String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
+          %>
+          		<li><img src="/resources/images/<%= fileName %>"  alt="<%= fileName %>"></li>
+          <%
+         		}
+         	}
+          if(post.getImage()[0] == null){ // 해당 글 이미지 하나도 존재x
+        	  imgNum = 1;
+        	  // 사이트 기본 이미지
+          %>
+          	<li><img src="#" alt="기 본이미지"></li>
+          <%
+          }
+          %>
         </ul>
         <ul class="imgBtn">
-          <li class="checkImg">1</li>
-          <li>2</li>
-          <li>3</li>
-          <li>4</li>
-          <li>5</li>
+	        <%
+	        for(int i=0; i<imgNum; i++){
+	        %>
+	          <li><%= i+1 %></li>
+	        <%
+	        }
+	        %>
         </ul>
       </div>
       <div class="postInfo">
@@ -50,7 +67,7 @@
         if(memberId != null && !writerId.equals(memberId)){
         %>
         <ul class="saleBtn">
-          <li><a href="../chat/chatting.jsp?toNick=<%= writerNick %>">채팅</a></li>
+          <li><a href="../chat/chatting.jsp?toNick=<%= writerNick %>" class="chatBtn">채팅</a></li>
         </ul>
         <%
         } else if(memberId == null) {
@@ -66,12 +83,18 @@
 	    <%
 	    if(writerId.equals(memberId)){ // 로그인멤버 = 판매자
 	    %>
-      <li><a href="#">수정</a></li>
-      <li><a href="#">삭제</a></li>
+      <li><a href="/marketGoEditPage?no=<%= post.getMarketNo() %>">수정</a></li>
+      <li><a href="/marketPostRemove?no=<%= post.getMarketNo() %>">삭제</a></li>
 	    <%
-	    } else { // 로그인멤버 != 판매자
+	    } else if(memberId != null){ // 로그인멤버 != 판매자
 	    %>
-	      <li><a href="#">신고하기</a></li>
+	      <li>
+	      <form name="reportForm" action="#" method="post">
+	      	<input type="hidden" name="postNo" value=<%= post.getMarketNo() %>>
+	      	<input type="hidden" name="writerNo" value=<%= post.getWriterNo() %>>
+	      </form>
+	      <a href="#" class="reportBtn">신고하기</a>
+	      </li>
 	    <%
 	    }
 	    %>

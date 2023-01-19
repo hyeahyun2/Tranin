@@ -122,18 +122,19 @@ div#headerWrap ul > li > a {
   width: 100%; height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  gap: 2%;
+  justify-content: left;
 }
 .post {
-  width: 23%; height: 48%;
-  margin: 10px 0;
+  width: 25%; height: 48%;
+  padding: 10px;
 }
 .post:hover {
 	background-color: #c7c7c7;
 }
 .post .postImg {
-  text-indent: -10000px;
+  
+}
+.post .postImg img {
   display: block;
   width: 100%; height: 20vw;
   max-height: 260px;

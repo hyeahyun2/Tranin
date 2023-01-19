@@ -15,6 +15,14 @@ public class NoticePagingDao {
 		db.rs = db.pstmt.executeQuery();
 		
 		return db.rs;
-		
 	}
+	
+	public ResultSet getSearchNotice(String text) throws SQLException {
+		String sql = "SELECT count(*) FROM notice_bd WHERE title LIKE '%" + text + "%'";
+		db.pstmt = db.conn.prepareStatement(sql);
+		db.rs = db.pstmt.executeQuery();
+		
+		return db.rs;
+	}
+	
 }
