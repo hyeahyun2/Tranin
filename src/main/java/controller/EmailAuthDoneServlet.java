@@ -16,8 +16,7 @@ public class EmailAuthDoneServlet extends HttpServlet {
         String AuthenticationKey = (String)request.getSession().getAttribute("AuthenticationKey");
         String AuthCode = request.getParameter("Authcode");
 
-        System.out.println(AuthCode);
-
+//@ResponseBody = PrintWriter(JSP)
         if(AuthenticationKey.equals(AuthCode)){
             PrintWriter out = response.getWriter();
             out.println("1");
