@@ -62,11 +62,12 @@ function moreList(part){
 // 게시글 추가
 function boardList(result){
 	var template = `<ul>`;
-	// <img src="${result[i].titleImage}" alt="${result[i].no}번 판매글 이미지">
 	for(let i=0; i<result.length; i++){
+		// 	http://localhost:8080/resources/images/P1234.png
+		// ${result[i].titleImage}
 		var post = `<li class="post">
 	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
-	    			<img src="${result[i].titleImage}" alt="${result[i].no}번 글 이미지">
+	    			<img src="/resources/images/${result[i].titleImage}" alt="${result[i].no}번 글 이미지">
 	    		</a>
 	    		<dl>
 	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title}</a></dt>

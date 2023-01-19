@@ -40,6 +40,31 @@ submitBtn.addEventListener("click", doSubmit);
 // document.querySelector('#file_input').files = container.files;
 // https://curryyou.tistory.com/442
 // 검색 : js File 객체 생성
+/*
+	export const convertURLtoFile = async (url: string) => {
+  const response = await fetch(url);
+  const data = await response.blob();
+  const ext = url.split(".").pop(); // url 구조에 맞게 수정할 것
+  const filename = url.split("/").pop(); // url 구조에 맞게 수정할 것
+  const metadata = { type: `image/${ext}` };
+  return new File([data], filename!, metadata);
+};
+ */
+/* 수정페이지 기존 이미지 제거 */
+console.log(location.pathname.substring(1));
+if(location.pathname.substring(1) == "marketGoEditPage"){
+	const imgZone = document.getElementById("att_zone");
+	const removeImg_load = document.editPost.removeImg_load;
+	const imgDiv_load = document.querySelectorAll(".imgDiv_load");
+	const imgImg_load = document.querySelectorAll(".imgImg_load");
+	const imgCheck_load = document.querySelectorAll(".imgCheck_load");
+	imgCheck_load.forEach((check, index) => {
+		check.addEventListener("click", ()=>{
+			removeImg_load.value = removeImg_load.value + imgImg_load[index].getAttribute("alt") + ",";
+	    imgZone.removeChild(imgDiv_load[index]);
+		})
+	})
+}
 
 /* 업로드한 이미지 미리보기 */
 ( /* att_zone : 이미지들이 들어갈 위치 id, btn : file tag id */
@@ -47,6 +72,7 @@ submitBtn.addEventListener("click", doSubmit);
 
     var attZone = document.getElementById(att_zone);
     var btnAtt = document.getElementById(btn)
+    var load_files = [];
     var sel_files = [];
     
     btnAtt.onchange = function(e){
@@ -56,7 +82,8 @@ submitBtn.addEventListener("click", doSubmit);
         imageLoader(f);
       }
     }  
-  
+		
+		
     // 탐색기에서 드래그앤 드롭 사용
     attZone.addEventListener('dragenter', function(e){
       e.preventDefault();
@@ -89,7 +116,8 @@ submitBtn.addEventListener("click", doSubmit);
       var reader = new FileReader();
       reader.onload = function(ee){
         let img = document.createElement('img')
-        img.setAttribute('class', 'imgImg')
+        img.classList.add("imgImg");
+        img.classList.add("imgImg_new");
         img.src = ee.target.result;
         attZone.appendChild(makeDiv(img, file));
       }
@@ -100,13 +128,15 @@ submitBtn.addEventListener("click", doSubmit);
     /*첨부된 파일이 있는 경우 checkbox와 함께 attZone에 추가할 div를 만들어 반환 */
     makeDiv = function(img, file){
       var div = document.createElement('div')
-      div.setAttribute('class', 'imgDiv')
+      div.classList.add("imgDiv");
+      div.classList.add("imgDiv_new");
       
       var btn = document.createElement('input')
       btn.setAttribute('type', 'button')
       btn.setAttribute('value', 'x')
       btn.setAttribute('delFile', file.name);
-      btn.setAttribute('class', 'imgCheck');
+      btn.classList.add("imgCheck");
+      btn.classList.add("imgCheck_new");
       btn.onclick = function(ev){
         var ele = ev.srcElement;
         var delFile = ele.getAttribute('delFile');

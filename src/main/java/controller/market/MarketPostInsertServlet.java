@@ -39,6 +39,13 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    int maxImgSize = 5 * 1024 * 1024;
 	    String imgPath = "C:/webStudy/uploadFile";
 	    
+	    //저장될 위치 정해주기
+	    String realPath = request.getServletContext().getRealPath("resources/images");
+	    File dir = new File(realPath);
+	    if(!dir.exists()){ // 만약 해당 디렉토리(경로)가 존재하지 않으면
+	    	dir.mkdirs(); // 해당 경로를 만들어주기
+	    }
+	    
 	    // 파라미터 기본값 설정
 	    String writeID = null;
 	    String ip = request.getRemoteAddr();
@@ -50,7 +57,7 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    DiskFileUpload upload = new DiskFileUpload();
 	    upload.setSizeMax(maxImgSize); // 업로드할 파일 최대 사이즈
 	    upload.setSizeThreshold(maxImgSize); // 메모리상 저장할 파일 최대 사이즈 (int)
-	    upload.setRepositoryPath(imgPath); // 파일 임시로 저장할 디렉토리 설정
+	    upload.setRepositoryPath(realPath); // 파일 임시로 저장할 디렉토리 설정
 	    
 	    try {
 	    	List items = upload.parseRequest(request); // 객체의 전송된 요청 파라미터 전달
@@ -84,19 +91,18 @@ public class MarketPostInsertServlet extends HttpServlet{
 	    		else { // 속성값이 file인 form태그 요소(input 태그)
 	    			String fileFieldName = item.getFieldName(); // 요청 파라미터 이름(name값)
 	    			String fileName = item.getName(); // 업로드된 파일 경로 + 파일명
-	    			System.out.println("fileFieldName : " + fileFieldName);
-	    			System.out.println("fileName : " + fileName);
-	    			// subString으로 문자열 잘라서 확장자 등 검사에 유용함!!
-	    			fileName = fileName.substring(fileName.lastIndexOf("\\") + 1); // 파일명만 저장
-	    			
-	    			File file = new File(imgPath + "/" + fileName); // 파일 저장될 경로 지정
-	    			item.write(file); // 해당되는 파일 관련 자원 저장하기 (실질적 파일 업로드!!)
-	    			
-	    			if(fileName != null) {
-	    	    		String image = imgPath + "/" + fileName;
-	    	    		post.setImage(i, image); // MarketDto 객체 image 필드 setter
-	    	    		i++;
-	    	    	}
+    				
+    				if(!fileName.equals("")) {
+    					System.out.println("fileFieldName : " + fileFieldName);
+    					System.out.println("fileName : " + fileName);
+    					// subString으로 문자열 잘라서 확장자 등 검사에 유용함!!
+    					fileName = fileName.substring(fileName.lastIndexOf("\\") + 1); // 파일명만 저장
+    					File file = new File(realPath + "/" + fileName); // 파일 저장될 경로 지정
+    					item.write(file); // 해당되는 파일 관련 자원 저장하기 (실질적 파일 업로드!!)
+    					String image = realPath + "/" + fileName;
+    					post.setImage(i, image); // MarketDto 객체 image 필드 setter
+    					i++;
+    				}
 	    		}
 	    	}
 	    	

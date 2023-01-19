@@ -53,13 +53,18 @@ public class MarketListServlet extends HttpServlet {
 		ArrayList<MarketDto> postList = marketDao.getPostList(part, clickNum, oneClickLoad);
 		if(postList.size() == 0) return "";
 		for(int i=0; i<postList.size(); i++) {
+			String imgName = "";
+			String imgUrl = postList.get(i).getImage()[0];
+			if(imgUrl != null) {
+				imgName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
+			}
 			result.append("{\"no\": \"" + postList.get(i).getMarketNo() + "\",");
 			result.append("\"writerNick\": \"" + memberDao.getNicknameByNo(postList.get(i).getWriterNo()) + "\",");
 			result.append("\"title\": \"" + postList.get(i).getTitle() + "\",");
 			result.append("\"price\": \"" + postList.get(i).getPrice() + "\",");
 			result.append("\"writeDate\": \"" + postList.get(i).getWriteDate() + "\",");
 			result.append("\"hits\": \"" + postList.get(i).getHits() + "\",");
-			result.append("\"titleImage\": \"" + postList.get(i).getImage()[0] + "\"}");
+			result.append("\"titleImage\": \"" + imgName + "\"}");
 			if(i != postList.size() - 1) result.append(",");
 		}
 		
