@@ -49,10 +49,10 @@
 				</div>
 				<div>
 					<label for="btnAtt">사진</label>
+		      <input type="hidden" name="removeImg_load">
 					<input type='file' id='btnAtt' name="image" multiple='multiple' />
 			    <div id='att_zone'
 			      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
-			      <input type="hidden" name="removeImg_load">
 			      <%
 	         	for(String imgUrl : post.getImage()){
 	         		if(imgUrl != null){ // 이미지가 존재하면

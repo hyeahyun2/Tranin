@@ -50,11 +50,9 @@ public class MarketPostEditServlet extends HttpServlet {
 	    // 파라미터 기본값 설정
 	    String writeID = null;
 	    String ip = request.getRemoteAddr();
-	    String allRemoveImg = request.getParameter("removeImg_load");
+	    String allRemoveImg = null;
 	    String[] removeImgsInLoad = null;
-	    if(allRemoveImg != null) {
-	    	removeImgsInLoad = allRemoveImg.split(","); // 삭제한 이미지 모음
-	    }
+	    
 	    
 	    MarketDao marketDao = new MarketDao();
 	    MarketDto oldPost = new MarketDto();
@@ -78,6 +76,12 @@ public class MarketPostEditServlet extends HttpServlet {
 	    		if(item.isFormField()){ // 속성값 file이 아닌 form태그 요소들
 	    			String name = item.getFieldName(); // 해당 요소의 요청 파라미터 이름(name값)
 	    			switch(name) {// 해당 요소 값 얻기(인코딩:utf-8)
+	    			case "removeImg_load":
+	    				allRemoveImg = item.getString("utf-8");
+	    				if(allRemoveImg != null) {
+	    			    	removeImgsInLoad = allRemoveImg.split(","); // 삭제한 이미지 모음
+	    			    }
+	    				break;
 	    			case "part":
 	    				newPost.setPart(item.getString("utf-8"));
 	    				break;
@@ -96,36 +100,38 @@ public class MarketPostEditServlet extends HttpServlet {
 	    			case "oldMarketNo":
 	    				oldMarketNo = Integer.parseInt(item.getString("utf-8"));
 	    				oldPost = marketDao.getPostInfoByNo(oldMarketNo);
-	    				// 삭제한 이미지 삭제하기 반영
-	    				if(removeImgsInLoad != null) {
-	    					for(int j=0; j<removeImgsInLoad.length; j++) {
-	    						for(int k=0; k<oldPost.getImage().length; k++) {
-	    							String remveImgUrl = realPath + "/" + removeImgsInLoad[j];
-	    							if(oldPost.getImage()[k] == remveImgUrl) {
-	    								oldPost.setImage(k, null);
-	    							}
-	    						}
-	    					}
-	    				}
-	    				// 삭제하지 않은 이미지는 newPost에 추가
-	    				for(String img : oldPost.getImage()) {
-	    					if(img != null) {
-	    						// i : pewPost의 image의 인덱스번호
-	    						newPost.setImage(i, img);
-	    						i++;
-	    					}
-	    				}
 	    				break;
 	    			}
 	    		}
 	    		else { // 속성값이 file인 form태그 요소(input 태그)
+	    			// 삭제한 이미지 삭제하기 반영
+    				if(removeImgsInLoad != null) {
+    					for(int j=0; j<removeImgsInLoad.length; j++) {
+    						for(int k=0; k<oldPost.getImage().length; k++) {
+    							String remveImgUrl = realPath + "/" + removeImgsInLoad[j];
+    							if(oldPost.getImage()[k] != null) {
+    								if(oldPost.getImage()[k].equals(remveImgUrl)) {
+    									System.out.println("img remove 완료");
+    									oldPost.setImage(k, null);
+    								}
+    							}
+    						}
+    					}
+    				}
+	    			// 삭제하지 않은 이미지는 newPost에 추가
+    				for(String img : oldPost.getImage()) {
+    					if(img != null) {
+    						// i : pewPost의 image의 인덱스번호
+    						newPost.setImage(i, img);
+    						i++;
+    					}
+    				}
+    				
 	    			String fileFieldName = item.getFieldName(); // 요청 파라미터 이름(name값)
 	    			String fileName = item.getName(); // 업로드된 파일 경로 + 파일명
     				
     				
-    				if(fileName != null) {
-    					System.out.println("fileFieldName : " + fileFieldName);
-    					System.out.println("fileName : " + fileName);
+    				if(!fileName.equals("")) {
     					// subString으로 문자열 잘라서 확장자 등 검사에 유용함!!
     					fileName = fileName.substring(fileName.lastIndexOf("\\") + 1); // 파일명만 저장
     					File file = new File(realPath + "/" + fileName); // 파일 저장될 경로 지정
