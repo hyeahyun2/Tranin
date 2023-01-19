@@ -2,12 +2,11 @@ package dao;
 
 public class AdminLoginDao {
 	
-	DBProperty dbProperty = null;
 
 	public String login(String id, String pw) {
 
         DBProperty db = new DBProperty();
-        String sql = "SELECT id, pw, name from tranin_admin where id=? and pw=?";
+        String sql = "SELECT id, pw, `name` from tranin_admin where id=? and pw=?";
         int upd = 0;
         try {
             db.pstmt = db.conn.prepareStatement(sql);
@@ -15,7 +14,13 @@ public class AdminLoginDao {
             db.pstmt.setString(2, pw);
 
             db.rs=db.pstmt.executeQuery();
+
+            System.out.println(id+"앞");
+            System.out.println(db.rs.toString());
+            System.out.println(db.pstmt.toString());
             while(db.rs.next()){
+                System.out.println(id+"enjk");
+
                 if(id.equals(db.rs.getString("id"))){
                     return db.rs.getString("id");
                 }else{

@@ -60,7 +60,7 @@
         	}
         %>
         <%
-         /* if(manager != null) */{
+         if(manager != null){
         %>
        	<a href="./updateNotice.jsp?noticeNo=<%=noticeNo%>">수정하기</a>
        	<a id="button" href="/deleteNoticeServlet?notice_no=<%=noticeNo%>">삭제하기</a>
