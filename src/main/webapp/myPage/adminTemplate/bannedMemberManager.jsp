@@ -5,11 +5,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <section id="myPageAdminRepManage">
-	<!-- 
-		myPageManagerCategory : 현재 어디 카테고리 소속인지 나타내는 파라미터
-		memberManager : 현재 매니저 마이페이지를 보여줘야함을 나타내는 파라미터
-		memberManagerNo : 멤버관리의 페이징처리용 파라미터
-	 -->
     <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">멤버관리</a>
     <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1">차단 멤버관리</a>
     <div id="myPageAdminRepManage">
@@ -31,7 +26,7 @@
 			if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
 				pageNum = Integer.parseInt(request.getParameter("memberManagerNo"));					
 			}
-			ArrayList<MemberDto> memberArrayList = (ArrayList<MemberDto>)request.getAttribute("memberArrayList");
+			ArrayList<MemberDto> memberArrayList = (ArrayList<MemberDto>)request.getAttribute("bannedMemberArrayList");
 			for(MemberDto member : memberArrayList){
 		%>
 		<tr>
@@ -41,7 +36,7 @@
 			<td><%=member.getNickName()%></td>
 			<td><%=member.getAddress()%></td>
 			<td><%=member.getZipCode()%></td>
-			<td><span class="badge badge-danger btn" onclick="banMemberByNo('<%=member.getNo()%>')">차단</span></td>
+			<td><span class="badge badge-danger btn" onclick="unbanMemberByNo('<%=member.getNo()%>')">복원</span></td>
 		</tr>
 		<%
 			}
@@ -57,11 +52,12 @@
 		</tr>
 	</table>
 	<div id="subHandler">
-		<span onclick="banMember()" class="btn btn-danger">전체차단하기</span>
-		<span onclick="banMemberSel()" class="btn btn-danger">선택차단하기</span>
+		<input type="submit">
+		<span onclick="unbanMember()" class="btn btn-danger">전체복원하기</span>
+		<span onclick="unbanMemberSel()" class="btn btn-danger">선택복원하기</span>
 	</div>
 	</form>
-	<form action="memberManagerPage/memberSearch.do" method="post" id="searchForm">
+	<form action="memberManagerPage/bannedMemberSearch.do" method="post" id="searchForm">
 		<select id="select" name="select" form="searchForm">
 		    <option value="no">회원번호</option>
 		    <option value="id">아이디</option>
@@ -74,7 +70,7 @@
 	<script>
 		const searchMemberBtn = document.querySelector("#searchMemberBtn");
 		searchMemberBtn.addEventListener('click',function(){
-			let str = "memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1"
+			let str = "memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1"
 			let str2 = "&select="+document.querySelector("#select").value;
 			let str3 = "&keyword="+document.querySelector("#keyword").value;
 			console.log(str+str2+str3);
@@ -84,12 +80,14 @@
 	<div id="memberManagerPaging">
     	<%
     	int cntListPerPage = 10;
+   
     	MyPageDao dao = new MyPageDao();
+    	
     	ResultSet rs=null;
     	if(request.getParameter("select")==null){
-    		rs = dao.getAllMemberList();
+    		rs = dao.getAllBannedMemberList();
     	}else{
-    		rs = dao.getAllSearchedMemberList(request.getParameter("select"),request.getParameter("keyword"));
+    		rs = dao.getAllSearchedBannedMemberList(request.getParameter("select"),request.getParameter("keyword"));
     	}
 		rs.next();
 		int totalRecord = rs.getInt(1);
@@ -100,59 +98,61 @@
 		int blockThis = ((pageNum - 1) / block) + 1; // 현재 페이지의 블럭
 		int blockThisFirstPage = ((blockThis - 1) * block) + 1; // 현재 블럭의 첫 페이지
 		int blockThisLastPage = blockThis * block; // 현재 블럭의 마지막 페이지
+		//out.println(blockThisLastPage);
 		blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage; 
     	%>
     	
     	<%
-    		if(request.getParameter("select")==null){
+		if(request.getParameter("select")==null){
+		%>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1">첫 페이지</a>
+	        <% 
+	        if (blockThis > 1) {
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerSub=1&memberManagerNo=<%=(blockThisFirstPage - 1)%>">앞으로</a>
+	        <% 
+	        }
+	        
+	       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerSub=1&memberManagerNo=<%=i%>" class="num"><%=i%></a>
+	        <%
+	        }
+	        %>
+	        <%
+	        if(blockThis < blockTotal) {
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManagerSub=1&memberManager=0&memberManagerNo=<%=(blockThisLastPage + 1)%>">뒤로</a>
+	        <%
+	        }
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManagerSub=1&memberManager=0&memberManagerNo=<%=totalPage%>">마지막 페이지</a>
+	    <%
+		}else{
     	%>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">첫 페이지</a>
-		        <% 
-		        if (blockThis > 1) {
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisFirstPage - 1)%>">앞으로</a>
-		        <% 
-		        }
-		       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=i%>" class="num"><%=i%></a>
-		        <%
-		        }
-		        %>
-		        <%
-		        if(blockThis < blockTotal) {
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisLastPage + 1)%>">뒤로</a>
-		        <%
-		        }
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=totalPage%>">마지막 페이지</a>
+    		<a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">첫 페이지</a>
+	        <% 
+	        if (blockThis > 1) {
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerSub=1&memberManagerNo=<%=(blockThisFirstPage - 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">앞으로</a>
+	        <% 
+	        }
+	       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerSub=1&memberManagerNo=<%=i%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>" class="num"><%=i%></a>
+	        <%
+	        }
+	        %>
+	        <%
+	        if(blockThis < blockTotal) {
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManagerSub=1&memberManager=0&memberManagerNo=<%=(blockThisLastPage + 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">뒤로</a>
+	        <%
+	        }
+	        %>
+	        <a href="memberManagerPage?myPageManagerCategory=2&memberManagerSub=1&memberManager=0&memberManagerNo=<%=totalPage%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">마지막 페이지</a>
     	<%
-    		}else{
-    	%>
-    			<a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">첫 페이지</a>
-		        <% 
-		        if (blockThis > 1) {
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisFirstPage - 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">앞으로</a>
-		        <% 
-		        }
-		       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=i%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>" class="num"><%=i%></a>
-		        <%
-		        }
-		        %>
-		        <%
-		        if(blockThis < blockTotal) {
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisLastPage + 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">뒤로</a>
-		        <%
-		        }
-		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=totalPage%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">마지막 페이지</a>
-    	<%
-    		}
+		}
     	%>
     </div>
   </div>
@@ -249,20 +249,20 @@
 	        setChkAllYN();
 	    }
 	}
-	let banMemberByNo = function(no){
-		if(confirm('해당 회원을 차단하시겠습니까?')){
-			location.href = 'memberManagerPage/oneMemberBan.do?no='+no;
+	let unbanMemberByNo = function(no){
+		if(confirm('해당 회원을 복원하시겠습니까?')){
+			location.href = 'memberManagerPage/oneMemberUnBan.do?no='+no;
 		}
 	}
-	let banMemberSel = function(){
-		if(confirm('선택한 회원을 차단하시겠습니까?')){
-			frm.action="memberManagerPage/selectedMemberBan.do";
+	let unbanMemberSel = function(){
+		if(confirm('선택한 회원을 복원하시겠습니까?')){
+			frm.action="memberManagerPage/selectedMemberUnBan.do";
 			frm.submit();
 		}
 	}
-	let banMember = function(){
-		if(confirm('전체 차단하시겠습니까?')){
-			location.href='memberManagerPage/allMemberBan.do';
+	let unbanMember = function(){
+		if(confirm('전체 복원하시겠습니까?')){
+			location.href='memberManagerPage/allMemberUnBan.do';
 		}
 	}
 </script>

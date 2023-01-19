@@ -4,6 +4,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Cryptoutils.Sha;
 import dao.AdminLoginDao;
@@ -28,16 +29,30 @@ public class AdminLoginFormServlet extends HttpServlet {
         System.out.println(password);
         System.out.println(NewPassword);
         String state = dao.login(memberId,NewPassword);
-
-        if(state != null){ // 회원가입 성공
+        
+        if(dao.getCurrentStatus(memberId)==1) {
+if(			dao.alreadyThirtyMinute(memberId)) {
+        		
+        	}else {
+        		state=null;
+        	}
+        }else {
+        	
+        }
+        	
+        
+        
+        if(state != null){ // 로그인 성공
             request.getSession().setAttribute("manager", state);
+            dao.setCurrentStatusTrue(memberId);
+            dao.setSession(request.getSession().getId(), memberId);
             PrintWriter out = response.getWriter();
             out.println("<script>alert('"+ request.getSession().getAttribute("manager")+"님 환영합니다!')</script>");
             out.println("<script>location.href='index.jsp'</script>");
             out.flush();
             out.close();
         }
-        else { // 회원가입 실패
+        else { // 로그인 실패
             PrintWriter out = response.getWriter();
             out.println("<script>alert('로그인에 실패 하였습니다. 다시 시도해주세요.')</script>");
             out.println("<script>location.href='/manage/login.jsp'</script>");

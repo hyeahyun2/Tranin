@@ -5,81 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import dto.MarketDto;
+import dto.MarketDto;
+import dto.MarketDto;
 
-import Cryptoutils.Sha;
-import dto.ManagerDto;
-import dto.MemberDto;
-import dto.NoticeDto;
-
-public class MyPageDao {
-	
+public class AdminMarketDao {
 	DBProperty dbProperty = null;
-
-	public void modifyMyPageInfo(String myPageMyInfoId,String myPageMyInfoPassword,
-			String myPageMyInfoNickName,String myPageMyAddress,String myPageMyZipCode) {
-		//UPDATE `runeah`.`tranin_member` SET `memberId`='ssss', `password`='ssss', `name`='aaaa', `nickname`='gdfd', `sex`='여성', `birthYear`='1212', `phone1`='4124124', `phone4`='412312', `address1`='ㄹㅇㅁㅇㄻㅇㄻㅇㄹ' WHERE  `no`=17;
-		dbProperty = new DBProperty();
-		Sha sha = new Sha();
-		String myPageMyInfoPasswordNew = sha.encode(myPageMyInfoPassword);
-		System.out.println(myPageMyInfoPassword);
-		System.out.println(myPageMyInfoPasswordNew);
-		String sql = "UPDATE tranin_member SET pw='"+myPageMyInfoPasswordNew+"', address='"+myPageMyAddress+"', zipcode='"+myPageMyZipCode+"' WHERE id='"+myPageMyInfoId+"'";
-		try {
-			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
-			dbProperty.pstmt.executeUpdate();
-			System.out.println("수정완료");
-			if(dbProperty.rs!=null)
-				dbProperty.rs.close();
-			if(dbProperty.pstmt != null)
-				dbProperty.pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void modifyManagerInfo(String myPageMyInfoId,String myPageMyInfoPassword,
-			String myPageMyInfoName) {
-		//UPDATE `runeah`.`tranin_member` SET `memberId`='ssss', `password`='ssss', `name`='aaaa', `nickname`='gdfd', `sex`='여성', `birthYear`='1212', `phone1`='4124124', `phone4`='412312', `address1`='ㄹㅇㅁㅇㄻㅇㄻㅇㄹ' WHERE  `no`=17;
-		dbProperty = new DBProperty();
-		Sha sha = new Sha();
-		String myPageMyInfoPasswordNew = sha.encode(myPageMyInfoPassword);
-		String sql = "UPDATE tranin_admin SET id='"+myPageMyInfoId+"', pw='"+myPageMyInfoPasswordNew+"', name='"+myPageMyInfoName+"' WHERE id='"+myPageMyInfoId+"'";
-		try {
-			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
-			dbProperty.pstmt.executeUpdate();
-			System.out.println("수정완료");
-			if(dbProperty.rs!=null)
-				dbProperty.rs.close();
-			if(dbProperty.pstmt != null)
-				dbProperty.pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void deleteMember(String id) {
-		dbProperty = new DBProperty();
-		String sql = "DELETE FROM tranin_member WHERE id='"+id+"'";
-		try {
-			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
-			dbProperty.pstmt.executeUpdate();
-			if(dbProperty.rs!=null)
-				dbProperty.rs.close();
-			if(dbProperty.pstmt != null)
-				dbProperty.pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void deleteMemberByNo(int no) {
+	public void deleteMarketByNo(int no) {
 		dbProperty = new DBProperty();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -118,9 +50,9 @@ public class MyPageDao {
 		
 	}
 
-	public MemberDto getMemberById(String id) {
+	public MarketDto getMarketById(String id) {
 		dbProperty = new DBProperty();
-		MemberDto dto = new MemberDto();
+		MarketDto dto = new MarketDto();
 		System.out.println("매개변수:"+id);
 		try {
 			String sql = "SELECT * FROM tranin_member where id=?";
@@ -129,9 +61,10 @@ public class MyPageDao {
 			ResultSet rs = dbProperty.pstmt.executeQuery();
 			//System.out.println("내용:"+dbProperty.pstmt.toString());
 			rs.first();
-			dto = new MemberDto(rs.getString(2),rs.getString(3),
+			/*
+			dto = new MarketDto(rs.getString(2),rs.getString(3),
 					rs.getString(4),rs.getString(5),rs.getString(6));
-			
+			*/
 			if(dbProperty.rs!=null)
 				dbProperty.rs.close();
 			if(dbProperty.pstmt != null)
@@ -146,9 +79,9 @@ public class MyPageDao {
 		return null;
 	}
 	
-	public MemberDto getMemberByNo(int no) {
+	public MarketDto getMarketByNo(int no) {
 		dbProperty = new DBProperty();
-		MemberDto dto = new MemberDto();
+		MarketDto dto = new MarketDto();
 		System.out.println("매개변수:"+no);
 		try {
 			String sql = "SELECT * FROM tranin_member where no=?";
@@ -157,9 +90,10 @@ public class MyPageDao {
 			ResultSet rs = dbProperty.pstmt.executeQuery();
 			//System.out.println("내용:"+dbProperty.pstmt.toString());
 			rs.first();
-			dto = new MemberDto(rs.getString(2),rs.getString(3),
+			/*
+			dto = new MarketDto(rs.getString(2),rs.getString(3),
 					rs.getString(4),rs.getString(5),rs.getString(6));
-			
+			*/
 			if(dbProperty.rs!=null)
 				dbProperty.rs.close();
 			if(dbProperty.pstmt != null)
@@ -174,53 +108,7 @@ public class MyPageDao {
 		return null;
 	}
 	
-	public ManagerDto getManagerById(String id) {
-		dbProperty = new DBProperty();
-		ManagerDto dto = new ManagerDto();
-		System.out.println("매개변수:"+id);
-		try {
-			String sql = "SELECT * FROM tranin_admin where id=?";
-			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
-			dbProperty.pstmt.setString(1, id);
-			ResultSet rs = dbProperty.pstmt.executeQuery();
-			//System.out.println("내용:"+dbProperty.pstmt.toString());
-			rs.first();
-			dto = new ManagerDto(rs.getString(1),rs.getString(2),rs.getString(3),rs.getBoolean(4));
-			
-			if(dbProperty.rs!=null)
-				dbProperty.rs.close();
-			if(dbProperty.pstmt != null)
-				dbProperty.pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-			return dto;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-
-	public void deleteManager(String id) {
-		dbProperty = new DBProperty();
-		String sql = "DELETE FROM tranin_admin WHERE id='"+id+"'";
-		try {
-			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
-			dbProperty.pstmt.executeUpdate();
-			if(dbProperty.rs!=null)
-				dbProperty.rs.close();
-			if(dbProperty.pstmt != null)
-				dbProperty.pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	//멤버 메니저 시리즈
-	
-	public ResultSet getAllMemberList() throws SQLException {
+	public ResultSet getAllMarketList() throws SQLException {
 		dbProperty = new DBProperty();
 		String sql = "SELECT count(*) FROM tranin_member WHERE banned='false'";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
@@ -228,7 +116,7 @@ public class MyPageDao {
 		return rs;
 	}
 	
-	public ResultSet getAllSearchedMemberList(String select,String keyword) throws SQLException {
+	public ResultSet getAllSearchedMarketList(String select,String keyword) throws SQLException {
 		dbProperty = new DBProperty();
 		String sql = "SELECT count(*) FROM tranin_member WHERE banned='false' AND "+select+" LIKE CONCAT('%',?,'%')";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
@@ -237,7 +125,7 @@ public class MyPageDao {
 		return rs;
 	}
 	
-	public ResultSet getAllBannedMemberList() throws SQLException {
+	public ResultSet getAllBannedMarketList() throws SQLException {
 		dbProperty = new DBProperty();
 		String sql = "SELECT count(*) FROM tranin_member WHERE banned='true'";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
@@ -245,7 +133,7 @@ public class MyPageDao {
 		return rs;
 	}
 	
-	public ResultSet getAllSearchedBannedMemberList(String select,String keyword) throws SQLException {
+	public ResultSet getAllSearchedBannedMarketList(String select,String keyword) throws SQLException {
 		dbProperty = new DBProperty();
 		String sql = "SELECT count(*) FROM tranin_member WHERE banned='true' AND "+select+" LIKE CONCAT('%',?,'%')";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
@@ -254,12 +142,12 @@ public class MyPageDao {
 		return rs;
 	}
 	
-	public ArrayList<MemberDto> getMemberListNoPaging(){
+	public ArrayList<MarketDto> getMarketListNoPaging(){
 		dbProperty = new DBProperty();
-		MemberDto dto = null;
+		MarketDto dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<MemberDto> list = new ArrayList<>();
+		ArrayList<MarketDto> list = new ArrayList<>();
 		
 		// 페이징 처리
     	String sql = "SELECT * FROM tranin_member WHERE banned='false' ORDER BY no DESC";
@@ -267,7 +155,7 @@ public class MyPageDao {
 			pstmt = dbProperty.conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				dto = new MemberDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
+				//dto = new MarketDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -276,24 +164,24 @@ public class MyPageDao {
 		return list;
 	}
 	
-	public ArrayList<MemberDto> getMemberList(int pageNum){
+	public ArrayList<MarketDto> getMarketList(int pageNum){
 		dbProperty = new DBProperty();
-		MemberDto dto = null;
+		MarketDto dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<MemberDto> list = new ArrayList<>();
+		ArrayList<MarketDto> list = new ArrayList<>();
 		
 		// 페이징 처리
     	int cntListPerPage = 10;
     	int startNum = (pageNum - 1) * cntListPerPage; 
-    	String sql = "SELECT * FROM tranin_member WHERE banned='false' ORDER BY no DESC LIMIT ?, ?";
+    	String sql = "SELECT * FROM tranin_market WHERE disabled='false' ORDER BY market_no DESC LIMIT ?, ?";
 		try {
 			pstmt = dbProperty.conn.prepareStatement(sql);
 			pstmt.setInt(1, startNum);
 			pstmt.setInt(2, cntListPerPage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				dto = new MemberDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
+				//dto = new MarketDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -302,12 +190,12 @@ public class MyPageDao {
 		return list;
 	}
 	
-	public ArrayList<MemberDto> getBannedMemberList(int pageNum){
+	public ArrayList<MarketDto> getBannedMarketList(int pageNum){
 		dbProperty = new DBProperty();
-		MemberDto dto = null;
+		MarketDto dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<MemberDto> list = new ArrayList<>();
+		ArrayList<MarketDto> list = new ArrayList<>();
 		
 		// 페이징 처리
     	int cntListPerPage = 10;
@@ -319,7 +207,7 @@ public class MyPageDao {
 			pstmt.setInt(2, cntListPerPage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				dto = new MemberDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
+				//dto = new MarketDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -329,7 +217,7 @@ public class MyPageDao {
 	}
 	
 	private Statement statement = null;
-	public boolean deleteSelMember(String chkdId) {
+	public boolean deleteSelMarket(String chkdId) {
 		String[] strArray = chkdId.split(",");
 		for(int i=0;i<strArray.length;i++) {
 			dbProperty = new DBProperty();
@@ -367,7 +255,7 @@ public class MyPageDao {
 		return flag!=0;
 	}
 
-	public void restoreMemberByNo(int no) {
+	public void restoreMarketByNo(int no) {
 		dbProperty = new DBProperty();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -402,7 +290,7 @@ public class MyPageDao {
 		}
 	}
 
-	public boolean restoreSelMember(String chkdId) {
+	public boolean restoreSelMarket(String chkdId) {
 		String[] strArray = chkdId.split(",");
 		for(int i=0;i<strArray.length;i++) {
 			dbProperty = new DBProperty();
@@ -437,25 +325,25 @@ public class MyPageDao {
 		return flag!=0;
 	}
 
-	public void deleteAllMember() {
+	public void deleteAllMarket() {
 		dbProperty = new DBProperty();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int memberNo = 0;
 		String str = ",("+memberNo+",'from_admin_allban')";
 		String sql = "INSERT INTO tranin_banned_member(member_no,report) values(?,'from_admin_allban')";
-		ArrayList<MemberDto> list = new ArrayList<MemberDto>();
+		ArrayList<MarketDto> list = new ArrayList<MarketDto>();
 		ArrayList<Integer> memberNoList = new ArrayList<Integer>();
-		list=getMemberListNoPaging();
+		list=getMarketListNoPaging();
 		for(int i=1;i<list.size();i++) {
-			memberNo = list.get(i).getNo();
+			//memberNo = list.get(i).getNo();
 			sql.concat(str);
 		}
 		
 		try {
 			dbProperty = new DBProperty();
 			pstmt = dbProperty.conn.prepareStatement(sql);
-			pstmt.setInt(1, list.get(0).getNo());
+			//pstmt.setInt(1, list.get(0).getNo());
 			pstmt.executeUpdate();
 			if(rs!=null)
 				rs.close();
@@ -483,7 +371,7 @@ public class MyPageDao {
 		}
 	}
 	
-	public void restoreAllMember() {
+	public void restoreAllMarket() {
 		dbProperty = new DBProperty();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -501,31 +389,16 @@ public class MyPageDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		dbProperty = new DBProperty();
-		String sql1 = "UPDATE tranin_member SET banned='false'";
-		try {
-			pstmt = dbProperty.conn.prepareStatement(sql1);
-			pstmt.executeUpdate();
-			if(rs!=null)
-				rs.close();
-			if(pstmt != null)
-				pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
-
-	public ArrayList<MemberDto> searchMember(String parameter, String parameter2, int pageNum) {
+	
+	public ArrayList<MarketDto> searchMarket(String parameter, String parameter2, int pageNum) {
 		System.out.println("param: "+parameter);
 		System.out.println("param2: "+parameter2);
 		dbProperty = new DBProperty();
-		MemberDto dto = null;
+		MarketDto dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<MemberDto> list = new ArrayList<>();
+		ArrayList<MarketDto> list = new ArrayList<>();
 		
 		// 페이징 처리
     	int cntListPerPage = 10;
@@ -538,7 +411,7 @@ public class MyPageDao {
 			pstmt.setInt(3, cntListPerPage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				dto = new MemberDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
+				//dto = new MarketDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -547,14 +420,14 @@ public class MyPageDao {
 		return list;
 	}
 
-	public ArrayList<MemberDto> searchBannedMember(String parameter, String parameter2, int pageNum) {
+	public ArrayList<MarketDto> searchBannedMarket(String parameter, String parameter2, int pageNum) {
 		System.out.println("param: "+parameter);
 		System.out.println("param2: "+parameter2);
 		dbProperty = new DBProperty();
-		MemberDto dto = null;
+		MarketDto dto = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<MemberDto> list = new ArrayList<>();
+		ArrayList<MarketDto> list = new ArrayList<>();
 		
 		// 페이징 처리
     	int cntListPerPage = 10;
@@ -567,7 +440,7 @@ public class MyPageDao {
 			pstmt.setInt(3, cntListPerPage);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				dto = new MemberDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
+				//dto = new MarketDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
 				list.add(dto);
 			}
 		} catch (SQLException e) {
@@ -575,6 +448,4 @@ public class MyPageDao {
 		}
 		return list;
 	}
-
-	
 }

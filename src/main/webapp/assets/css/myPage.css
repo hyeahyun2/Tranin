@@ -270,3 +270,9 @@ div#headerWrap ul > li > a {
   border : 1px solid white;
   text-align: center;
 }
+#memberManagerNo{
+  display : none;
+}
+#searchMemberBtn{
+  
+}

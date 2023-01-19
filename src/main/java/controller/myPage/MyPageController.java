@@ -31,8 +31,6 @@ public class MyPageController extends HttpServlet {
 			param2 = "0";
 		}
 		request.setAttribute("myPageManagerParam",param2);
-		
-		
 		System.out.println("MyPageController 입장");
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/myPage/myPage.jsp");
 		requestDispatcher.forward(request, response);

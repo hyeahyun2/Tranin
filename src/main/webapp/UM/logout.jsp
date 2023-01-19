@@ -1,4 +1,10 @@
+<%@ page import="dao.AdminLoginDao" %>
 <%
+  if(request.getSession().getAttribute("manager")!=null){
+	  AdminLoginDao dao = new AdminLoginDao();
+	  dao.setCurrentStatusFalse((String)request.getSession().getAttribute("manager"));
+  }
+
   session.invalidate();
 
   Cookie[] c = request.getCookies();
