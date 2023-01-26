@@ -6,18 +6,8 @@
 <head>
   <meta charset="utf-8" />
   <title>포트폴리오</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,400&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-    rel="stylesheet" />
+  <%@ include file="../include/frontStyle.jsp"%>
   <link rel="stylesheet" href="../assets/css/index.css" />
-  <script type="text/javascript" src="../assets/js/jquery-3.6.1.js"></script>
-  <script type="text/javascript" src="../assets/js/jquery-migrate-1.4.1.min.js"></script>
-  <script type="text/javascript" src="../assets/js/jquery-ui.js"></script>
-  <script src="../assets/js/common.js" defer></script>
-  <script src="../assets/js/header.js?v=2" defer></script>
-  <script src="../assets/js/floatingMenu.js" defer></script>
   <script src="../assets/js/onePage.js" defer></script>
   <script src="../assets/js/section1.js" defer></script>
   <script src="../assets/js/section4.js" defer></script>
@@ -58,45 +48,6 @@
         </li>
       </ul>
     </section>
-    <!-- 유수현 영역1 시작 -->
-    <section class="page2Wrap_sh pageWrap_sh onePage2">
-      <div class="page2 page">
-        <div id="pcNotice">
-          <button class="on">PC</button>
-          <p>쉽고 간편하게! <br> 트레닌에서 닌텐도를 <br> 중고로 거래하세요!</p>
-        </div>
-        <div id="PCBtnWrap_sh" class="see">
-          <button class="PCBtn_sh">이용안내 넘기기</button>
-        </div>
-        <div id="PCSliderWrap_sh" class="see">
-          <img src="../assets/sh_images/pc.svg" alt="PC의 모습" class="img">
-          <ul class="PCSlider1_sh">
-            <li class="PCSlider_sh PCSlider1"><a href="#">회원가입</a></li>
-            <li class="PCSlider_sh PCSlider2"><a href="#">글 작성</a></li>
-            <li class="PCSlider_sh PCSlider3"><a href="#">상품 올리기</a></li>
-            <li class="PCSlider_sh PCSlider4"><a href="#">거래 완료</a></li>
-            <li class="PCSlider_sh PCSlider5"><a href="#">후기 올리기</a></li>
-          </ul>
-        </div>
-        <div id="mobileNotice">
-          <button>mobile</button>
-        </div>
-        <div id="MBtnWrap_sh">
-          <button class="MBtn_sh">이용안내 넘기기</button>
-        </div>
-        <div id="MSliderWrap_sh" class="unsee">
-          <img src="../assets/sh_images/phone.svg" alt="mobile의 모습" class="img">
-          <ul class="MSlider_sh">
-            <li class="MSlider MSlider1"><a href="#">회원가입</a></li>
-            <li class="MSlider MSlider2"><a href="#">글 작성</a></li>
-            <li class="MSlider MSlider3"><a href="#">상품 올리기</a></li>
-            <li class="MSlider MSlider4"><a href="#">거래 완료</a></li>
-            <li class="MSlider MSlider5"><a href="#">후기 올리기</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <!-- 유수현 영역1 끝 -->
     <section class="Wrap_hj page3 page onePage3">
       <div class="firstDiv_hj">
         <div id="headerWrap_hj">

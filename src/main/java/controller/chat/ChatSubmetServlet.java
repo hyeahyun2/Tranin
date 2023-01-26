@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ChatDao;
 import dao.MemberInfoDao;
-import dao.MemberSelectLoginDao;
 
 @WebServlet("/chatSubmetServlet")
 public class ChatSubmetServlet extends HttpServlet {

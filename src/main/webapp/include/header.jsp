@@ -5,28 +5,32 @@
     <h1 class="hidden">기타관련</h1>
     <%
     String memberId = null;
-    memberId = (String)session.getAttribute("memberId");
-
+    
+	
     String manager = null;
     manager = (String)session.getAttribute("manager");
 
-      Cookie[] c = request.getCookies();
-      if (c != null) {
-        for (Cookie cf : c) {
-          if (cf.getName().equals("id")){
-            String ids = cf.getValue();
-            session.setAttribute("id", ids);
-          }
+    // 자동 로그인 쿠키 있을 경우
+    Cookie[] c = request.getCookies();
+    if (c != null) {
+      for (Cookie cf : c) {
+        if (cf.getName().equals("autoLogin")){
+          String ids = cf.getValue();
+          session.setAttribute("memberId", ids);
         }
       }
+    }
+    memberId = (String)session.getAttribute("memberId");
+    String id = (String) session.getAttribute("id");
 
-      String id = (String) session.getAttribute("id");
-
+    // 현재 페이지
+    String url = request.getRequestURI();
+    
     if(memberId != null){
     	%>
     <a><%=memberId.split("@")[0]%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>마이페이지</a>
-   	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
+   	<a href="/memberLogout?url=<%= url %>" class='logOut'>로그아웃</a>
     	<%
     }
     else if(manager != null) {
@@ -34,7 +38,7 @@
 
     <a><%=manager%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>관리페이지</a>
-   	<a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
+   	<a href="/memberLogout?url=<%= url %>" class='logOut'>로그아웃</a>
 
     	<%
     } else if(id != null) {
@@ -42,15 +46,16 @@
 
     <a><%=id.split("@")[0]%>님 환영합니다!</a>
     <a href='../myPage/myPage'>관리페이지</a>
-    <a href="../UM/logout.jsp" class='logOut'>로그아웃</a>
+    <a href="/memberLogout?url=<%= url %>" class='logOut'>로그아웃</a>
 
     <%
     } else {
+    	
     	%>
 
-    <a href="../UM/login.jsp">로그인</a>
+    <a href="../member/login.jsp?url=<%= url %>">로그인</a>
     <a href="../manage/manageLogin.jsp">관리자 로그인</a>
-    <a href="../UM/register.jsp">회원가입</a>
+    <a href="../member/register.jsp">회원가입</a>
 
     	<%
     }

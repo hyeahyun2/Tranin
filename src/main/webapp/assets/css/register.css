@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+h1.logo {
+	text-align: center;	
+}
+
+#container {
+	margin: 10vh auto;
+	max-width: 500px;
+}
+
+#registerForm {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+#registerForm > * {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	text-align: center;
+}
+#registerForm input {
+	width: 90%; height: 30px;
+	padding: 0 10px;
+}
+#registerForm > span {
+	cursor: pointer;
+	display: block;
+	border: 1px solid #000;
+	border-radius: 5px;
+	width: 120px;
+	margin: 0 auto;
+}
+
+.registerBtn {
+	margin: 0 auto;
+	cursor: pointer;
+	display: block;
+	border: 1px solid #000;
+	border-radius: 5px;
+	width: 120px;
+}
