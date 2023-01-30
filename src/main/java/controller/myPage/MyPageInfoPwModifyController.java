@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import Cryptoutils.Sha;
+import controller.member.PasswdEncry;
 import dao.MyPageDao;
 import dto.ManagerDto;
 import dto.MemberDto;
@@ -31,15 +31,18 @@ public class MyPageInfoPwModifyController extends HttpServlet {
 		MyUtils myUtils = new MyUtils();
         JSONObject jsonObject = new JSONObject(myUtils.getJSONObjectFromHttpServletRequest(request));
         MyPageDao dao = new MyPageDao();
-        Sha sha = new Sha();
+        // 객체 생성
+   	    PasswdEncry pwEn = new PasswdEncry();
+   	    // 암호화
+   	    //String res = pwEn.getEncry(pw, "testSalt");
         if(request.getServletPath().equals("/myPage/myPageInfoPwModify")) {
         	MemberDto member = dao.getMemberById((String)request.getSession().getAttribute("memberId"));
         	
             System.out.println("입력한 기존 비번:"+jsonObject.get("pre"));
             System.out.println("입력한 새 비번:"+jsonObject.get("new"));
-            System.out.println("현재 데이터베이스의 비번:"+sha.encode(member.getPw()));
+            System.out.println("현재 데이터베이스의 비번:"+pwEn.getEncry(member.getPw(), "testSalt"));
             
-            if(member.getPw().equals(sha.encode((String)jsonObject.get("pre")))) {
+            if(member.getPw().equals(pwEn.getEncry((String)jsonObject.get("pre"), "testSalt"))) {
             	//입력이 올바른 경우, 새비번으로 교체
             	dao.modifyMyPageInfo(member.getId(),(String)jsonObject.get("new"),member.getNickName(),member.getAddress(),member.getZipCode());
             	PrintWriter out = response.getWriter();
@@ -58,9 +61,9 @@ public class MyPageInfoPwModifyController extends HttpServlet {
             
             System.out.println("입력한 기존 비번:"+jsonObject.get("pre"));
             System.out.println("입력한 새 비번:"+jsonObject.get("new"));
-            System.out.println("현재 데이터베이스의 비번:"+sha.encode(member.getPw()));
+            System.out.println("현재 데이터베이스의 비번:"+pwEn.getEncry(member.getPw(), "testSalt"));
             
-            if(member.getPw().equals(sha.encode((String)jsonObject.get("pre")))) {
+            if(member.getPw().equals(pwEn.getEncry((String)jsonObject.get("pre"), "testSalt"))) {
             	//입력이 올바른 경우, 새비번으로 교체
             	dao.modifyManagerInfo(member.getId(),(String)jsonObject.get("new"),member.getName());
             	PrintWriter out = response.getWriter();

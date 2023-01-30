@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Cryptoutils.Sha;
+import controller.member.PasswdEncry;
 import dao.AdminLoginDao;
 
 import java.io.IOException;
@@ -20,12 +20,16 @@ public class AdminLoginFormServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
-        Sha sha = new Sha();
 
         String memberId = request.getParameter("memberId");
         String password = request.getParameter("password");
-        String NewPassword = sha.encode(password);
-
+        
+        // 객체 생성
+   	    PasswdEncry pwEn = new PasswdEncry();
+   	    // 암호화
+   	    //String res = pwEn.getEncry(pw, "testSalt");
+        
+        String NewPassword = pwEn.getEncry(password, "testSalt");
         System.out.println(memberId);
         AdminLoginDao dao = new AdminLoginDao();
         System.out.println(password);
@@ -33,7 +37,7 @@ public class AdminLoginFormServlet extends HttpServlet {
         String state = dao.login(memberId,NewPassword);
         
         if(dao.getCurrentStatus(memberId)==1) {
-if(			dao.alreadyThirtyMinute(memberId)) {
+        	if(dao.alreadyThirtyMinute(memberId)) {
         		
         	}else {
         		state=null;
@@ -42,8 +46,6 @@ if(			dao.alreadyThirtyMinute(memberId)) {
         	
         }
         	
-        
-        
         if(state != null){ // 로그인 성공
             request.getSession().setAttribute("manager", state);
             dao.setCurrentStatusTrue(memberId);

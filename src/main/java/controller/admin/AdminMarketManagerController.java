@@ -15,9 +15,18 @@ import dao.AdminMarketDao;
 import dao.MarketDao;
 import dao.MyPageDao;
 import dto.MarketDto;
+import dto.MarketResponseDto;
 import dto.MemberDto;
 
-@WebServlet("/myPage/marketManagerPage")
+@WebServlet({"/myPage/marketManagerPage",
+	"/myPage/marketManagerPage/oneMarketBan.do",
+	"/myPage/marketManagerPage/selectedMarketBan.do",
+	"/myPage/marketManagerPage/allMarketBan.do",
+	"/myPage/marketManagerPage/oneMarketRestore.do",
+	"/myPage/marketManagerPage/selectedMarketRestore.do",
+	"/myPage/marketManagerPage/allMarketRestore.do",
+	"/myPage/marketManagerPage/marketSearch.do",
+	"/myPage/marketManagerPage/bannedMarketSearch.do"})
 public class AdminMarketManagerController extends HttpServlet {
 	//managerPage?myPageManagerCategory=2&memberManagerNo=1
 	private static final long serialVersionUID = 1L;
@@ -42,14 +51,14 @@ public class AdminMarketManagerController extends HttpServlet {
 			}else if(request.getServletPath().equals("/myPage/marketManagerPage/allMarketBan.do")) {//전체차단
 				marketDao.deleteAllMarket();
 				response.sendRedirect("../marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1");
-			}else if(request.getServletPath().equals("/myPage/marketManagerPage/oneMarketUnBan.do")) {//개인복원
+			}else if(request.getServletPath().equals("/myPage/marketManagerPage/oneMarketRestore.do")) {//개인복원
 				marketDao.restoreMarketByNo(Integer.parseInt((String)request.getParameter("no")));
 				response.sendRedirect("../marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1");
-			}else if(request.getServletPath().equals("/myPage/marketManagerPage/selectedMarketUnBan.do")) {//선택복원
+			}else if(request.getServletPath().equals("/myPage/marketManagerPage/selectedMarketRestore.do")) {//선택복원
 				String chkdID = request.getParameter("chkdID");
 				marketDao.restoreSelMarket(chkdID);
 				response.sendRedirect("../marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1");
-			}else if(request.getServletPath().equals("/myPage/marketManagerPage/allMarketUnBan.do")) {//전체복원
+			}else if(request.getServletPath().equals("/myPage/marketManagerPage/allMarketRestore.do")) {//전체복원
 				marketDao.restoreAllMarket();
 				response.sendRedirect("../marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1");
 			}else {
@@ -78,6 +87,7 @@ public class AdminMarketManagerController extends HttpServlet {
 					}else {
 						int adminNo= Integer.parseInt(request.getParameter("marketManagerNo"));
 						ArrayList<MarketDto> marketArrayList = marketDao.getMarketList(adminNo);
+						System.out.println(marketArrayList.get(1).toString());
 						request.setAttribute("marketArrayList", marketArrayList);
 					}
 				}
@@ -85,11 +95,11 @@ public class AdminMarketManagerController extends HttpServlet {
 				if((request.getParameter("marketManagerNo")!=null)&&(request.getParameter("marketManagerSub")!=null)) {
 					if(request.getParameter("select")!=null) {//벤된 멤버검색
 						int adminNo= Integer.parseInt(request.getParameter("marketManagerNo"));
-						ArrayList<MarketDto> bannedMarketArrayList = marketDao.searchBannedMarket((String)request.getParameter("select"),(String)request.getParameter("keyword"),adminNo);
+						ArrayList<MarketResponseDto> bannedMarketArrayList = marketDao.searchBannedMarket((String)request.getParameter("select"),(String)request.getParameter("keyword"),adminNo);
 						request.setAttribute("bannedMarketArrayList", bannedMarketArrayList);
 					}else {
 						int adminNo= Integer.parseInt(request.getParameter("marketManagerNo"));
-						ArrayList<MarketDto> bannedMarketArrayList = marketDao.getBannedMarketList(adminNo);
+						ArrayList<MarketResponseDto> bannedMarketArrayList = marketDao.getBannedMarketList(adminNo);
 						request.setAttribute("bannedMarketArrayList", bannedMarketArrayList);
 					}
 				}

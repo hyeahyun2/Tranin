@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Cryptoutils.Sha;
+import controller.member.PasswdEncry;
 import dao.MyPageDao;
 import dto.ManagerDto;
 import dto.MemberDto;
@@ -26,12 +26,15 @@ public class MyPageMemberOutController extends HttpServlet {
 		response.setContentType("text/html");
 		request.setCharacterEncoding("utf-8");
         MyPageDao dao = new MyPageDao();
-        Sha sha = new Sha();
+        // 객체 생성
+   	    PasswdEncry pwEn = new PasswdEncry();
+   	    // 암호화
+   	    //String res = pwEn.getEncry(pw, "testSalt");
         if(request.getServletPath().equals("/myPage/myPageMemberOut")) {
         	MemberDto member = dao.getMemberById((String)request.getSession().getAttribute("memberId"));
             System.out.println("입력한 기존 비번:"+request.getParameter("pw"));
             System.out.println("현재 데이터베이스의 비번:"+member.getPw());
-            if(member.getPw().equals(sha.encode(request.getParameter("pw")))) {
+            if(member.getPw().equals(pwEn.getEncry(request.getParameter("pw"),"testSalt"))) {
             	//입력이 올바른 경우, 회원탈퇴
             	dao.deleteMember(member.getNickName());
             	request.getSession().removeAttribute("memberId");
@@ -50,7 +53,7 @@ public class MyPageMemberOutController extends HttpServlet {
         	ManagerDto manager = dao.getManagerById((String)request.getSession().getAttribute("manager"));
             System.out.println("입력한 기존 비번:"+request.getParameter("pw"));
             System.out.println("현재 데이터베이스의 비번:"+manager.getPw());
-            if(manager.getPw().equals(sha.encode(request.getParameter("pw")))) {
+            if(manager.getPw().equals(pwEn.getEncry(request.getParameter("pw"),"testSalt"))) {
             	//입력이 올바른 경우, 회원탈퇴
             	dao.deleteManager(manager.getId());
             	request.getSession().removeAttribute("manager");

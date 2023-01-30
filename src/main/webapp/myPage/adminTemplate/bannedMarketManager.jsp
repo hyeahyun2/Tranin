@@ -1,52 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.MyPageDao" %>
-<%@ page import="dto.MemberDto" %>
+<%@ page import="dao.AdminMarketDao" %>
+<%@ page import="dto.MarketResponseDto" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
-<section id="myPageAdminRepManage">
+<section id="myPageAdminBannedMarketManage">
 	<!-- 
 		myPageManagerCategory : 현재 어디 카테고리 소속인지 나타내는 파라미터
-		memberManager : 현재 매니저 마이페이지를 보여줘야함을 나타내는 파라미터
-		memberManagerNo : 멤버관리의 페이징처리용 파라미터
+		marketManager : 현재 매니저 마이페이지를 보여줘야함을 나타내는 파라미터
+		marketManagerNo : 멤버관리의 페이징처리용 파라미터
 	 -->
-    <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">멤버관리</a>
-    <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1">차단 멤버관리</a>
-    <div id="myPageAdminRepManage">
-      <form name="frmMember" method="post">
+    <a id="marketManagerPageAnchor" href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1">마켓글관리</a>
+    <a id="marketBanManagerPageAnchor" href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1">차단 마켓글관리</a>
+    <div id="myPageAdminBannedMarketManageFormWrap">
+      <form name="frmMarket" method="post">
 	  <input type="hidden" name="id">
 	  <input type="hidden" name="chkdID">
-      <table class="myPageAdminRepManageTable">
+      <table class="myPageAdminBannedMarketManageTable">
 		<tr>
 			<th><input name="chkAll" type="checkbox" onClick="setChkAll();">선택</th>
-			<th>회원번호</th>
-			<th>아이디</th>
-			<th>닉네임</th>
-			<th>주소</th>
-			<th>우편번호</th>
-			<th>비고</th>
+			<th>마켓 글 번호</th>
+			<th>글쓴이 회원번호</th>
+			<th>제목</th>
+			<th>내용</th>
+			<th>글 종류</th>
+			<th>가격/희망가격</th>
+			<th>글쓴일</th>
+			<th>조회수</th>
+			<th>차단사유</th>
 		</tr>
 		<%
 			int pageNum = 1; // 페이지 번호가 전달이 안되면 1페이지
 			if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
-				pageNum = Integer.parseInt(request.getParameter("memberManagerNo"));					
+				pageNum = Integer.parseInt(request.getParameter("marketManagerNo"));					
 			}
-			ArrayList<MemberDto> memberArrayList = (ArrayList<MemberDto>)request.getAttribute("memberArrayList");
-			for(MemberDto member : memberArrayList){
+			ArrayList<MarketResponseDto> marketArrayList = (ArrayList<MarketResponseDto>)request.getAttribute("bannedMarketArrayList");
+			for(MarketResponseDto market : marketArrayList){
 		%>
 		<tr>
-			<td><input type="checkbox" name="chkID" value="<%=member.getNo()%>" onClick="setChkAlone(this);"></td>
-			<td><%=member.getNo()%></td>
-			<td><%=member.getId()%></td>
-			<td><%=member.getNickName()%></td>
-			<td><%=member.getAddress()%></td>
-			<td><%=member.getZipCode()%></td>
-			<td><span class="badge badge-danger btn" onclick="banMemberByNo('<%=member.getNo()%>')">차단</span></td>
+			<td><input type="checkbox" name="chkID" value="<%=market.getMarketNo()%>" onClick="setChkAlone(this);"></td>
+			<td><%=market.getMarketNo()%></td>
+			<td><%=market.getWriterNo()%></td>
+			<td><%=market.getTitle()%></td>
+			<td><%=market.getContent()%></td>
+			<td><%=market.getPart()%></td>
+			<td><%=market.getPrice()%></td>
+			<td><%=market.getWriteDate()%></td>
+			<td><%=market.getHits()%></td>
+			<td><%=market.getReport()%></td>
+			<td><span class="badge badge-danger btn" onclick="restoreMarketByNo('<%=market.getMarketNo()%>')">복원</span></td>
 		</tr>
 		<%
 			}
 		%>
 		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
 			<th></th>
 			<th></th>
 			<th></th>
@@ -57,39 +67,39 @@
 		</tr>
 	</table>
 	<div id="subHandler">
-		<span onclick="banMember()" class="btn btn-danger">전체차단하기</span>
-		<span onclick="banMemberSel()" class="btn btn-danger">선택차단하기</span>
+		<span onclick="restoreMarket()" class="btn btn-danger">전체복원하기</span>
+		<span onclick="restoreMarketSel()" class="btn btn-danger">선택복원하기</span>
 	</div>
 	</form>
-	<form action="memberManagerPage/memberSearch.do" method="post" id="searchForm">
+	<form action="marketManagerPage/marketSearch.do" method="post" id="searchForm">
 		<select id="select" name="select" form="searchForm">
-		    <option value="no">회원번호</option>
-		    <option value="id">아이디</option>
-		    <option value="nickname">별명</option>
+		    <option value="market_no">장터번호</option>
+		    <option value="title">제목</option>
+		    <option value="content">내용</option>
 		</select>
 		<p>회원 검색:<input type="text" id="keyword" name="keyword"></p>
-		<input type="text" id="memberManagerNo" name="memberManagerNo" value="<%=request.getParameter("memberManagerNo")%>">
-		<input id="searchMemberBtn" type="button" value="검색하기">
+		<input type="text" id="marketManagerNo" name="marketManagerNo" value="<%=request.getParameter("marketManagerNo")%>">
+		<input id="searchMarketBtn" type="button" value="검색하기">
 	</form>
 	<script>
-		const searchMemberBtn = document.querySelector("#searchMemberBtn");
-		searchMemberBtn.addEventListener('click',function(){
-			let str = "memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1"
+		const searchMarketBtn = document.querySelector("#searchMarketBtn");
+		searchMarketBtn.addEventListener('click',function(){
+			let str = "marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1"
 			let str2 = "&select="+document.querySelector("#select").value;
 			let str3 = "&keyword="+document.querySelector("#keyword").value;
 			console.log(str+str2+str3);
 			location.href=str+str2+str3;
 		});
 	</script>
-	<div id="memberManagerPaging">
+	<div id="marketManagerPaging">
     	<%
     	int cntListPerPage = 10;
-    	MyPageDao dao = new MyPageDao();
+    	AdminMarketDao dao = new AdminMarketDao();
     	ResultSet rs=null;
     	if(request.getParameter("select")==null){
-    		rs = dao.getAllMemberList();
+    		rs = dao.getAllBannedMarketList();
     	}else{
-    		rs = dao.getAllSearchedMemberList(request.getParameter("select"),request.getParameter("keyword"));
+    		rs = dao.getAllSearchedMarketList(request.getParameter("select"),request.getParameter("keyword"));
     	}
 		rs.next();
 		int totalRecord = rs.getInt(1);
@@ -106,51 +116,51 @@
     	<%
     		if(request.getParameter("select")==null){
     	%>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">첫 페이지</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1">첫 페이지</a>
 		        <% 
 		        if (blockThis > 1) {
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisFirstPage - 1)%>">앞으로</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=(blockThisFirstPage - 1)%>&marketManagerSub=1">앞으로</a>
 		        <% 
 		        }
 		       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=i%>" class="num"><%=i%></a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=i%>&marketManagerSub=1" class="num"><%=i%></a>
 		        <%
 		        }
 		        %>
 		        <%
 		        if(blockThis < blockTotal) {
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisLastPage + 1)%>">뒤로</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=(blockThisLastPage + 1)%>&marketManagerSub=1">뒤로</a>
 		        <%
 		        }
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=totalPage%>">마지막 페이지</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=totalPage%>&marketManagerSub=1">마지막 페이지</a>
     	<%
     		}else{
     	%>
-    			<a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">첫 페이지</a>
+    			<a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>&marketManagerSub=1">첫 페이지</a>
 		        <% 
 		        if (blockThis > 1) {
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisFirstPage - 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">앞으로</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=(blockThisFirstPage - 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>&marketManagerSub=1">앞으로</a>
 		        <% 
 		        }
 		       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=i%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>" class="num"><%=i%></a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=i%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>&marketManagerSub=1" class="num"><%=i%></a>
 		        <%
 		        }
 		        %>
 		        <%
 		        if(blockThis < blockTotal) {
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=(blockThisLastPage + 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">뒤로</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=(blockThisLastPage + 1)%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>&marketManagerSub=1">뒤로</a>
 		        <%
 		        }
 		        %>
-		        <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=<%=totalPage%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>">마지막 페이지</a>
+		        <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=<%=totalPage%>&select=<%=request.getParameter("select")%>&keyword=<%=request.getParameter("keyword")%>&marketManagerSub=1">마지막 페이지</a>
     	<%
     		}
     	%>
@@ -158,13 +168,42 @@
   </div>
 </section>
 <script>
-	const frm = document.frmMember;
+	document.addEventListener('DOMContentLoaded',function(){
+		let status = document.querySelector("#myPageAdminNav ul li:nth-child(2)");
+		status.classList.add("active");
+		
+		let statusA = document.querySelector("#myPageAdminNav ul li:nth-child(2) a");
+		statusA.classList.add("active");
+		
+		let statusC = document.querySelector("#marketBanManagerPageAnchor");
+		statusC.classList.add("active");
+		statusC.style.color = "black";
+		
+		let pagingVar = document.querySelectorAll("#marketManagerPaging a");
+		let pagingServerVar = <%=Integer.parseInt((String)request.getParameter("marketManagerNo"))%>;
+		
+		if(pagingServerVar!=null){
+			if(pagingServerVar>5){
+				pagingServerVar = (pagingServerVar%5)+2;
+			}else {
+				pagingServerVar++;
+			}
+			let a = document.querySelector(".num:nth-child("+pagingServerVar+")");
+			console.log(pagingServerVar);
+			console.log(a);
+			a.classList.add("active");
+			a.style.color = "black";
+		}
+	});
+</script>
+<script>
+	const frm = document.frmMarket;
 	window.onload=function(){
-		document.frmMember.chkAll.checked=true;
+		document.frmMarket.chkAll.checked=true;
 		setChkAll();
 	}
 	function frmName(){
-		return document.frmMember;
+		return document.frmMarket;
 	}
 
 	let arrID = new Array();
@@ -249,20 +288,20 @@
 	        setChkAllYN();
 	    }
 	}
-	let banMemberByNo = function(no){
-		if(confirm('해당 회원을 차단하시겠습니까?')){
-			location.href = 'memberManagerPage/oneMemberBan.do?no='+no;
+	let restoreMarketByNo = function(no){
+		if(confirm('해당 글을 복원하시겠습니까?')){
+			location.href = 'marketManagerPage/oneMarketRestore.do?no='+no;
 		}
 	}
-	let banMemberSel = function(){
-		if(confirm('선택한 회원을 차단하시겠습니까?')){
-			frm.action="memberManagerPage/selectedMemberBan.do";
+	let restoreMarketSel = function(){
+		if(confirm('선택한 글을 복원하시겠습니까?')){
+			frm.action="marketManagerPage/selectedMarketRestore.do";
 			frm.submit();
 		}
 	}
-	let banMember = function(){
-		if(confirm('전체 차단하시겠습니까?')){
-			location.href='memberManagerPage/allMemberBan.do';
+	let restoreMarket = function(){
+		if(confirm('전체 복원하시겠습니까?')){
+			location.href='marketManagerPage/allMarketRestore.do';
 		}
 	}
 </script>

@@ -128,8 +128,6 @@
 	<%
       	}
     %>
-	
-	
     </section>
     <div class="footerWrap page onePage6">
       <footer class="page8" id="footer">

@@ -5,8 +5,8 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
 <section id="myPageAdminRepManage">
-    <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">멤버관리</a>
-    <a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1">차단 멤버관리</a>
+    <a id="memberManagerPageAnchor" href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">멤버관리</a>
+    <a id="memberBanManagerPageAnchor" href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1&memberManagerSub=1">차단 멤버관리</a>
     <div id="myPageAdminRepManage">
       <form name="frmMember" method="post">
 	  <input type="hidden" name="id">
@@ -157,6 +157,35 @@
     </div>
   </div>
 </section>
+<script>
+	document.addEventListener('DOMContentLoaded',function(){
+		let status = document.querySelector("#myPageAdminNav ul li:nth-child(4)");
+		status.classList.add("active");
+		
+		let statusA = document.querySelector("#myPageAdminNav ul li:nth-child(4) a");
+		statusA.classList.add("active");
+		
+		let statusC = document.querySelector("#memberBanManagerPageAnchor");
+		statusC.classList.add("active");
+		statusC.style.color = "black";
+		
+		let pagingVar = document.querySelectorAll("#memberManagerPaging a");
+		let pagingServerVar = <%=Integer.parseInt((String)request.getParameter("memberManagerNo"))%>;
+		
+		if(pagingServerVar!=null){
+			if(pagingServerVar>5){
+				pagingServerVar = (pagingServerVar%5)+2;
+			}else {
+				pagingServerVar++;
+			}
+			let a = document.querySelector(".num:nth-child("+pagingServerVar+")");
+			console.log(pagingServerVar);
+			console.log(a);
+			a.classList.add("active");
+			a.style.color = "black";
+		}
+	});
+</script>
 <script>
 	const frm = document.frmMember;
 	window.onload=function(){

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Cryptoutils.Sha;
+import controller.member.PasswdEncry;
 import dao.MyPageDao;
 import dto.ManagerDto;
 import dto.MemberDto;
@@ -25,7 +25,10 @@ public class MyPageInfoModifyController extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		request.setCharacterEncoding("utf-8");
-		Sha sha = new Sha();
+		// 객체 생성
+   	    PasswdEncry pwEn = new PasswdEncry();
+   	    // 암호화
+   	    //String res = pwEn.getEncry(pw, "testSalt");
 		MyPageDao dao = new MyPageDao();
 		System.out.println(request.getServletPath());
 		if(request.getServletPath().equals("/myPage/myPageMyInfoModify")) {
@@ -39,7 +42,7 @@ public class MyPageInfoModifyController extends HttpServlet {
 			System.out.println("비번:"+myPageMyInfoPassword);
 			System.out.println("비번확인:"+request.getParameter("myPageMyInfoPasswordConfirm"));
 			//패스워드확인 일치안하면 튕구기
-			if(myPageMyInfoPassword.equals(sha.encode(request.getParameter("myPageMyInfoPasswordConfirm")))) {
+			if(myPageMyInfoPassword.equals(pwEn.getEncry((String)request.getParameter("myPageMyInfoPasswordConfirm"),"testSalt"))) {
 				//데이터베이스에 정보 수정하기
 				
 				dao.modifyMyPageInfo(myPageMyInfoId,request.getParameter("myPageMyInfoPasswordConfirm"),myPageMyInfoNickName,myPageMyAddress,myPageMyZipCode);
@@ -67,7 +70,7 @@ public class MyPageInfoModifyController extends HttpServlet {
 			System.out.println("비번:"+myPageMyInfoPassword);
 			System.out.println("비번확인:"+request.getParameter("myPageMyInfoPasswordConfirm"));
 			//패스워드확인 일치안하면 튕구기
-			if(myPageMyInfoPassword.equals(sha.encode(request.getParameter("myPageMyInfoPasswordConfirm")))) {
+			if(myPageMyInfoPassword.equals(pwEn.getEncry((String)request.getParameter("myPageMyInfoPasswordConfirm"),"testSalt"))) {
 				//데이터베이스에 정보 수정하기
 				dao.modifyManagerInfo(myPageMyInfoId,request.getParameter("myPageMyInfoPasswordConfirm"),myPageMyInfoName);
 				

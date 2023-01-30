@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.MyPageDao" %>
+<%@ page import="dao.AdminMarketDao" %>
+<%@ page import="dto.MarketDto" %>
 <%@ page import="dto.MarketDto" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
@@ -10,8 +11,8 @@
 		marketManager : 현재 매니저 마이페이지를 보여줘야함을 나타내는 파라미터
 		marketManagerNo : 마켓글관리의 페이징처리용 파라미터
 	 -->
-    <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1">마켓글관리</a>
-    <a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1">차단 멤버관리</a>
+    <a id="marketManagerPageAnchor" href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1">마켓글관리</a>
+    <a id="marketBanManagerPageAnchor" href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1&marketManagerSub=1">내려간 마켓글관리</a>
     <div id="myPageAdminMarketManage">
       <form name="frmMarket" method="post">
 	  <input type="hidden" name="id">
@@ -27,16 +28,10 @@
 			<th>가격/희망가격</th>
 			<th>글쓴일</th>
 			<th>조회수</th>
-			<th>그림1url</th>
-			<th>그림2url</th>
-			<th>그림3url</th>
-			<th>그림4url</th>
-			<th>그림5url</th>
-			<th>차단여부</th>
 		</tr>
 		<%
 			int pageNum = 1; // 페이지 번호가 전달이 안되면 1페이지
-			if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
+			if(request.getParameter("marketManagerNo") != null) { // 페이지 번호가 전달이 된 경우
 				pageNum = Integer.parseInt(request.getParameter("marketManagerNo"));					
 			}
 			ArrayList<MarketDto> marketArrayList = (ArrayList<MarketDto>)request.getAttribute("marketArrayList");
@@ -52,13 +47,7 @@
 			<td><%=market.getPrice()%></td>
 			<td><%=market.getWriteDate()%></td>
 			<td><%=market.getHits()%></td>
-			<td><%=market.getImage1()%></td>
-			<td><%=market.getImage2()%></td>
-			<td><%=market.getImage3()%></td>
-			<td><%=market.getImage4()%></td>
-			<td><%=market.getImage5()%></td>
-			<td><%=market.getDisabled()%></td>
-			<td><span class="badge badge-danger btn" onclick="banMarketByNo('<%=market.getMarketNo()%>')">차단</span></td>
+			<td><span class="badge badge-danger btn" onclick="banMarketByNo('<%=market.getMarketNo()%>')">글내리기</span></td>
 		</tr>
 		<%
 			}
@@ -73,24 +62,18 @@
 			<th></th>
 			<th></th>
 			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
 		</tr>
 	</table>
 	<div id="subHandler">
-		<span onclick="banMarket()" class="btn btn-danger">전체차단하기</span>
-		<span onclick="banMarketSel()" class="btn btn-danger">선택차단하기</span>
+		<span onclick="banMarket()" class="btn btn-danger">전체글내리기</span>
+		<span onclick="banMarketSel()" class="btn btn-danger">선택글내리기</span>
 	</div>
 	</form>
 	<form action="marketManagerPage/marketSearch.do" method="post" id="searchForm">
 		<select id="select" name="select" form="searchForm">
-		    <option value="no">회원번호</option>
-		    <option value="id">아이디</option>
-		    <option value="nickname">별명</option>
+		    <option value="market_no">장터번호</option>
+		    <option value="title">제목</option>
+		    <option value="content">내용</option>
 		</select>
 		<p>회원 검색:<input type="text" id="keyword" name="keyword"></p>
 		<input type="text" id="marketManagerNo" name="marketManagerNo" value="<%=request.getParameter("marketManagerNo")%>">
@@ -109,12 +92,12 @@
 	<div id="marketManagerPaging">
     	<%
     	int cntListPerPage = 10;
-    	MyPageDao dao = new MyPageDao();
+    	AdminMarketDao dao = new AdminMarketDao();
     	ResultSet rs=null;
     	if(request.getParameter("select")==null){
-    		//rs = dao.getAllMarketList();
+    		rs = dao.getAllMarketList();
     	}else{
-    		//rs = dao.getAllSearchedMarketList(request.getParameter("select"),request.getParameter("keyword"));
+    		rs = dao.getAllSearchedMarketList(request.getParameter("select"),request.getParameter("keyword"));
     	}
 		rs.next();
 		int totalRecord = rs.getInt(1);
@@ -182,6 +165,35 @@
     </div>
   </div>
 </section>
+<script>
+	document.addEventListener('DOMContentLoaded',function(){
+		let status = document.querySelector("#myPageAdminNav ul li:nth-child(2)");
+		status.classList.add("active");
+		
+		let statusA = document.querySelector("#myPageAdminNav ul li:nth-child(2) a");
+		statusA.classList.add("active");
+		
+		let statusC = document.querySelector("#marketManagerPageAnchor");
+		statusC.classList.add("active");
+		statusC.style.color = "black";
+		
+		let pagingVar = document.querySelectorAll("#marketManagerPaging a");
+		let pagingServerVar = <%=Integer.parseInt((String)request.getParameter("marketManagerNo"))%>;
+		
+		if(pagingServerVar!=null){
+			if(pagingServerVar>5){
+				pagingServerVar = (pagingServerVar%5)+2;
+			}else {
+				pagingServerVar++;
+			}
+			let a = document.querySelector(".num:nth-child("+pagingServerVar+")");
+			console.log(pagingServerVar);
+			console.log(a);
+			a.classList.add("active");
+			a.style.color = "black";
+		}
+	});
+</script>
 <script>
 	const frm = document.frmMarket;
 	window.onload=function(){
@@ -275,18 +287,18 @@
 	    }
 	}
 	let banMarketByNo = function(no){
-		if(confirm('해당 회원을 차단하시겠습니까?')){
+		if(confirm('해당 글을 내리시겠습니까?')){
 			location.href = 'marketManagerPage/oneMarketBan.do?no='+no;
 		}
 	}
 	let banMarketSel = function(){
-		if(confirm('선택한 회원을 차단하시겠습니까?')){
+		if(confirm('선택한 글을 내리시겠습니까?')){
 			frm.action="marketManagerPage/selectedMarketBan.do";
 			frm.submit();
 		}
 	}
 	let banMarket = function(){
-		if(confirm('전체 차단하시겠습니까?')){
+		if(confirm('전체 글을 내리시겠습니까?')){
 			location.href='marketManagerPage/allMarketBan.do';
 		}
 	}
