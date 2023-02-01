@@ -89,7 +89,7 @@
 	    } else if(memberId != null){ // 로그인멤버 != 판매자
 	    %>
 	      <li>
-	      <form name="reportForm" action="#" method="post">
+	      <form name="reportForm" action="/ReportMemberServlet" method="post">
 	      	<input type="hidden" name="postNo" value=<%= post.getMarketNo() %>>
 	      	<input type="hidden" name="writerNo" value=<%= post.getWriterNo() %>>
 	      </form>
