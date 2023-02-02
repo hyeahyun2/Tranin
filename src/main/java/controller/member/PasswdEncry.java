@@ -9,7 +9,8 @@ public class PasswdEncry {
 	 *  // 객체 생성
 	 *  PasswdEncry pwEn = new PasswdEncry();
 	 *  // 암호화
-	 *  String res = pwEn.getEncry(pw, pwEn.getSalt());
+	 *  //String res = pwEn.getEncry(pw, pwEn.getSalt());
+	 *  String res = pwEn.getEncry(pw, "testSalt");
 	 * */
 	
 	public String getSalt() {

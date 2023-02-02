@@ -75,23 +75,6 @@ imgWrap.addEventListener("mousemove", function(e){
 })
 
 
-// 찜관련 이벤트
-const postInfo = contentWrap.querySelector(".postInfo");
-const saleBtn = postInfo.querySelector(".saleBtn");
-const saleBtnList = saleBtn.querySelectorAll("li");
-const loveBtn = saleBtnList[0].querySelector("a");
-let loveImg = "red"; // 찜 안했을 때 로드하면!!!
-loveBtn.addEventListener("click", (e)=>{
-  e.preventDefault();
-  if(loveImg == "red"){
-    loveImg = "redFill";
-  }
-  else {
-    loveImg = "red";
-  }         
-  e.currentTarget.style.backgroundImage = `url(./image/love_${loveImg}.png)`;
-})
-
  /* 채팅 새 창으로 열기 */
 const chatBtn = document.querySelector(".chatBtn");
 chatBtn.addEventListener("click", (e)=>{

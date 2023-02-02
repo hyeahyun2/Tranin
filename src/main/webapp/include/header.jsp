@@ -24,7 +24,7 @@
     String id = (String) session.getAttribute("id");
 
     // 현재 페이지
-    String url = request.getRequestURI();
+    String url = request.getRequestURI() + "?" + request.getQueryString();
     
     if(memberId != null){
     	%>

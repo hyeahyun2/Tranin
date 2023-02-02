@@ -26,6 +26,7 @@
       /* width: 8px; */
       border-radius: 10px;
     }
+    .chatDate {text-align: center;}
     .chatLine {margin-top: 10px; display: flex; align-items: flex-end;}
     .chat-box {
       background: #fff; 
