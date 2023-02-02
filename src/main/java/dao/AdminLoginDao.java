@@ -88,30 +88,6 @@ public class AdminLoginDao {
         }
 	}
 	
-	public void setSession(String sessionId,String memberId) {
-		DBProperty db = new DBProperty();
-        PreparedStatement pstmt =null;
-		String sql = "UPDATE tranin_admin SET session_id=? AND session_time=? where id=?";
-        int upd = 0;
-        try {
-            pstmt = db.conn.prepareStatement(sql);
-            pstmt.setString(1, sessionId);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            pstmt.setTimestamp(2, timestamp);
-            pstmt.setString(3, memberId);
-            pstmt.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (db.pstmt != null) db.pstmt.close();
-                if (db.conn != null) db.conn.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-	}
-	
 	public int getCurrentStatus(String memberId) {
 		DBProperty db = new DBProperty();
 		Connection conn = db.conn;
@@ -194,5 +170,54 @@ public class AdminLoginDao {
             }
         }
         return false;
+	}
+
+	public void setCurrentIP(String remoteAddr,String memberId) {
+		DBProperty db = new DBProperty();
+        PreparedStatement pstmt =null;
+		String sql = "UPDATE tranin_admin SET last_ip=? where id=?";
+        int upd = 0;
+        try {
+            pstmt = db.conn.prepareStatement(sql);
+            pstmt.setString(1, remoteAddr);
+            pstmt.setString(2, memberId);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (db.pstmt != null) db.pstmt.close();
+                if (db.conn != null) db.conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+	}
+
+	public String getCurrentIP(String memberId) {
+		DBProperty db = new DBProperty();
+		Connection conn = db.conn;
+        PreparedStatement pstmt =null;
+        ResultSet rs =null;
+		String sql = "SELECT last_ip FROM tranin_admin WHERE id=?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, memberId);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+            	return rs.getString(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+                if (rs != null) rs.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "아이피가없음";
 	}
 }

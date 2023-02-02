@@ -10,6 +10,10 @@
 	String monthRegMemberCount = (String)request.getAttribute("monthRegMemberCount");
 	String allRegMemberCount = (String)request.getAttribute("allRegMemberCount");
 	
+	String dayPopPostNo = (String)request.getAttribute("dayPopPostNo");
+	String weekPopPostNo = (String)request.getAttribute("weekPopPostNo");
+	String monthPopPostNo = (String)request.getAttribute("monthPopPostNo");
+	String allPopPostNo = (String)request.getAttribute("allPopPostNo");
 	String dayPopPost = (String)request.getAttribute("dayPopPost");
 	String weekPopPost = (String)request.getAttribute("weekPopPost");
 	String monthPopPost = (String)request.getAttribute("monthPopPost");
@@ -50,7 +54,6 @@
 	*/
 %>
 <section class="active" id="myPageAdminStatus">
-  <a href="#">통계에오</a>
   <div id="myPageAdminStatusWrap">
   	<div id="statusRegMember" class="myPageAdminStatus">
   		<h2>가입한 가입자</h2>
@@ -64,13 +67,12 @@
   	<div id="statusPopPost" class="myPageAdminStatus">
   		<h2>가장인기 많은 장터글</h2>
 	    <ul class="myPageAdminStatusUL">
-	      <li>하루간 가장 많은 조회수의 글은 <a href=""><%=dayPopPost%></a> 입니다</li>
-	      <li>일주일간 가장 많은 조회수의 글은 <a href=""><%=weekPopPost%></a> 입니다</li>
-	      <li>한달간 가장 많은 조회수의 글은 <a href=""><%=monthPopPost%></a> 입니다</li>
-	      <li>전체기간 가장 많은 조회수의 글은 <a href=""><%=allPopPost%></a> 입니다</li>
+	      <li>하루간 가장 많은 조회수의 글은 <a href="/marketPostInfo?no=<%=dayPopPostNo%>"><%=dayPopPost%></a> 입니다</li>
+	      <li>일주일간 가장 많은 조회수의 글은 <a href="/marketPostInfo?no=<%=weekPopPostNo%>"><%=weekPopPost%></a> 입니다</li>
+	      <li>한달간 가장 많은 조회수의 글은 <a href="/marketPostInfo?no=<%=monthPopPostNo%>"><%=monthPopPost%></a> 입니다</li>
+	      <li>전체기간 가장 많은 조회수의 글은 <a href="/marketPostInfo?no=<%=allPopPostNo%>"><%=allPopPost%></a> 입니다</li>
 	    </ul>
   	</div>
-  	
   	<div id="statusMostUser" class="myPageAdminStatus">
   		<h2>가장 많은 활동을 한 유저</h2>
 	    <ul class="myPageAdminStatusUL">

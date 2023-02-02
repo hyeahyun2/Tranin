@@ -11,7 +11,7 @@
       <form name="frmMember" method="post">
 	  <input type="hidden" name="id">
 	  <input type="hidden" name="chkdID">
-      <table class="myPageAdminRepManageTable">
+      <table class="myPageAdminMemberManageTable">
 		<tr>
 			<th><input name="chkAll" type="checkbox" onClick="setChkAll();">선택</th>
 			<th>회원번호</th>
@@ -52,7 +52,6 @@
 		</tr>
 	</table>
 	<div id="subHandler">
-		<input type="submit">
 		<span onclick="unbanMember()" class="btn btn-danger">전체복원하기</span>
 		<span onclick="unbanMemberSel()" class="btn btn-danger">선택복원하기</span>
 	</div>

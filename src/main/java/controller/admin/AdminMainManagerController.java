@@ -22,7 +22,6 @@ public class AdminMainManagerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//관리자는 현재 활동중!
 		AdminLoginDao setTime = new AdminLoginDao();
-		setTime.setSession(request.getSession().getId(), (String)request.getSession().getAttribute("manager"));
 		
 		if(request.getSession().getAttribute("manager")!=null) {
 			response.setCharacterEncoding("utf-8");

@@ -1,10 +1,9 @@
 @charset "UTF-8";
-
 body{
    background-color: #1b2838;
    color : white;
 }
-body input[type="text"], textarea {
+body input[type="text"], textarea, body input[type="password"] {
   background-color : #313d4c;
   border : 2px solid white;
   margin : 10px;
@@ -107,13 +106,22 @@ div#headerWrap ul > li > a {
   display : block;
 }
 #myPageMyInfoForm ul li {
-  margin : 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid white;
+  display : flex;
+  flex-flow : row;
+  height : 60px;
+  justify-content : space-around;
 }
-#myPageProfileAttach {
-  position: absolute;
-  bottom : 30px;
+#myPageMyInfoForm ul li > span {
+	width : 50%;
+	text-align : right;
+	padding-top : 6px;
+	margin-right : 50px;
+}
+#myPageMyInfoForm ul div {
+	width : 50%;
+}
+#dblCheck3{
+	line-height : 10px;
 }
 /* myPageMyActivity */
 #myPageMyActivity a {
@@ -158,17 +166,6 @@ div#headerWrap ul > li > a {
   min-height: 28.8px;
   margin: 10px;
 }
-
-#myPageMyActivityMoreBtn {
-  display : block;
-  width: 60px;
-  height : 20px;
-  color : white;
-  background-color: black;
-  border: 1px solid white;
-  text-align: center;
-  padding-bottom: 25px;
-}
 #myPageMyActivityContent table {
 	width : 100%;
 	height : 510px;
@@ -178,14 +175,6 @@ div#headerWrap ul > li > a {
 #myPageMyActivityContent table tr{
 	height : 70px;
 	border-bottom : 1px solid white;
-}
-#myPageMyActivityMoreBtn {
-	width : 100px;
-	height : 30px;
-	padding-top : 4px;
-	cursor : pointer;
-	position : relative;
-	left : 50%;
 }
 #myPageMyActivity {
 	padding : 10px;
@@ -245,17 +234,14 @@ div#headerWrap ul > li > a {
 }
 #myPageMemberOutInnerWrap {
   text-align: center;
+  min-height : 100px;
 }
 #myPageMemberOutBtn {
   position: absolute;
   display: block;
-  width : 100px;
-  height : 30px;
   left : calc(50% - 50px);
-  bottom : 10px;
   cursor: pointer;
-  background-color: black;
-  border: 2px solid red;
+  bottom : 40px;
 }
 
 /* admin */
@@ -292,14 +278,23 @@ div#headerWrap ul > li > a {
 }
 #marketManagerPaging a {
 	min-width : 100px;
-	min-hegiht : 20px;
+	min-height : 20px;
 }
 #marketManagerPaging a.num {
 	min-width : 30px;
-	min-hegiht : 20px;
+	min-height : 20px;
 }
-#subHandler {
-	
+#myPageAdminInnerTab section #subHandler {
+	display : flex;
+	flex-flow : row;
+	height : 30px;
+	justify-content : space-around;
+	text-align : center;
+}
+#myPageAdminInnerTab section #subHandler span{
+	width : 50%;
+	height : 30px;
+	border : 1px solid white;
 }
 #myPageAdminInnerTab section div ul {
   display : flex;
@@ -315,6 +310,26 @@ div#headerWrap ul > li > a {
 }
 #memberManagerNo{
   display : none;
+}
+#searchForm{
+	display : flex;
+	flex-flow : row;
+	justify-content:space-around;
+}
+ select,#searchForm input[type=button] {
+	background-color : rgba(0,0,128,0.2);
+	color : white;
+	margin : 5px;
+	border : 1px solid white;
+	width : 200px;
+	padding-bottom : 2px;
+}
+select option {
+	background-color : rgba(0,0,128,0.6);
+	color : white;
+}
+#marketManagerNo, #memberManagerNo {
+	display : none;
 }
 /* admin upper tab */
 #myPageAdminNav ul {
@@ -337,10 +352,9 @@ div#headerWrap ul > li > a {
 	color : black;
 }
 /* admin table */
-.myPageAdminBannedMarketManageTable, .myPageAdminRepManageTable, .myPageAdminMarketManageTable, .myPageAdminRepManageTable {
+.myPageAdminBannedMarketManageTable, .myPageAdminMemberManageTable, .myPageAdminMarketManageTable, .myPageAdminBannedMemberManageTable {
 	width : 100%;
 }
-
 .myPageAdminBannedMarketManageTable tbody, .myPageAdminRepManageTable tbody, .myPageAdminMarketManageTable tbody, .myPageAdminRepManageTable tbody {
 	width : 100%;
 }
@@ -349,4 +363,116 @@ div#headerWrap ul > li > a {
 }	
 .num.active {
 	background-color : white;
+}
+
+/* btn */
+.button-68 {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #354f6f;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 13px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.button-68:hover {
+  background-color: #1e8449;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.button-68:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.button-68:hover {
+  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
+.button-68-small {
+	width : 130px;
+	height : 40px;
+	font-size : 14px;
+	line-height : 1px;
+}
+
+/* table hover and liner */
+#myPageMyActivityLeftNav li,#myPageMyActivityAjaxTemplate tr{
+	cursor : pointer;	
+}
+.myPageAdminMarketManageTable tr ,.myPageAdminBannedMarketManageTable tr,.myPageAdminMemberManageTable tr ,.myPageAdminBannedMemberManageTable tr, #myPageMyActivityAjaxTemplate tr{
+  transition: background 0.25s ease;
+  height : 40px;
+}
+.myPageAdminMarketManageTable td,.myPageAdminMarketManageTable th, .myPageAdminBannedMarketManageTable td,.myPageAdminBannedMarketManageTable th,
+.myPageAdminMemberManageTable td,.myPageAdminMemberManageTable th, .myPageAdminBannedMemberManageTable td,.myPageAdminBannedMemberManageTable th {
+	border-right : 1px solid white;
+	padding : 5px;
+}
+.myPageAdminMarketManageTable td,.myPageAdminBannedMarketManageTable td,
+.myPageAdminMemberManageTable td,.myPageAdminBannedMemberManageTable td
+{
+	max-width: 200px;
+	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	white-space: nowrap;
+}
+.myPageAdminMarketManageTable th,.myPageAdminBannedMarketManageTable th,
+.myPageAdminMemberManageTable th,.myPageAdminBannedMemberManageTable th{
+	border-bottom : 1px solid white
+}
+.myPageAdminMarketManageTable tr:hover,.myPageAdminBannedMarketManageTable tr:hover,
+.myPageAdminMemberManageTable tr:hover,.myPageAdminBannedMemberManageTable tr:hover,
+#myPageMyActivityAjaxTemplate tr:hover {
+  background: #014055;	
+}
+/* status div */
+#myPageAdminStatusWrap div {
+	margin : 10px;
+	text-align : center;
+}
+#myPageAdminStatusWrap h2 {
+	margin : 20px 0;
+}
+#myPageAdminInnerTab section .myPageAdminStatus ul {
+	margin-bottom : 30px;
+	text-align : center;
+	border : 0;
+}
+#myPageAdminInnerTab section .myPageAdminStatus ul li {
+	border : 1px solid white;
+	border-radius: 30px;
+	padding : 10px;
+}
+#myPageMyInfoPasswordConfirm{
+	padding : 0;
+	background-color : #313d4c;
+}
+.myPageAdminMarketManageTable span,.myPageAdminBannedMarketManageTable span,
+.myPageAdminMemberManageTable span,.myPageAdminBannedMemberManageTable span,
+#subHandler span,#searchMemberBtn,#searchMarketBtn{
+	cursor : pointer;
 }

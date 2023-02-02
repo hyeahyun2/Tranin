@@ -33,7 +33,6 @@ public class AdminMemberManagerController extends HttpServlet {
 		
 		//관리자는 현재 활동중!
 		AdminLoginDao setTime = new AdminLoginDao();
-		setTime.setSession(request.getSession().getId(), (String)request.getSession().getAttribute("manager"));
 		
 		//개인삭제, 전체삭제 구현
 		if(request.getSession().getAttribute("manager")!=null) {

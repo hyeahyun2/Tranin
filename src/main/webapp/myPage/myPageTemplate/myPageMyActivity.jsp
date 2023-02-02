@@ -33,7 +33,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><input type="button" id="myPageMyActivityMoreBtn" value="더보기">	</td>
+				<td><input class="button-68" type="button" id="myPageMyActivityMoreBtn" value="더보기">	</td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -111,10 +111,20 @@
 					});
 					console.log(marketNo);
 			    	for(let j=0;j<keys2.length;j++){
-			    		let td = document.createElement('td');
-			    		td.innerHTML = Object.values(arr.result[key])[j];
-			    		tr.append(td);
-			    		let key2 = keys2[j];
+			    		if(j==6){//썸네일 띄우기
+			    			let td = document.createElement('td');
+			    			let img = document.createElement('img');
+				    		// /resources/images/s1_back02.png
+			    			img.src = "/resources/images/"+Object.values(arr.result[key])[j];
+				    		td.append(img);
+				    		tr.append(td);
+				    		let key2 = keys2[j];
+			    		}else{
+			    			let td = document.createElement('td');
+				    		td.innerHTML = Object.values(arr.result[key])[j];
+				    		tr.append(td);
+				    		let key2 = keys2[j];
+			    		}
 				    	//console.log("key : " + key2 + ", value : " + Object.values(arr.result[key])[j]);
 			    	}
 			    	

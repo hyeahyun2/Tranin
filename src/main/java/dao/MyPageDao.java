@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.member.PasswdEncry;
 import dto.ManagerDto;
 import dto.MarketDto;
 import dto.MemberDto;
@@ -21,13 +22,14 @@ public class MyPageDao {
 			String myPageMyInfoNickName,String myPageMyAddress,String myPageMyZipCode) {
 		//UPDATE `runeah`.`tranin_member` SET `memberId`='ssss', `password`='ssss', `name`='aaaa', `nickname`='gdfd', `sex`='여성', `birthYear`='1212', `phone1`='4124124', `phone4`='412312', `address1`='ㄹㅇㅁㅇㄻㅇㄻㅇㄹ' WHERE  `no`=17;
 		dbProperty = new DBProperty();
-		//Sha sha = new Sha();
-		//String myPageMyInfoPasswordNew = sha.encode(myPageMyInfoPassword);
+		// 객체 생성
+   	    PasswdEncry pwEn = new PasswdEncry();
+		String myPageMyInfoPasswordNew = pwEn.getEncry(myPageMyInfoPassword, "testSalt");
 		System.out.println(myPageMyInfoPassword);
-		//System.out.println(myPageMyInfoPasswordNew);
-		//String sql = "UPDATE tranin_member SET pw='"+myPageMyInfoPasswordNew+"', address='"+myPageMyAddress+"', zipcode='"+myPageMyZipCode+"' WHERE id='"+myPageMyInfoId+"'";
+		System.out.println(myPageMyInfoPasswordNew);
+		String sql = "UPDATE tranin_member SET pw='"+myPageMyInfoPasswordNew+"', address='"+myPageMyAddress+"', zipcode='"+myPageMyZipCode+"' WHERE id='"+myPageMyInfoId+"'";
 		try {
-			//dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
+			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
 			dbProperty.pstmt.executeUpdate();
 			System.out.println("수정완료");
 			if(dbProperty.rs!=null)
@@ -45,11 +47,12 @@ public class MyPageDao {
 			String myPageMyInfoName) {
 		//UPDATE `runeah`.`tranin_member` SET `memberId`='ssss', `password`='ssss', `name`='aaaa', `nickname`='gdfd', `sex`='여성', `birthYear`='1212', `phone1`='4124124', `phone4`='412312', `address1`='ㄹㅇㅁㅇㄻㅇㄻㅇㄹ' WHERE  `no`=17;
 		dbProperty = new DBProperty();
-		//Sha sha = new Sha();
-		//String myPageMyInfoPasswordNew = sha.encode(myPageMyInfoPassword);
-		//String sql = "UPDATE tranin_admin SET id='"+myPageMyInfoId+"', pw='"+myPageMyInfoPasswordNew+"', name='"+myPageMyInfoName+"' WHERE id='"+myPageMyInfoId+"'";
+		// 객체 생성
+   	    PasswdEncry pwEn = new PasswdEncry();
+		String myPageMyInfoPasswordNew = pwEn.getEncry(myPageMyInfoPassword,"testSalt");
+		String sql = "UPDATE tranin_admin SET id='"+myPageMyInfoId+"', pw='"+myPageMyInfoPasswordNew+"', name='"+myPageMyInfoName+"' WHERE id='"+myPageMyInfoId+"'";
 		try {
-			//dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
+			dbProperty.pstmt = dbProperty.conn.prepareStatement(sql);
 			dbProperty.pstmt.executeUpdate();
 			System.out.println("수정완료");
 			if(dbProperty.rs!=null)
@@ -242,7 +245,6 @@ public class MyPageDao {
 	}
 	
 	//멤버 메니저 시리즈
-	
 	public ResultSet getAllMemberList() throws SQLException {
 		dbProperty = new DBProperty();
 		String sql = "SELECT count(*) FROM tranin_member WHERE banned='false'";
@@ -408,21 +410,6 @@ public class MyPageDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		dbProperty = new DBProperty();
-		String sql1 = "DELETE FROM tranin_banned_member WHERE member_no="+no;
-		try {
-			pstmt = dbProperty.conn.prepareStatement(sql1);
-			pstmt.executeUpdate();
-			if(rs!=null)
-				rs.close();
-			if(pstmt != null)
-				pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public boolean restoreSelMember(String chkdId) {
@@ -444,20 +431,10 @@ public class MyPageDao {
 					dbProperty.conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return false;
 			}
 		}
-		
-		dbProperty = new DBProperty();
-		int flag = 0;
-		System.out.println(chkdId);
-		String sql = "DELETE FROM tranin_banned_member where member_no IN (" + chkdId + ")";
-		try {
-			statement = dbProperty.conn.createStatement();
-			flag= statement.executeUpdate(sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return flag!=0;
+		return true;
 	}
 
 	public void deleteAllMember() {
@@ -510,22 +487,6 @@ public class MyPageDao {
 		dbProperty = new DBProperty();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "DELETE FROM tranin_banned_member";
-		try {
-			dbProperty = new DBProperty();
-			pstmt = dbProperty.conn.prepareStatement(sql);
-			pstmt.executeUpdate();
-			if(rs!=null)
-				rs.close();
-			if(pstmt != null)
-				pstmt.close();
-			if(dbProperty.conn!=null)
-				dbProperty.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		dbProperty = new DBProperty();
 		String sql1 = "UPDATE tranin_member SET banned='false'";
 		try {
 			pstmt = dbProperty.conn.prepareStatement(sql1);
@@ -782,20 +743,22 @@ DBProperty db = new DBProperty();
 		return String.valueOf(count);
 	}
 
-	public String getDayPopPost() {
+	public String[] getDayPopPost() {
 		DBProperty db = new DBProperty();
 		
 		Connection conn = db.conn;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		String no = "";
 		String count = "";
-		String sql = "SELECT title FROM tranin_market WHERE write_date >= DATE_ADD(current_timestamp, INTERVAL -1 DAY) ORDER BY hits DESC";
+		String sql = "SELECT market_no, title FROM tranin_market WHERE write_date >= DATE_ADD(current_timestamp, INTERVAL -1 DAY) ORDER BY hits DESC";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				count = rs.getString(1);
+				no = String.valueOf(rs.getInt(1));
+				count = rs.getString(2);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -808,23 +771,26 @@ DBProperty db = new DBProperty();
 				e.printStackTrace();
 			}
 		}
-		return count;
+		String[] str = {no,count};
+		return str;
 	}
 
-	public String getWeekPopPost() {
+	public String[] getWeekPopPost() {
 		DBProperty db = new DBProperty();
 		
 		Connection conn = db.conn;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		String no = "";
 		String count = "";
-		String sql = "SELECT title FROM tranin_market WHERE write_date >= DATE_ADD(current_timestamp, INTERVAL -7 DAY) ORDER BY hits DESC";
+		String sql = "SELECT market_no, title FROM tranin_market WHERE write_date >= DATE_ADD(current_timestamp, INTERVAL -7 DAY) ORDER BY hits DESC";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				count = rs.getString(1);
+				no = String.valueOf(rs.getInt(1));
+				count = rs.getString(2);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -837,23 +803,26 @@ DBProperty db = new DBProperty();
 				e.printStackTrace();
 			}
 		}
-		return count;
+		String[] str = {no,count};
+		return str;
 	}
 
-	public String getMonthPopPost() {
+	public String[] getMonthPopPost() {
 		DBProperty db = new DBProperty();
 		
 		Connection conn = db.conn;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		String no = "";
 		String count = "";
-		String sql = "SELECT title FROM tranin_market WHERE write_date >= DATE_ADD(current_timestamp, INTERVAL -30 DAY) ORDER BY hits DESC";
+		String sql = "SELECT market_no, title FROM tranin_market WHERE write_date >= DATE_ADD(current_timestamp, INTERVAL -30 DAY) ORDER BY hits DESC";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				count = rs.getString(1);
+				no = String.valueOf(rs.getInt(1));
+				count = rs.getString(2);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -866,23 +835,26 @@ DBProperty db = new DBProperty();
 				e.printStackTrace();
 			}
 		}
-		return count;
+		String[] str = {no,count};
+		return str;
 	}
 
-	public String getAllPopPost() {
+	public String[] getAllPopPost() {
 		DBProperty db = new DBProperty();
 		
 		Connection conn = db.conn;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		String no = "";
 		String count = "";
-		String sql = "SELECT title FROM tranin_market ORDER BY hits DESC";
+		String sql = "SELECT market_no, title FROM tranin_market ORDER BY hits DESC";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				count = rs.getString(1);
+				no = String.valueOf(rs.getInt(1));
+				count = rs.getString(2);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -895,7 +867,8 @@ DBProperty db = new DBProperty();
 				e.printStackTrace();
 			}
 		}
-		return count;
+		String[] str = {no,count};
+		return str;
 	}
 
 	public String getDayMostUser() {

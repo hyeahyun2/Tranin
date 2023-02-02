@@ -9,13 +9,12 @@
 <section id="myPageMyInfo">
 	<form accept-charset="UTF-8" id="myPageMyInfoForm" action="myPageMyInfoModify" method="post">
 		<ul>
-			<li>아이디 : <input type="text" readonly name="myPageMyInfoId" value="<%=loginedMember.getId()%>"></li>
-			<li>패스워드 확인 : <input type="password" autocomplete="off" name="myPageMyInfoPasswordConfirm" value=""><input type="button" id="pwModi" value="패스워드 변경"></li>
-			<li>별명 : <input type="text" readonly name="myPageMyInfoNickName" value="<%=loginedMember.getNickName()%>"></li>
-			<li><span>우편번호 : </span> <input id="zipcode" type="text" name="myPageMyZipCode" readonly placeholder=" 우편번호" value="<%=loginedMember.getZipCode()%>"> <span id="dblCheck3" style="cursor:pointer"> 우편번호 검색</span> </li>
-            <li><span>주소 : </span> <input id="address01" type="text" name="myPageMyAddress" placeholder=" 주소" value="<%=loginedMember.getAddress()%>"></li>
-			
-			<li><input type="submit" name="myPageMyInfoModify" value="수정하기"></li>
+			<li><span>아이디</span><div><input type="text" readonly name="myPageMyInfoId" value="<%=loginedMember.getId()%>"></div></li>
+			<li><span>패스워드 확인</span><div><input type="password" autocomplete="off" name="myPageMyInfoPasswordConfirm" value=""><input class="button-68 button-68-small" type="button" id="pwModi" value="패스워드 변경"></div></li>
+			<li><span>별명</span><div><input type="text" readonly name="myPageMyInfoNickName" value="<%=loginedMember.getNickName()%>"></div></li>
+			<li><span>우편번호</span><div><input id="zipcode" type="text" name="myPageMyZipCode" readonly placeholder=" 우편번호" value="<%=loginedMember.getZipCode()%>"> <span class="button-68 button-68-small" id="dblCheck3" style="cursor:pointer"> 우편번호 검색</span></div> </li>
+            <li><span>주소</span><div><input id="address01" type="text" name="myPageMyAddress" placeholder=" 주소" value="<%=loginedMember.getAddress()%>"></div></li>
+			<li><input class="button-68" type="submit" name="myPageMyInfoModify" value="수정하기"></li>
 		</ul>
 	</form>
 	<script>

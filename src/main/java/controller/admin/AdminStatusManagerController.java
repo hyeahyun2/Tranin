@@ -28,7 +28,6 @@ public class AdminStatusManagerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//관리자는 현재 활동중!
 		AdminLoginDao setTime = new AdminLoginDao();
-		setTime.setSession(request.getSession().getId(), (String)request.getSession().getAttribute("manager"));
 		
 		//기본경로인 경우처리
 		response.setCharacterEncoding("utf-8");
@@ -49,66 +48,70 @@ public class AdminStatusManagerController extends HttpServlet {
 		MyPageDao dao = new MyPageDao();
 		
 		String dayRegMemberCount = dao.getDayRegMemberCount();
-		request.setAttribute("dayRegMemberCount", dayRegMemberCount);
+		setAttributeSupport(request,"dayRegMemberCount", dayRegMemberCount);
 		String weekRegMemberCount = dao.getWeekRegMemberCount();
-		request.setAttribute("weekRegMemberCount", weekRegMemberCount);
+		setAttributeSupport(request,"weekRegMemberCount", weekRegMemberCount);
 		String monthRegMemberCount = dao.getMonthRegMemberCount();
-		request.setAttribute("monthRegMemberCount",monthRegMemberCount);
+		setAttributeSupport(request,"monthRegMemberCount",monthRegMemberCount);
 		String allRegMemberCount = dao.getAllRegMemberCount();
-		request.setAttribute("allRegMemberCount",allRegMemberCount);
+		setAttributeSupport(request,"allRegMemberCount",allRegMemberCount);
 		
-		String dayPopPost = dao.getDayPopPost();
-		request.setAttribute("dayPopPost",dayPopPost);
-		String weekPopPost = dao.getWeekPopPost();
-		request.setAttribute("weekPopPost",weekPopPost);
-		String monthPopPost = dao.getMonthPopPost();
-		request.setAttribute("monthPopPost",monthPopPost);
-		String allPopPost = dao.getAllPopPost();
-		request.setAttribute("allPopPost",allPopPost);
+		String[] dayPopPost = dao.getDayPopPost();
+		setAttributeSupport(request,"dayPopPostNo",dayPopPost[0]);
+		setAttributeSupport(request,"dayPopPost",dayPopPost[1]);
+		String[] weekPopPost = dao.getWeekPopPost();
+		setAttributeSupport(request,"weekPopPostNo",weekPopPost[0]);
+		setAttributeSupport(request,"weekPopPost",weekPopPost[1]);
+		String[] monthPopPost = dao.getMonthPopPost();
+		setAttributeSupport(request,"monthPopPostNo",monthPopPost[0]);
+		setAttributeSupport(request,"monthPopPost",monthPopPost[1]);
+		String[] allPopPost = dao.getAllPopPost();
+		setAttributeSupport(request,"allPopPostNo",allPopPost[0]);
+		setAttributeSupport(request,"allPopPost",allPopPost[1]);
 		
 		String dayMostUser = dao.getDayMostUser();
-		request.setAttribute("dayMostUser",dayMostUser);
+		setAttributeSupport(request,"dayMostUser",dayMostUser);
 		String weekMostUser = dao.getWeekMostUser();
-		request.setAttribute("weekMostUser",weekMostUser);
+		setAttributeSupport(request,"weekMostUser",weekMostUser);
 		String monthMostUser = dao.getMonthMostUser();
-		request.setAttribute("monthMostUser",monthMostUser);
+		setAttributeSupport(request,"monthMostUser",monthMostUser);
 		String allMostUser = dao.getAllMostUser();
-		request.setAttribute("allMostUser",allMostUser);
+		setAttributeSupport(request,"allMostUser",allMostUser);
 		String dayMostUserCount = dao.getDayMostUserCount();
-		request.setAttribute("dayMostUserCount",dayMostUserCount);
+		setAttributeSupport(request,"dayMostUserCount",dayMostUserCount);
 		String weekMostUserCount = dao.getWeekMostUserCount();
-		request.setAttribute("weekMostUserCount",weekMostUserCount);
+		setAttributeSupport(request,"weekMostUserCount",weekMostUserCount);
 		String monthMostUserCount = dao.getMonthMostUserCount();
-		request.setAttribute("monthMostUserCount",monthMostUserCount);
+		setAttributeSupport(request,"monthMostUserCount",monthMostUserCount);
 		String allMostUserCount = dao.getAllMostUserCount();
-		request.setAttribute("allMostUserCount",allMostUserCount);
+		setAttributeSupport(request,"allMostUserCount",allMostUserCount);
 		
 		String dayPostCount = dao.getDayPostCount();
-		request.setAttribute("dayPostCount",dayPostCount);
+		setAttributeSupport(request,"dayPostCount",dayPostCount);
 		String weekPostCount = dao.getWeekPostCount();
-		request.setAttribute("weekPostCount",weekPostCount);
+		setAttributeSupport(request,"weekPostCount",weekPostCount);
 		String monthPostCount = dao.getMonthPostCount();
-		request.setAttribute("monthPostCount",monthPostCount);
+		setAttributeSupport(request,"monthPostCount",monthPostCount);
 		String allPostCount = dao.getAllPostCount();
-		request.setAttribute("allPostCount",allPostCount);
+		setAttributeSupport(request,"allPostCount",allPostCount);
 		
 		String dayBanPostCount = dao.getDayBanPostCount();
-		request.setAttribute("dayBanPostCount",dayBanPostCount);
+		setAttributeSupport(request,"dayBanPostCount",dayBanPostCount);
 		String weekBanPostCount = dao.getWeekBanPostCount();
-		request.setAttribute("weekBanPostCount",weekBanPostCount);
+		setAttributeSupport(request,"weekBanPostCount",weekBanPostCount);
 		String monthBanPostCount = dao.getMonthBanPostCount();
-		request.setAttribute("monthBanPostCount",monthBanPostCount);
+		setAttributeSupport(request,"monthBanPostCount",monthBanPostCount);
 		String allBanPostCount = dao.getAllBanPostCount();
-		request.setAttribute("allBanPostCount",allBanPostCount);
+		setAttributeSupport(request,"allBanPostCount",allBanPostCount);
 		
 		String dayBanMemberCount = dao.getDayBanMemberCount();
-		request.setAttribute("dayBanMemberCount",dayBanMemberCount);
+		setAttributeSupport(request,"dayBanMemberCount",dayBanMemberCount);
 		String weekBanMemberCount = dao.getWeekBanMemberCount();
-		request.setAttribute("weekBanMemberCount",weekBanMemberCount);
+		setAttributeSupport(request,"weekBanMemberCount",weekBanMemberCount);
 		String monthBanMemberCount = dao.getMonthBanMemberCount();
-		request.setAttribute("monthBanMemberCount",monthBanMemberCount);
+		setAttributeSupport(request,"monthBanMemberCount",monthBanMemberCount);
 		String allBanMemberCount = dao.getAllBanMemberCount();
-		request.setAttribute("allBanMemberCount",allBanMemberCount);
+		setAttributeSupport(request,"allBanMemberCount",allBanMemberCount);
 		/*
 		String dayMostSearch = dao.getDayMostSearch();
 		request.getAttribute("dayMostSearch");
@@ -133,6 +136,14 @@ public class AdminStatusManagerController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
+	}
+	
+	private void setAttributeSupport(HttpServletRequest request,String key, String value) {
+		if(value==""||value==null) {
+			request.setAttribute(key,"없음");
+		}else {
+			request.setAttribute(key,value);
+		}
 	}
 	
 }

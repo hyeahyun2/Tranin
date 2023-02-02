@@ -16,7 +16,7 @@
       <form name="frmMember" method="post">
 	  <input type="hidden" name="id">
 	  <input type="hidden" name="chkdID">
-      <table class="myPageAdminRepManageTable">
+      <table class="myPageAdminMemberManageTable">
 		<tr>
 			<th><input name="chkAll" type="checkbox" onClick="setChkAll();">선택</th>
 			<th>회원번호</th>
