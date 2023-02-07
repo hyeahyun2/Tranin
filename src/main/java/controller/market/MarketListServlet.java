@@ -28,21 +28,25 @@ public class MarketListServlet extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=UTF-8");
         
-        String part = request.getParameter("part");
-        int clickNum = Integer.parseInt(request.getParameter("clickNum"));
-        int oneClickLoad = Integer.parseInt(request.getParameter("loadNum"));
+        String part = request.getParameter("part"); // sell or buy
+        String searchKey = request.getParameter("searchKey"); // 검색 키워드
+        int clickNum = Integer.parseInt(request.getParameter("clickNum")); // 더보기 클릭 수
+        int oneClickLoad = Integer.parseInt(request.getParameter("loadNum")); // 클릭 한 번 당 로드될 게시글 수
         
-        response.getWriter().write(getPostList(part, clickNum, oneClickLoad));
+        response.getWriter().write(getPostList(part, searchKey, clickNum, oneClickLoad));
 	}
 	
 	// 게시글 정보 담기
-	public String getPostList(String part, int clickNum, int oneClickLoad) {
+	public String getPostList(String part, String searchKey, int clickNum, int oneClickLoad) {
 		StringBuffer result = new StringBuffer("");
 		
 		MarketDao marketDao = new MarketDao();
 		MemberInfoDao memberDao = new MemberInfoDao();
 		
-		int postCount = marketDao.getPostCount(part);
+//		int postCount = marketDao.getPostCount(part);
+		int postCount =
+				(searchKey == null || searchKey.equals("")) ? // 검색 키워드 있는지 확인
+						marketDao.getPostCount(part) : marketDao.getSearchPostCount(part, searchKey);
 		System.out.println(postCount);
 		if(postCount <= (clickNum * oneClickLoad)) { // 모두 로드된 상황
 			return "";
@@ -50,7 +54,10 @@ public class MarketListServlet extends HttpServlet {
 
 		result.append("{\"result\":[");
 		
-		ArrayList<MarketDto> postList = marketDao.getPostList(part, clickNum, oneClickLoad);
+//		ArrayList<MarketDto> postList = marketDao.getPostList(part, clickNum, oneClickLoad);
+		ArrayList<MarketDto> postList = 
+				(searchKey == null || searchKey.equals("")) ? // 검색 키워드 있는지 확인
+						marketDao.getPostList(part, clickNum, oneClickLoad) : marketDao.getSearchPostList(part, searchKey, clickNum, oneClickLoad);
 		if(postList.size() == 0) return "";
 		for(int i=0; i<postList.size(); i++) {
 			String imgName = "";

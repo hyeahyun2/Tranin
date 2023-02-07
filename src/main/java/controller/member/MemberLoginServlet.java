@@ -49,11 +49,14 @@ public class MemberLoginServlet extends HttpServlet {
 					resp.addCookie(autoLoginCk);
 				}
 				
-				resp.sendRedirect(url); // index로 이동
+				if(url == null || url.equals("")) { // 이 전 페이지의 url이 비었을 경우
+					resp.sendRedirect("/index.jsp"); // index페이지로 이동
+				}
+				else resp.sendRedirect(url); // 원래 있던 페이지로 이동
 			}
 			else { // 로그인 정보 불일치
 				req.setAttribute("errorMsg", "loginFail"); // 에러메세지 전송
-				RequestDispatcher rd = req.getRequestDispatcher("/member/login.jsp"); // 원래 있던 페이지로 이동
+				RequestDispatcher rd = req.getRequestDispatcher("/member/login.jsp"); // 로그인 페이지로 재이동
 				rd.forward(req, resp);
 			}
 		}

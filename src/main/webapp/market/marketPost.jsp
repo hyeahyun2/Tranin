@@ -16,10 +16,18 @@
 	MarketDto post = (MarketDto)request.getAttribute("post");
 	String writerNick = (String)request.getAttribute("writerNick");
 	String writerId = (String)request.getAttribute("writerId");
+	
+	String part = null;
+	if(post.getPart().equals("sell")){
+		part = "판매";
+	}
+	else if(post.getPart().equals("buy")){
+		part = "구매";
+	}
 	%>
 	<!-- contents -->
   <div id="content">
-    <h1><a href="./sale.html">팝니다</a></h1>
+    <h1><a href="/market/market.jsp"><%= part %>글</a></h1>
     <div id="contentWrap">
       <div class="postImg">
         <ul class="mainImg">
@@ -72,7 +80,7 @@
         <%
         } else if(memberId == null) {
         %>
-        <p class="warningMessage">로그인 후 판매자와의 채팅이 가능합니다.</p>
+        <p class="warningMessage">로그인 후 <%= part %>자와의 채팅이 가능합니다.</p>
         <%
         }
         %>

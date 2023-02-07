@@ -63,40 +63,6 @@ div#headerWrap ul > li > a {
   width: 0;
   text-indent: -9999px;
 }
-#category {
-  position: absolute;
-  right: 150px;
-  height: 25px;
-  overflow: hidden;
-  transition: 0.5s;
-  cursor: pointer;
-}
-#category p {
-  width: 150px;
-  text-align: center;
-  padding: 0 30px 0 10px;
-  border-radius: 10px;
-  background: url(../image/sh01.png) no-repeat right 10% center / 15px;
-  background-color: #000; color: #fff;
-}
-#category .goryList {
-  position: absolute;
-  top: 25px; 
-  width: 150px;
-  color: #000;
-  border-radius: 5px;
-  text-align: center;
-  transition: 0.5s;
-  height: 125px;
-  background-color: #fff;
-  padding: 0 30px;
-}
-#category .goryList li{
-  margin: 5px 0;
-}
-#category .goryList li:hover {
-  font-weight: 600;
-}
 
 #array {
   display: flex;
@@ -149,13 +115,25 @@ div#headerWrap ul > li > a {
   gap: 5px;
 }
 .post dl dt { width: 100%;}
+
+
 .post .postTitle {
-  display: block;
+  display: flex;
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  
+}
+.post dl dt span.anotherDay {display: none;}
+.post dl dt span.toDay {
+	display: block;
+	width: 20px; height: 20px;
+	text-indent: -9999px;
+	/*
+	background: url(../assets/image/new.png) no-repeat center / contaion;
+	*/
+	background-image: url(../image/new.png);
+	background-size: contain;
 }
 .post .price {
   font-size: 24px;
@@ -212,9 +190,6 @@ div#headerWrap ul > li > a {
   #selectWrap {
     flex-direction: column;
     align-items: flex-end;
-  }
-  #category {
-    top: 65%;
   }
   #posts ul {
     gap: 4%

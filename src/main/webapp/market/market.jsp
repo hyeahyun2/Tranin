@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="../assets/css/market.css?v=<%= System.currentTimeMillis() %>">
 <script src="../assets/js/market.js?v=<%= System.currentTimeMillis() %>" defer></script>
 </head>
-
+<%
+String searchKey = request.getParameter("searchKey");
+%>
 <body>
 	<%@ include file="../include/header.jsp"%>
 	<div id="content">
@@ -20,20 +22,10 @@
 			<div id="selectWrap">
 				<form action="#" name="search" id="inputSearch" method="get">
 					<input type="text" name="searchText" class="searchText"
-						placeholder="search"> <input type="submit" class="submit">
+						placeholder="search" <%if(searchKey != null){ out.print("value=\""+ searchKey +"\""); }%>> <input type="button" name="searchBtn" class="submit">
 					<a href="https://www.flaticon.com/kr/free-icons/" title="확대경 아이콘">확대경
 						아이콘 제작자: Freepik - Flaticon</a>
 				</form>
-				<div id=category>
-					<p>카테고리</p>
-					<ul class="goryList">
-						<li>전체</li>
-						<li>스위치</li>
-						<li>타이틀</li>
-						<!-- <li>구형모델</li> -->
-						<li>액세서리</li>
-					</ul>
-				</div>
 				<ul id="array">
 					<li class="select sell">팝니다</li>
 					<li class="buy">삽니다</li>

@@ -32,7 +32,10 @@ public class MemberLogout extends HttpServlet {
 	        }
 	      }
 	    }
-		resp.sendRedirect(url); // 원래 페이지로 이동
+	    if(url == null || url.equals("")) { // 이 전 페이지의 url이 비었을 경우
+			resp.sendRedirect("/index.jsp"); // index페이지로 이동
+		}
+	    else resp.sendRedirect(url); // 아니라면 원래 페이지로 이동
 	}
 
 }

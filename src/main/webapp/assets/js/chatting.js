@@ -1,5 +1,6 @@
 const xhr = new XMLHttpRequest();
-let toNick = document.querySelector('.header').innerText;
+let toNick = document.querySelector('.header').innerText; // 상대방 닉네임
+let prevDate = ""; // 비교날짜
 
 // 채팅 내역 db로 보내기
 function submitFunction(){
@@ -64,6 +65,9 @@ function chatListFunction(type){
 }
 
 // 채팅 리스트 화면에 추가
+/*
+let prevDate = ""; // 비교날짜
+ */
 function addChat(chatName, chatContent, chatTime){
 	let classType = "";
 	// 날짜 , 시간 나눠주기
@@ -88,7 +92,12 @@ function addChat(chatName, chatContent, chatTime){
 	}
 	time = timeType + " " + hour + min;
 	if(chatName != toNick) classType = "chatMine";
-	var template = `<div class="chatLine ${classType}">
+	var template = ""; // 추가할 html 구조
+	if(date != prevDate){ // 이전 채팅과 날짜가 다르면 -> 날짜 관련 html 구조 추가
+		template += `<div class="chatDate">${date}</div>`;
+		prevDate = date; // 비교날짜에 현재 채팅 날짜 저장
+	}
+	template += `<div class="chatLine ${classType}">
 		<span class="chat-box">${chatContent}</span>
 		<span class="chat-time">${time}</span>
 		</div>`;

@@ -48,6 +48,49 @@ public class MarketDao {
 		return postList;
 	}
 	
+	// 검색 - 글 목록 loadNum만큼 불러오기
+	public ArrayList<MarketDto> getSearchPostList(String part, String searchKey, int clickNum, int loadNum){
+		DBProperty db = new DBProperty();
+		ArrayList<MarketDto> postList = new ArrayList<MarketDto>();
+
+		String sql = "SELECT market_no, writer_no, title, price, write_date, hits, image_1 "
+				+ "FROM tranin_market "
+				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false' "
+				+ "ORDER BY write_date DESC "
+				+ "LIMIT ?, ?";
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, part);
+			db.pstmt.setString(2, "%" + searchKey + "%");
+			db.pstmt.setInt(3, clickNum * loadNum);
+			db.pstmt.setInt(4, loadNum);
+			db.rs = db.pstmt.executeQuery();
+			while(db.rs.next()) {
+				MarketDto post = new MarketDto();
+				post.setMarketNo(db.rs.getInt("market_no"));
+				post.setWriterNo(db.rs.getInt("writer_no"));
+				post.setTitle(db.rs.getString("title"));
+				post.setPrice(db.rs.getInt("price"));
+				post.setWriteDate(db.rs.getString("write_date"));
+				post.setHits(db.rs.getInt("hits"));
+				post.setImage(0, db.rs.getString("image_1"));
+				postList.add(post);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return postList;
+	}
+	
 	// part별 게시글 총 개수 구하기
 	public int getPostCount(String part) {
 		DBProperty db = new DBProperty();
@@ -75,10 +118,38 @@ public class MarketDao {
 		return count;
 	}
 	
+	// part별 검색 키워드를 가진 게시글 총 개수
+	public int getSearchPostCount(String part, String searchKey) {
+		DBProperty db = new DBProperty();
+		int count = 0;
+		String sql = "SELECT COUNT(*) FROM tranin_market "
+				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false'";
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, part);
+			db.pstmt.setString(2, "%" + searchKey + "%");
+			db.rs = db.pstmt.executeQuery();
+			db.rs.next();
+			count = db.rs.getInt(1);
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	
 	// 게시글 등록
 	public int insertPost(MarketDto post, String writeID) {
 		DBProperty db = new DBProperty();
-		
+		System.out.println("게시글 등록 메서드 실행");
 		String sql = "insert into tranin_market "
 				+ "(writer_no, title, content, part, price, hits, write_date, ip, image_1, image_2, image_3, image_4, image_5) "
 				+ "values ((select `no` from tranin_member where id = ?), ?, ?, ?, ?, ?, now(), ?, ?, ?, ?, ?, ?)";

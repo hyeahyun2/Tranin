@@ -1,5 +1,6 @@
 const fixedBtn = document.getElementById("fixedBtn");
 const topBtn = fixedBtn.querySelector(".topBtn");
+const searchText = document.search.searchText;
 console.log(topBtn);
 topBtn.addEventListener("click",(e)=>{
   e.preventDefault();
@@ -16,8 +17,9 @@ const moreBtn = contentWrap.querySelector(".moreBtn");
 
 let clickNum = 0; // 클릭 수
 let nowPart = "sell"; // part 초기값
+let searchKey = searchText.value; // 검색 키워드 초기값
 
-function moreList(part){
+function moreList(part, searchKey){
 	console.log("clickNum : " + clickNum);
   // page = this.getAttribute();
   //xhr.open('GET', `./marketList.jsp?`); //HTTP 요청 초기화. 통신 방식과 url 결정
@@ -56,22 +58,32 @@ function moreList(part){
   // 보낼 파라미터 설정
   xhr.send("part=" + part +
   		"&clickNum=" + clickNum +
+  		"&searchKey=" + searchKey +
   		"&loadNum=8");
 }
 
 // 게시글 추가
+let today = new Date(); // 현재 날짜 시간
+let today_month = today.getMonth() + 1;
+let today_date = today.getDate();
+if(today_month < 10) today_month = "0" + today_month.toString();
+if(today_date < 10) today_date = "0" + today_date.toString();
+let date = today.getFullYear() + "-" + today_month + "-" + today_date; // 날짜만 저장
 function boardList(result){
 	var template = `<ul>`;
 	for(let i=0; i<result.length; i++){
+		let isToday = "anotherDay"; // 게시글이 오늘 날짜인지 여부 확인 (기본값 : 다른날짜)
+		if(result[i].writeDate.includes(date)){ // 오늘 날짜면
+			isToday = "toDay";
+		}
 		// 	http://localhost:8080/resources/images/P1234.png
-		// ${result[i].titleImage}
 		if(result[i].titleImage == ""){result[i].tileImage = "defualtImg.png"}
 		var post = `<li class="post">
 	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
 	    			<img src="/resources/images/${result[i].titleImage}" alt="${result[i].no}번 글 이미지">
 	    		</a>
 	    		<dl>
-	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title}</a></dt>
+	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title} <span class="${isToday}">새글</span></a></dt>
 	      		<dd class="price">${result[i].price}원</dd>
 	     		 <dd class="writer">${result[i].writerNick}</dd>
 	      		<dd class="hits_date"><span class="hits">조회수 ${result[i].hits}</span><span class="writeDate">${result[i].writeDate}</span></dd>
@@ -83,11 +95,17 @@ function boardList(result){
 	posts.insertAdjacentHTML("beforeend", template);
 }
 
-window.addEventListener("load", moreList(nowPart)); // 페이지 로드시 디폴트 리스트
+window.addEventListener("load", moreList(nowPart, searchKey)); // 페이지 로드시 디폴트 리스트
 moreBtn.addEventListener("click", function(){
 	console.log("click");
-	moreList(nowPart);
+	moreList(nowPart, searchKey);
 }); // 클릭시 리스트 추가
+
+// 검색
+const searchBtn = document.search.searchBtn;
+searchBtn.addEventListener("click", function(){
+	location.href = "/market/market.jsp?searchKey=" + searchText.value;
+});
 
 
 // sell/buy(#array)에 따른 리스트 재나열
