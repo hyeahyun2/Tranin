@@ -48,6 +48,8 @@
         </li>
       </ul>
     </section>
+    <section class="page2 page onePage2">
+    </section>
     <section class="Wrap_hj page3 page onePage3">
       <div class="firstDiv_hj">
         <div id="headerWrap_hj">

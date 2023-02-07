@@ -55,7 +55,8 @@
 
     <a href="../member/login.jsp?url=<%= url %>">로그인</a>
     <a href="../manage/manageLogin.jsp">관리자 로그인</a>
-    <a href="../member/register.jsp">회원가입</a>
+    <a href="../member/register.jsp">(구)회원가입</a>
+    <a href="../member/TOS.jsp">(신)회원가입</a>
 
     	<%
     }
