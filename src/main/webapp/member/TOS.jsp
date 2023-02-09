@@ -93,7 +93,7 @@
    		<h1>회원가입</h1>
 		<h2>Tranin 회원으로 가입하기 위해서는 이용약관, 개인정보처리방침에 동의하셔야 합니다.</h2>
 	</header>
-	<form id="signTosForm" action="#" method="GET">
+	<form id="signTosForm" action="#" method="POST">
 		<section>
 			<h3>이용약관</h3>
 			<article>
@@ -285,7 +285,7 @@
 		tosConfirm.addEventListener('click',function(){
 			if(status==2){
 				//web-inf 안으로 회원가입 페이지를 옮긴다면 서블릿 경로로 만들 필요가 있음
-				signTosForm.action = "../member/register.jsp";
+				signTosForm.action = "memberRegisterTOSServlet";
 				signTosForm.submit();
 			}else{
 				alert("약관에 동의해 주십시오");

@@ -8,6 +8,7 @@
   <title>포트폴리오</title>
   <%@ include file="../include/frontStyle.jsp"%>
   <link rel="stylesheet" href="../assets/css/index.css" />
+  <link rel="stylesheet" href="../assets/css/mainPromotion.css" />
   <script src="../assets/js/onePage.js" defer></script>
   <script src="../assets/js/section1.js" defer></script>
   <script src="../assets/js/section4.js" defer></script>
@@ -39,12 +40,36 @@
       </div>
       <ul class="page1_slides">
         <li class="page1_1 active">
+        	<article class="promotionContent">
+        		<a class="promotionContentImage" href="#"></a>
+        		<p>제목1</p>
+        		<p>가격1</p>
+        		<p>판매자1</p>
+        	</article>
         </li>
         <li class="page1_2">
+        	<article class="promotionContent">
+        		<a class="promotionContentImage" href="#"></a>
+        		<p>제목2</p>
+        		<p>가격2</p>
+        		<p>판매자2</p>
+        	</article>
         </li>
         <li class="page1_3">
+        	<article class="promotionContent">
+        		<a class="promotionContentImage" href="#"></a>
+        		<p>제목3</p>
+        		<p>가격3</p>
+        		<p>판매자3</p>
+        	</article>
         </li>
         <li class="page1_4">
+        	<article class="promotionContent">
+        		<a class="promotionContentImage" href="#"></a>
+        		<p>제목4</p>
+        		<p>가격4</p>
+        		<p>판매자4</p>
+        	</article>
         </li>
       </ul>
     </section>

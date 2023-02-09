@@ -9,7 +9,6 @@ import java.util.Date;
 
 public class AdminLoginDao {
 	
-
 	public String login(String id, String pw) {
 
         DBProperty db = new DBProperty();

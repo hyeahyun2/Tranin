@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>장터</title>
 <%@ include file="../include/frontStyle.jsp"%>
-<link rel="stylesheet" href="../assets/css/market.css?v=<%= System.currentTimeMillis() %>">
-<script src="../assets/js/market.js?v=<%= System.currentTimeMillis() %>" defer></script>
+<link rel="stylesheet" href="../assets/css/market.css">
+<script src="../assets/js/market.js" defer></script>
 </head>
 <%
 String searchKey = request.getParameter("searchKey");

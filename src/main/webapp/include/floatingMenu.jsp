@@ -24,16 +24,14 @@
       <form action="/mainSearch" method="get" id="searchWrap">
         <fieldset>
           <legend>검색하기</legend>
-          <input type="text" name="keyword" placeholder="검색어를 입력하세요">
-          <select name="searchCategory" id="cars">
-            <option value="제목">제목</option>
-            <option value="내용">내용</option>
-            <option value="제목내용">제목+내용</option>
-            <option value="글쓴이">글쓴이</option>
+          <input id="rightSearchText" type="text" name="keyword" placeholder="검색어를 입력하세요">
+          <select id="rightSearchSelect" name="searchCategory" id="searchCategory">
+            <option value="장터">장터</option>
+            <option value="공지사항">공지사항</option>
           </select>
-          <input type="submit" value="검색">
+          <input id="rightSearchBtn" class="button-68" type="submit" value="검색">
         </fieldset>
       </form>
-      <button id="rightSearchClose">검색창 닫기</button>
+      <button class="button-68" id="rightSearchClose">닫기</button>
     </section>
   </section>
