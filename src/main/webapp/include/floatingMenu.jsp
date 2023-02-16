@@ -11,12 +11,6 @@
           <li id="chatTag">
             <a href="../chat/chatMain.jsp">채팅상담<span class="isNewMsg">새 메세지</span></a>
           </li>
-          <li>
-            <a href="#">찜목록</a>
-          </li>
-          <li>
-            <a href="#">장바구니</a>
-          </li>
           <li id="rightSearch">
             <a href="#">검색</a>
           </li>

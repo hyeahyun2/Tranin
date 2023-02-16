@@ -66,20 +66,10 @@
         <h2 class="hidden">주요이용메뉴</h2>
         <ul id="gnbList">
           <li class="gnbListChild"><a href="../market/market.jsp">장터</a></li>
-          <li class="gnbListChild"><a href="#">삽니다</a></li>
-          <li class="gnbListChild"><a href="#">커뮤니티</a>
-            <ul class="snb">
-              <li><a href="#">후기</a></li>
-              <li><a href="#">인기글</a></li>
-              <li><a href="#">자유게시판</a></li>
-              <li><a href="#">정보게시판</a></li>
-            </ul>
-          </li>
           <li class="gnbListChild"><a href="#">고객센터</a>
             <ul class="snb">
               <li><a href="../notice/notice.jsp">공지사항</a></li>
               <li><a href="../faq/faq.jsp">FAQ</a></li>
-              <li><a href="#">신고하기</a></li>
             </ul>
           </li>
         </ul>
