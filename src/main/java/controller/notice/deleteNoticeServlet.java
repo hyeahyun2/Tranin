@@ -1,7 +1,6 @@
 package controller.notice;
 
-import dao.MemebrPasswordSelectDao;
-import dao.NoticeDeleteDao;
+import dao.NoticeDao;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,24 +18,25 @@ public class deleteNoticeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("아아");
+		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 
-		int notice_no = Integer.parseInt(request.getParameter("notice_no"));
+		NoticeDao dao = new NoticeDao();
 
-		NoticeDeleteDao dao = new NoticeDeleteDao();
-
-		boolean state = dao.deleteNotice(notice_no);
+		boolean state = dao.deleteNotice(noticeNo);
 
 		if(state){ // 성공
-			PrintWriter out = response.getWriter();
-			out.println("<script>alert('삭제되었습니다')</script>");
-			out.println("<script>location.href='/UM/lostAndFound_process.jsp'</script>");
-			out.flush();
-			out.close();
+			
+			response.sendRedirect("/notice/notice.jsp");
+			// PrintWriter out = response.getWriter();
+			// out.println("<script>alert('삭제되었습니다')</script>");
+			// out.flush();
+			// out.close();
+
 		}
 		else { //실패
 			PrintWriter out = response.getWriter();
-			out.println("<script>alert('삭제에실패되었습니다.')</script>");
-			out.println("<script>location.href='/UM/lostAndFound.jsp'</script>");
+			out.println("<script>alert('삭제에 실패되었습니다.')</script>");
 			out.flush();
 			out.close();
 		}

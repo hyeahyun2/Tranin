@@ -8,8 +8,8 @@ public class ReportMemberDto {
 	private String reportId;
 	private String reportUrl;
 	private Date regDate;
-	private boolean accept;
-	private boolean reject;
+	private String accept;
+	private String reject;
 	
 	public ReportMemberDto() {
 		super();
@@ -22,8 +22,8 @@ public class ReportMemberDto {
 		this.reportUrl = reportUrl;
 	}
 
-	public ReportMemberDto(int reportNo, String userId, String reportId, String reportUrl, Date regDate, boolean accept,
-			boolean reject) {
+	public ReportMemberDto(int reportNo, String userId, String reportId, String reportUrl, Date regDate, String accept,
+			String reject) {
 		super();
 		this.reportNo = reportNo;
 		this.userId = userId;
@@ -74,19 +74,19 @@ public class ReportMemberDto {
 		this.regDate = regDate;
 	}
 
-	public boolean isAccept() {
+	public String getAccept() {
 		return accept;
 	}
 
-	public void setAccept(boolean accept) {
+	public void setAccept(String accept) {
 		this.accept = accept;
 	}
 
-	public boolean isReject() {
+	public String getReject() {
 		return reject;
 	}
 
-	public void setReject(boolean reject) {
+	public void setReject(String reject) {
 		this.reject = reject;
 	}
 

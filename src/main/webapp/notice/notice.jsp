@@ -3,10 +3,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.DBProperty" %>
-<%@ page import="dao.NoticeShowDao" %>
-<%@ page import="dao.NoticeSearchDao" %>
+<%@ page import="dao.NoticeDao" %>
 <%@ page import="dto.NoticeDto" %>
-<%@ page import="dao.NoticePagingDao" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +17,6 @@
   <link rel="stylesheet" href="../assets/css/reset.css">
   <link rel="stylesheet" href="../assets/css/notice.css">
   <link rel="stylesheet" href="../assets/css/footer.css">
-  <script src="../assets/js/common.js" defer></script>
   <script src="../assets/js/header.js" defer></script>
 </head>
 <body>
@@ -52,13 +49,18 @@
 			if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
 				pageNum = Integer.parseInt(request.getParameter("pageNum"));					
 			}
-        	
+			NoticeDao dao = new NoticeDao();
         	if (isSearch) {
-        		NoticeSearchDao dao1 = new NoticeSearchDao();
-    			list = dao1.getSearch(searchText, pageNum);
+    			list = dao.getSearch(searchText, pageNum);
+    			if(list.size() == 0) {
+    				out.println("<tr>");
+    				out.println("<td></td>");
+    				out.println("<td>검색된 게시물이 없습니다.</td>");
+    				out.println("<td></td>");
+    				out.println("</tr>");
+    			}
         	}
         	else {
-	        	NoticeShowDao dao = new NoticeShowDao();
 	        	list = dao.showNotice(pageNum);        		
         	}
 			
@@ -67,7 +69,7 @@
 		%>
 		  <tr>
             <td><%=a.getNoticeNo() %></td>
-            <td><a href="./showNotice.jsp?id=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
+            <td><a href="./showNotice.jsp?noticeNo=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
             <td><%=a.getRegDate() %></td>
           </tr>
 		<% 		
@@ -153,7 +155,7 @@
     	<%
     	int cntListPerPage = 10;
    		
-    	NoticePagingDao npd = new NoticePagingDao();
+    	NoticeDao npd = new NoticeDao();
     	ResultSet rs = null;
     	if (isSearch) {
   			rs = npd.getSearchNotice(searchText);  		
@@ -230,15 +232,15 @@
         <li><a href="#" class="num">5</a></li>
         --%>
     </div>
-       <%
+       <%--
           if(manager != null) {
-       %>
+       --%>
     <div>
     	<a href="./writeNotice.jsp">글쓰기</a>
     </div>
-    <%
+    <%--
     	}
-    %>
+    --%>
   </section>
  <%@ include file="../include/footer.jsp"%>
   
