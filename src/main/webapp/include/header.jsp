@@ -22,15 +22,12 @@
     }
     memberId = (String)session.getAttribute("memberId");
     String id = (String) session.getAttribute("id");
-
-    // 현재 페이지
-    String url = request.getRequestURI() + "?" + request.getQueryString();
     
     if(memberId != null){
     	%>
     <a><%=memberId.split("@")[0]%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>마이페이지</a>
-   	<a href="/memberLogout?url=<%= url %>" class='logOut'>로그아웃</a>
+   	<a href="/memberLogout" class='logOut'>로그아웃</a>
     	<%
     }
     else if(manager != null) {
@@ -38,7 +35,7 @@
 
     <a><%=manager%>님 환영합니다!</a>
    	<a href='../myPage/myPage'>관리페이지</a>
-   	<a href="/memberLogout?url=<%= url %>" class='logOut'>로그아웃</a>
+   	<a href="/memberLogout" class='logOut'>로그아웃</a>
 
     	<%
     } else if(id != null) {
@@ -46,14 +43,14 @@
 
     <a><%=id.split("@")[0]%>님 환영합니다!</a>
     <a href='../myPage/myPage'>관리페이지</a>
-    <a href="/memberLogout?url=<%= url %>" class='logOut'>로그아웃</a>
+    <a href="/memberLogout" class='logOut'>로그아웃</a>
 
     <%
     } else {
     	
     	%>
 
-    <a href="../member/login.jsp?url=<%= url %>">로그인</a>
+    <a href="../member/login.jsp">로그인</a>
     <a href="../manage/manageLogin.jsp">관리자 로그인</a>
     <a href="../member/register.jsp">(구)회원가입</a>
     <a href="../member/TOS.jsp">(신)회원가입</a>
