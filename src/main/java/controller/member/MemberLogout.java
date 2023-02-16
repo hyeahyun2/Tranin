@@ -26,13 +26,12 @@ public class MemberLogout extends HttpServlet {
 	    if (c != null) {
 	      for (Cookie cf : c) {
 	        if (cf.getName().equals("autoLogin")){
-	        	System.out.println("autoLogin OFF");
 	        	cf.setMaxAge(0);
 	        	resp.addCookie(cf);
 	        }
 	      }
 	    }
-	    else resp.sendRedirect("/index.jsp"); // 아니라면 원래 페이지로 이동
+	    resp.sendRedirect("/index.jsp"); // 아니라면 원래 페이지로 이동
 	}
 
 }
