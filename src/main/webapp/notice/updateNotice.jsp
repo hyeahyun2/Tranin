@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="dao.NoticeSelectDao" %>
+<%@ page import="dao.NoticeDao" %>
 <%@ page import="dto.NoticeDto" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,7 +26,7 @@
         </div>
         <%
 	        int noticeNo= Integer.parseInt(request.getParameter("noticeNo"));
-	    	NoticeSelectDao dao = new NoticeSelectDao();
+	    	NoticeDao dao = new NoticeDao();
 	    	ArrayList<NoticeDto> list = dao.getNotice(noticeNo);
 	    	
 	    	for(NoticeDto a : list) {

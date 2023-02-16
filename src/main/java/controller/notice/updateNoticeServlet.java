@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.NoticeUpdateDao;
+import dao.NoticeDao;
 
 @WebServlet("/updateNoticeServlet")
 public class updateNoticeServlet extends HttpServlet {
@@ -22,7 +22,7 @@ public class updateNoticeServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		int noticeNo = Integer.parseInt(request.getParameter("noticeNo"));
 		
-		NoticeUpdateDao dao = new NoticeUpdateDao();
+		NoticeDao dao = new NoticeDao();
 		
 		boolean state = dao.updateContent(title, content, noticeNo);
 		

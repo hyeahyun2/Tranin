@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.NoticeInsertDao;
+import dao.NoticeDao;
 
 @WebServlet("/writeNoticeServlet")
 public class writeNoticeServlet extends HttpServlet {
@@ -23,7 +23,7 @@ public class writeNoticeServlet extends HttpServlet {
 		String content = request.getParameter("content");
 
 		
-		NoticeInsertDao nid = new NoticeInsertDao();
+		NoticeDao nid = new NoticeDao();
 		
 		boolean state = nid.registContent(title, content);
 		

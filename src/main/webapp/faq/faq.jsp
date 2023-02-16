@@ -3,8 +3,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="dao.DBProperty" %>
-<%@ page import="dao.FaqShowDao" %>
-<%@ page import="dao.FaqPagingDao" %>
+<%@ page import="dao.FaqDao" %>
 <%@ page import="dto.FaqDto" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -36,7 +35,7 @@
 		<div id="listWrap_hj">
 			<ul class="faqUl_hj">
 				<%				
-					FaqShowDao dao = new FaqShowDao();
+					FaqDao dao = new FaqDao();
 					int pageNum = 1;
 					if(request.getParameter("pageNum") != null) { // 페이지 번호가 전달이 된 경우
 						pageNum = Integer.parseInt(request.getParameter("pageNum"));					
@@ -115,7 +114,7 @@
 			<%
 	    	int cntListPerPage = 10;
 	   		
-	    	FaqPagingDao npd = new FaqPagingDao();
+	    	FaqDao npd = new FaqDao();
 	    	ResultSet rs = null;
 				rs = npd.getAllFaq();    		
 	

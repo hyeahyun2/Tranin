@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.FaqInsertDao;
-import dao.NoticeInsertDao;
+import dao.FaqDao;
 
 @WebServlet("/writeFaqServlet")
 public class writeFaqServlet extends HttpServlet {
@@ -22,7 +21,7 @@ public class writeFaqServlet extends HttpServlet {
 		String content = request.getParameter("content");
 
 		
-		FaqInsertDao nid = new FaqInsertDao();
+		FaqDao nid = new FaqDao();
 		
 		boolean state = nid.registFaqContent(title, content);
 		System.out.println("함수 실행");
