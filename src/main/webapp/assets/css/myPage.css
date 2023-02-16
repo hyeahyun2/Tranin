@@ -180,54 +180,6 @@ div#headerWrap ul > li > a {
 	padding : 10px;
 	border : 2px solid white;
 }
-/* myPageBuyList */
-#myPageBuyList a{
-  color : white;
-}
-#myPageBuyListInnerWrap {
-  display : flex;
-  flex-flow: column;
-}
-#myPageBuyListInnerWrap ul {
-  display : flex;
-  flex-flow: row;
-  width : 100%;
-  justify-content: space-around;
-  border-bottom: 1px solid white;
-}
-#myPageBuyListHeader {
-  font-size: 1.3em;
-  padding-bottom: 20px;
-}
-#myPageBuyListInnerWrap ul:not(#myPageBuyListHeader) {
-  height : 100px;
-  padding-top: 40px;
-}
-#myPageBuyListInnerWrap ul:not(#myPageBuyListHeader) {
-  transition: background 0.25s ease;
-}
-#myPageBuyListInnerWrap ul:not(#myPageBuyListHeader):hover {
-  background: #014055;
-}
-.myPageBuyListReview {
-  position: absolute;
-  right : 100px;
-  margin-top: 30px;
-  border: 1px solid white;
-}
-#myPageBuyListPaging {
-  display : flex;
-  justify-content: center;
-  margin : 10px;
-}
-#myPageBuyListPaging ul {
-  display : flex;
-  flex-flow: row;
-  margin : 0 10px;
-}
-#myPageBuyListPaging ul li {
-  margin : 0 10px;
-}
 /* myPageMemberOut */
 #myPageMemberOut a {
   color : white;
@@ -260,15 +212,16 @@ div#headerWrap ul > li > a {
   border: 1px solid white;
 }
 /* table detail */
-#myPageAdminInnerTab section #memberManagerPaging{
+#myPageAdminInnerTab section #memberManagerPaging, #myPageTransactionPaging{
+	display : flex;
 	flex-flow: row;
 	justify-content : center;
 }
-#memberManagerPaging a {
+#memberManagerPaging a, #myPageTransactionPaging a {
 	min-width : 100px;
-	min-hegiht : 20px;
+	min-height : 20px;
 }
-#memberManagerPaging a.num {
+#memberManagerPaging a.num, #myPageTransactionPaging a.num {
 	min-width : 30px;
 	min-hegiht : 20px;
 }
@@ -302,13 +255,13 @@ div#headerWrap ul > li > a {
   justify-content:space-around;
   border-bottom: 1px solid white;
 }
-#myPageAdminInnerTab a {
+#myPageAdminInnerTab a,#myPageTransactionPaging a {
   color : white;
   display : block;
   border : 1px solid white;
   text-align: center;
 }
-#memberManagerNo{
+#memberManagerNo, #myPageTransactionNo{
   display : none;
 }
 #searchForm{
@@ -352,13 +305,13 @@ select option {
 	color : black;
 }
 /* admin table */
-.myPageAdminBannedMarketManageTable, .myPageAdminMemberManageTable, .myPageAdminMarketManageTable, .myPageAdminBannedMemberManageTable {
+.myPageTransactionTable, .myPageAdminBannedMarketManageTable, .myPageAdminMemberManageTable, .myPageAdminMarketManageTable, .myPageAdminBannedMemberManageTable {
 	width : 100%;
 }
-.myPageAdminBannedMarketManageTable tbody, .myPageAdminRepManageTable tbody, .myPageAdminMarketManageTable tbody, .myPageAdminRepManageTable tbody {
+.myPageTransactionTable tbody,.myPageAdminBannedMarketManageTable tbody, .myPageAdminRepManageTable tbody, .myPageAdminMarketManageTable tbody, .myPageAdminRepManageTable tbody {
 	width : 100%;
 }
-#myPageAdminRepManage a.active, #myPageAdminMarketManage a.active,#myPageAdminBannedMarketManage a.active {
+#myPageTransactionList a.active, #myPageAdminRepManage a.active, #myPageAdminMarketManage a.active,#myPageAdminBannedMarketManage a.active {
 	background-color : white;
 }	
 .num.active {
@@ -423,17 +376,19 @@ select option {
 #myPageMyActivityLeftNav li,#myPageMyActivityAjaxTemplate tr{
 	cursor : pointer;	
 }
-.myPageAdminMarketManageTable tr ,.myPageAdminBannedMarketManageTable tr,.myPageAdminMemberManageTable tr ,.myPageAdminBannedMemberManageTable tr, #myPageMyActivityAjaxTemplate tr{
+.myPageTransactionTable tr,.myPageAdminMarketManageTable tr ,.myPageAdminBannedMarketManageTable tr,.myPageAdminMemberManageTable tr ,.myPageAdminBannedMemberManageTable tr, #myPageMyActivityAjaxTemplate tr{
   transition: background 0.25s ease;
   height : 40px;
 }
 .myPageAdminMarketManageTable td,.myPageAdminMarketManageTable th, .myPageAdminBannedMarketManageTable td,.myPageAdminBannedMarketManageTable th,
-.myPageAdminMemberManageTable td,.myPageAdminMemberManageTable th, .myPageAdminBannedMemberManageTable td,.myPageAdminBannedMemberManageTable th {
+.myPageAdminMemberManageTable td,.myPageAdminMemberManageTable th, .myPageAdminBannedMemberManageTable td,.myPageAdminBannedMemberManageTable th,
+.myPageTransactionTable td, .myPageTransactionTable th {
 	border-right : 1px solid white;
 	padding : 5px;
 }
 .myPageAdminMarketManageTable td,.myPageAdminBannedMarketManageTable td,
-.myPageAdminMemberManageTable td,.myPageAdminBannedMemberManageTable td
+.myPageAdminMemberManageTable td,.myPageAdminBannedMemberManageTable td,
+.myPageTransactionTable td
 {
 	max-width: 200px;
 	overflow: hidden;
@@ -441,12 +396,13 @@ select option {
  	white-space: nowrap;
 }
 .myPageAdminMarketManageTable th,.myPageAdminBannedMarketManageTable th,
-.myPageAdminMemberManageTable th,.myPageAdminBannedMemberManageTable th{
+.myPageAdminMemberManageTable th,.myPageAdminBannedMemberManageTable th,
+.myPageTransactionTable th {
 	border-bottom : 1px solid white
 }
 .myPageAdminMarketManageTable tr:hover,.myPageAdminBannedMarketManageTable tr:hover,
 .myPageAdminMemberManageTable tr:hover,.myPageAdminBannedMemberManageTable tr:hover,
-#myPageMyActivityAjaxTemplate tr:hover {
+#myPageMyActivityAjaxTemplate tr:hover,.myPageTransactionTable tr:hover {
   background: #014055;	
 }
 /* status div */
@@ -475,4 +431,8 @@ select option {
 .myPageAdminMemberManageTable span,.myPageAdminBannedMemberManageTable span,
 #subHandler span,#searchMemberBtn,#searchMarketBtn{
 	cursor : pointer;
+}
+/* for transac */
+.myPageTransactionTable {
+	border : 2px solid white;
 }

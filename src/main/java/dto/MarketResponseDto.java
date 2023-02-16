@@ -57,7 +57,26 @@ public class MarketResponseDto {
 	private String[] image = new String[5];
 	private String disabled;
 	private String report;
-
+	
+	public MarketResponseDto() {
+		super();
+	}
+	public MarketResponseDto(int marketNo, int writerNo, String title, String content, String part, int price,
+			String writeDate, int hits, String ip, String[] image, String disabled, String report) {
+		super();
+		this.marketNo = marketNo;
+		this.writerNo = writerNo;
+		this.title = title;
+		this.content = content;
+		this.part = part;
+		this.price = price;
+		this.writeDate = writeDate;
+		this.hits = hits;
+		this.ip = ip;
+		this.image = image;
+		this.disabled = disabled;
+		this.report = report;
+	}
 	// getter setter
 	public int getMarketNo() {
 		return marketNo;

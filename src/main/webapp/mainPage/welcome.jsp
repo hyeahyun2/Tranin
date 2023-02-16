@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,java.lang.*"%>
+    pageEncoding="UTF-8" import="java.util.*,java.lang.*,dto.PromotionDto,dto.MemberDto,dao.MyPageDao"%>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 
@@ -39,6 +39,29 @@
         <button id="mainslide_btnNext">다음 슬라이더</button>
       </div>
       <ul class="page1_slides">
+      	<%	
+      		MyPageDao myPageDao = new MyPageDao();
+      		List<PromotionDto> promo = (List<PromotionDto>)request.getAttribute("promotionList");
+      		for(int i=1;i<5;i++){
+      	%>
+      		<li class="page1_<%=i%> <%if(i==1)out.print("active");%>">
+	        	<article class="promotionContent">
+	        		<img class="promotionContentImage" src="<%=promo.get(i-1).getImage()%>">
+	        		<p><%=promo.get(i-1).getTitle()%></p>
+	        		<p><%if(promo.get(i-1).getPart().equals("sell")) out.print("현재 판매가는");else out.print("현재 매입가는");%><%=promo.get(i-1).getPrice()%> 원 입니다.</p>
+	        		<p><%=myPageDao.getMemberByNo(promo.get(i-1).getWriterNo()).getNickName()%> 님이 등록하셨습니다!</p>
+	        		<p><%=promo.get(i-1).getWriteDate()%> 에 등록되었습니다!</p>
+	        	</article>
+       		</li>
+       		<script>
+       			document.querySelector(".page1_<%=i%> article").addEventListener('click',function(){
+       				location.href="/marketPostInfo?no=<%=promo.get(i-1).getMarketNo()%>"
+       			});
+       		</script>
+      	<%
+      		}
+      	%>
+      	<!-- 
         <li class="page1_1 active">
         	<article class="promotionContent">
         		<a class="promotionContentImage" href="#"></a>
@@ -46,7 +69,7 @@
         		<p>가격1</p>
         		<p>판매자1</p>
         	</article>
-        </li>
+      	</li>
         <li class="page1_2">
         	<article class="promotionContent">
         		<a class="promotionContentImage" href="#"></a>
@@ -71,6 +94,7 @@
         		<p>판매자4</p>
         	</article>
         </li>
+         -->
       </ul>
     </section>
     <section class="page2 page onePage2">

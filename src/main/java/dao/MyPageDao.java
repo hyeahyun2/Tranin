@@ -11,6 +11,7 @@ import java.util.List;
 import controller.member.PasswdEncry;
 import dto.ManagerDto;
 import dto.MarketDto;
+import dto.MarketResponseDto;
 import dto.MemberDto;
 import dto.NoticeDto;
 
@@ -1457,5 +1458,122 @@ DBProperty db = new DBProperty();
 			}
 		}
 		return String.valueOf(count);
+	}
+
+	public ArrayList<MarketResponseDto> getTransactionDoneMarketList(int writerNo,int pageNum) {
+		dbProperty = new DBProperty();
+		MarketResponseDto dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MarketResponseDto> list = new ArrayList<>();
+		
+		// 페이징 처리
+    	int cntListPerPage = 10;
+    	int startNum = (pageNum - 1) * cntListPerPage; 
+    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=? ORDER BY market_no DESC LIMIT ?, ?";
+		try {
+			pstmt = dbProperty.conn.prepareStatement(sql);
+			pstmt.setInt(1, writerNo);
+			pstmt.setInt(2, startNum);
+			pstmt.setInt(3, cntListPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dto = new MarketResponseDto(
+						rs.getInt("market_no"),
+						rs.getInt("writer_no"),
+						rs.getString("title"),
+						rs.getString("content"),
+						rs.getString("part"),
+						rs.getInt("price"),
+						rs.getString("write_date"),
+						rs.getInt("hits"),
+						rs.getString("ip"),
+						new String[]{
+							rs.getString("image_1"),
+							rs.getString("image_2"),
+							rs.getString("image_3"),
+							rs.getString("image_4"),
+							rs.getString("image_5")
+						},
+						rs.getString("disabled"),
+						rs.getString("report")
+						);
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ResultSet getAllTransactionList(int writerNo) throws SQLException {
+		dbProperty = new DBProperty();
+		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=?";
+		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
+		pstmt.setInt(1, writerNo);
+		ResultSet rs = pstmt.executeQuery();
+		return rs;
+	}
+	
+	
+	public ResultSet getAllSearchedTransactionList(int writerNo, String select,String keyword) throws SQLException {
+		dbProperty = new DBProperty();
+		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=? AND tranin_market."+select+" LIKE CONCAT('%',?,'%')";
+		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
+		pstmt.setInt(1, writerNo);
+		pstmt.setString(2, keyword);
+		System.out.println(writerNo+"//"+select+"//"+keyword);
+		ResultSet rs = pstmt.executeQuery();
+		return rs;
+	}
+
+	public ArrayList<MarketResponseDto> getSearchTransactionDoneMarketList(String parameter, String parameter2,
+			int writerNo, int pageNum) {
+		System.out.println("param: "+parameter);
+		System.out.println("param2: "+parameter2);
+		dbProperty = new DBProperty();
+		MarketResponseDto dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MarketResponseDto> list = new ArrayList<>();
+		
+		// 페이징 처리
+    	int cntListPerPage = 10;
+    	int startNum = (pageNum - 1) * cntListPerPage; 
+    	String sql = "SELECT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=? AND tranin_market."+parameter+" LIKE CONCAT('%',?,'%') ORDER BY tranin_market.market_no DESC LIMIT ?, ?";
+		try {
+			pstmt = dbProperty.conn.prepareStatement(sql);
+			pstmt.setInt(1, writerNo);
+			pstmt.setString(2, parameter2);
+			pstmt.setInt(3, startNum);
+			pstmt.setInt(4, cntListPerPage);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dto = new MarketResponseDto(
+						rs.getInt("market_no"),
+						rs.getInt("writer_no"),
+						rs.getString("title"),
+						rs.getString("content"),
+						rs.getString("part"),
+						rs.getInt("price"),
+						rs.getString("write_date"),
+						rs.getInt("hits"),
+						rs.getString("ip"),
+						new String[]{
+							rs.getString("image_1"),
+							rs.getString("image_2"),
+							rs.getString("image_3"),
+							rs.getString("image_4"),
+							rs.getString("image_5")
+						},
+						rs.getString("disabled"),
+						rs.getString("report")
+						);
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

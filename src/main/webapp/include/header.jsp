@@ -64,7 +64,7 @@
   </div>
   <div id="headerWrap">
     <header id="header">
-      <h1 class="logo"><a href="../mainPage/welcome.jsp">logo</a></h1>
+      <h1 class="logo"><a href="../mainPage">logo</a></h1>
       <nav id="gnb">
         <h2 class="hidden">주요이용메뉴</h2>
         <ul id="gnbList">
