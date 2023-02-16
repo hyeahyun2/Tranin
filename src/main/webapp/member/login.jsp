@@ -11,13 +11,20 @@
 </head>
 <body>
 	<div id="container">
-		<h1 class="logo">트레닌 로그인</h1>
+		<h1 class="logo"><a href="../mainPage/welcome.jsp">트레닌 로그인</a></h1>
 		<%
 		String errorMsg = (String)request.getAttribute("errorMsg");
 		if(errorMsg != null && errorMsg.equals("loginFail")){ // 로그인 실패
 		%>
 			<div class="errorWrap">
 				<span>! 로그인 정보가 일치하지 않습니다.</span>
+			</div>
+		<%
+		}
+		else if(errorMsg != null && errorMsg.equals("isBanMember")){ // 차단된 멤버
+		%>
+			<div class="errorWrap">
+				<span>! 관리자에의해 차단된 회원입니다.</span>
 			</div>
 		<%
 		}

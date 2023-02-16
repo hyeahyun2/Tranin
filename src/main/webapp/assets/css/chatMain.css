@@ -50,3 +50,15 @@ li {
 #chatMemberList .chatUser span {
   line-height: 70px;
 }
+
+/* 새 메세지 여부 */
+.newMsg_false {
+	display: block;
+	width: 20px; height: 20px;
+	text-indent: -9999px;
+	background-image: url(../image/new.png);
+	background-size: contain;
+	}
+.newMsg_true {
+	display: none;
+}

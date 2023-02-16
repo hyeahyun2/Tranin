@@ -123,7 +123,7 @@ arrList.forEach(element => {
     // 리스트 초기화 및 다시 불러오기
     posts.innerHTML = null;
     clickNum = 0;
-    moreList(nowPart);
+    moreList(nowPart, searchKey);
   })
 });
 
@@ -151,6 +151,6 @@ goryItem.forEach(element => {
     // 리스트 초기화 및 다시 불러오기
     posts.innerHTML = null;
     clickNum = 0;
-    moreList(nowPart);
+    moreList(nowPart, searchKey);
   })
 });

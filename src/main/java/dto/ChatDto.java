@@ -19,6 +19,7 @@ public class ChatDto {
 	private int toNo;
 	private String chatContent;
 	private String chatTime;
+	private boolean isRead;
 	
 	// getter setter
 	public long getChatNO() {
@@ -50,5 +51,11 @@ public class ChatDto {
 	}
 	public void setChatTime(String chatTime) {
 		this.chatTime = chatTime;
+	}
+	public boolean isRead() {
+		return isRead;
+	}
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
 	}
 }

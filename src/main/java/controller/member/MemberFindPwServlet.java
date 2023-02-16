@@ -21,13 +21,15 @@ public class MemberFindPwServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 기본 설정
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		
 		String RequestURI = req.getRequestURI(); // 전체 경로
 		String contextPath = req.getContextPath(); // 프로젝트 Path
 		// 전체 경로에서 프로젝트 Path 길이 만큼의 인덱스 이후 문자열
 		String command = RequestURI.substring(contextPath.length());
 		
-		resp.setContentType("text/html; charset=utf-8");
-		req.setCharacterEncoding("utf-8");
 		
 		if(command.contains("/emailAuthCheck")) { // 이메일로 메일 전송
 			reqEmailCheck(req, resp);

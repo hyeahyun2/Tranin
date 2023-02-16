@@ -23,11 +23,10 @@ public class MarketPostRemoveServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		// 기본 설정
-		request.setCharacterEncoding("utf-8");
-	    response.setContentType("text/html; charset=UTF-8");
-	    
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
 		String loginId = (String)request.getSession().getAttribute("memberId");
 		String marketNo = request.getParameter("no");
 		

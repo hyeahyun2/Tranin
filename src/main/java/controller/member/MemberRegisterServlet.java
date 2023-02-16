@@ -3,6 +3,7 @@ package controller.member;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.mail.AuthenticationFailedException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,23 +24,26 @@ public class MemberRegisterServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		// 기본 설정
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		
 		String RequestURI = req.getRequestURI(); // 전체 경로
 		String contextPath = req.getContextPath(); // 프로젝트 Path
 		// 전체 경로에서 프로젝트 Path 길이 만큼의 인덱스 이후 문자열
 		String command = RequestURI.substring(contextPath.length());
 		
-		resp.setContentType("text/html; charset=utf-8");
-		req.setCharacterEncoding("utf-8");
-		
 		if(command.contains("/registerSubmit")) { // 회원 가입 버튼 클릭
+			PrintWriter out = resp.getWriter();
 			if(reqRegister(req)) { // 회원가입 성공
-				PrintWriter out = resp.getWriter();
 				out.append("<script>alert('회원가입에 성공했습니다!')</script>");
+				out.flush();
+	            out.close();
 				RequestDispatcher rd = req.getRequestDispatcher("/member/login.jsp");
 				rd.forward(req, resp);
 			}
 			else { // 회원가입 실패
-				PrintWriter out = resp.getWriter();
 				out.append("<script>alert('회원가입에 실패했습니다! 다시 진행해주세요.')</script>");
 				RequestDispatcher rd = req.getRequestDispatcher("/member/register.jsp");
 				rd.forward(req, resp);
@@ -95,7 +99,7 @@ public class MemberRegisterServlet extends HttpServlet {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\": ");
 		if(id == null || id.equals("")) {
-			result.append("\"false\"}");
+			result.append("\"fail\"}");
 		}
 		else {
 			MemberDao dao = new MemberDao();
@@ -106,7 +110,6 @@ public class MemberRegisterServlet extends HttpServlet {
 			else { // 중복 아이디 존재하지 않음
 				// 인증번호 이메일로 전송하기
 				String authKey = new SendEmailAuth().sendMail(id);
-				// 이메일 인증 번호 전송 성공
 				result.append("\"true\" , \"authKey\": \""+ authKey +"\"}");
 			}
 		}

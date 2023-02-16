@@ -28,8 +28,7 @@ public class MarketPostInfoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// marketPost.jsp?no=${result[i].no}
 		// 기본 설정
-    	request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
         String marketNo = request.getParameter("no");
         // no가 빈 경우 -> 에러 페이지로 이동

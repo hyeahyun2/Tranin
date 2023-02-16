@@ -34,7 +34,7 @@
 				<input type="hidden" name="part" value="<%= part %>">
 				<input type="hidden" name="writeID" value="<%= memberId %>">
 				<div>
-					<label for="title">제목</label>
+					<label for="title" class="title">제목</label>
 					<input type="text" id="title" name="title" placeholder="제목을 입력하세요.">
 				</div>
 				<div>
@@ -42,11 +42,10 @@
 					<input type="text" id="price" name="price" placeholder="<% if(part.equals("buy")) out.print("희망"); %>가격을 입력하세요.(숫자만 입력)"> 원
 				</div>
 				<div>
-					<label for="postContent">글 내용</label>
 					<textarea id="postContent" name="content" cols="100" rows="30" placeholder="글 내용을 입력하시오"></textarea>
 				</div>
-				<div>
-					<label for="btnAtt">사진</label>
+				<div class="imgWrap">
+					<label for="btnAtt" class="btnAtt">사진</label>
 					<input type='file' id='btnAtt' name="image" multiple='multiple' />
 			    <div id='att_zone'
 			      data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'>
@@ -58,5 +57,6 @@
 			</form>
 		</div>
 	</div>
+	<%@ include file="../include/footer.jsp"%>
 </body>
 </html>

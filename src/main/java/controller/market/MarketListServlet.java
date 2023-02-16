@@ -24,10 +24,11 @@ public class MarketListServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		// 기본 설정
-    	request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=UTF-8");
-        
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
         String part = request.getParameter("part"); // sell or buy
         String searchKey = request.getParameter("searchKey"); // 검색 키워드
         int clickNum = Integer.parseInt(request.getParameter("clickNum")); // 더보기 클릭 수

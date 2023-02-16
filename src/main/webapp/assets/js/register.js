@@ -16,7 +16,7 @@ const email = form.email;
 let spanEmail = document.createElement("span");
 labelWrap[0].append(spanEmail);
 spanEmail.style.color = "red";
-let emailVali = ()=>{
+function emailVali(){
 	if(email.value.length == 0){
 			spanEmail.innerText = "";
 			return false;
@@ -40,7 +40,7 @@ const pw = form.pw;
 let spanPw = document.createElement("span");
 labelWrap[2].append(spanPw);
 spanPw.style.color = "red";
-let pwVali = ()=>{
+function pwVali(){
 	if(pw.value.length == 0){
 		spanPw.innerText = "";
 		return false;
@@ -60,8 +60,8 @@ pw.addEventListener("keyup", pwVali);
 const pwCheck = form.pwCheck;
 let spanPwCheck = document.createElement("span");
 labelWrap[3].append(spanPwCheck);
-spanPw.style.color = "red";
-let pwCheckVali = ()=>{
+spanPwCheck.style.color = "red";
+function pwCheckVali(){
 	if(pwCheck.value.length == 0){
 		spanPwCheck.innerText = "";
 		return false;
@@ -81,8 +81,8 @@ pwCheck.addEventListener("keyup", pwCheckVali);
 const nick = form.nickname;
 let spanNick = document.createElement("span");
 labelWrap[4].append(spanNick);
-spanPw.style.color = "red";
-let nickVali = ()=>{
+spanNick.style.color = "red";
+function nickVali(){
 	if(nick.value.length == 0){
 		spanNick.innerText = "";
 		return false;
@@ -104,22 +104,22 @@ nick.addEventListener("keyup", ()=>{
 // 회원가입 버튼 클릭 시 양식 확인
 const registerBtn = document.querySelector(".registerBtn");
 registerBtn.addEventListener("click", ()=>{
-	if(!emailVali){
+	if(!emailVali()){
 		alert("이메일을 양식에 맞게 입력해주세요.");
 		email.focus();
 		return;
 	}
-	if(!pwVali){
+	if(!pwVali()){
 		alert("비밀번호를 양식에 맞게 입력해주세요.");
 		pw.focus();
 		return;
 	}
-	if(!pwCheckVali){
+	if(!pwCheckVali()){
 		alert("비밀번호가 일치하지 않습니다.");
 		pwCheck.focus();
 		return;
 	}
-	if(!nickVali){
+	if(!nickVali()){
 		alert("닉네임을 양식에 맞게 입력해주세요.");
 		nick.focus();
 		return;
@@ -141,10 +141,11 @@ registerBtn.addEventListener("click", ()=>{
 const emailAuthBtn = document.querySelector(".emailAuthBtn");
 emailAuthBtn.addEventListener("click", function(){
 	// 유효성 검사
-	if(!emailVali){
+	if(!emailVali()){
 		alert("이메일을 양식에 맞게 입력해주세요.");
 		return;
 	}
+	else {
 	// ajax 통신
 	const xhr = new XMLHttpRequest();
 	xhr.open("POST", "/memberRegister/emailAuthCheck", true);
@@ -169,6 +170,7 @@ emailAuthBtn.addEventListener("click", function(){
 	}
 	
 	xhr.send("id=" + email.value);
+	}
 })
 // 인증 번호 확인
 const emailAuthNum = form.emailAuthNum;
@@ -189,7 +191,7 @@ emailAuthCheck.addEventListener("click", function(){
 const nickDuplCheck = document.querySelector(".nickDuplCheck");
 nickDuplCheck.addEventListener("click", function(){
 	// 유효성 검사
-	if(!nickVali){
+	if(!nickVali()){
 		alert("닉네임을 양식에 맞게 입력해주세요.");
 		return;
 	}

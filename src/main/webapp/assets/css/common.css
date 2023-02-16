@@ -253,6 +253,15 @@ div#headerWrap.enabled ul > li > a {
 }
 .rightQuickMenu li:nth-child(1) a {
   background : url(../image/chat.png) no-repeat center / cover;
+  position: relative;
+}
+.newMsg_false {
+	position: absolute;
+	top: 0px; right: 0px;
+	display: block;
+	width: 20px; height: 20px;
+	background-image: url(../image/new.png);
+	background-size: contain;
 }
 .rightQuickMenu li:nth-child(2) a {
   background : url(../image/love.png) no-repeat center / cover;

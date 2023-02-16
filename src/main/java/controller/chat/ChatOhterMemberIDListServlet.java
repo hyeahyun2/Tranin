@@ -17,9 +17,9 @@ public class ChatOhterMemberIDListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServerException, IOException{
-        // 기본 세팅
-    	request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=UTF-8");
+    	// 기본 설정
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
         
         // 입력받은 값 변수에 저장
         String memberId = (String)request.getSession().getAttribute("memberId");
@@ -53,8 +53,9 @@ public class ChatOhterMemberIDListServlet extends HttpServlet {
     	// json형태로
     	result.append("{\"result\":[");
 		for(int i=0; i<otherNickList.size(); i++) {
-			System.out.println("ohterNickList[" + i + "] : " + otherNickList.get(i));
-			result.append("{\"otherMemberNick\": \"" + otherNickList.get(i) + "\"}");
+			String isRead = dao.isReadChat(memberId, otherNickList.get(i)) ? "true" : "false";
+			result.append("{\"otherMemberNick\": \"" + otherNickList.get(i) + "\",");
+			result.append("\"isRead\": \"" + isRead + "\"}");
 			if(i != otherNickList.size() - 1) result.append(",");
 		}
 		

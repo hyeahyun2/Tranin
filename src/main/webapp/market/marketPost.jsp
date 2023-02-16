@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>marketPost</title>
 <%@ include file="../include/frontStyle.jsp"%>
-<link rel="stylesheet" href="../assets/css/marketPost.css?v=<%= System.currentTimeMillis() %>">
-<script src="../assets/js/marketPost.js" defer></script>
+<link rel="stylesheet" href="../assets/css/marketPost.css?v=3">
+<script src="../assets/js/marketPost.js?v=3" defer></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -72,7 +72,21 @@
 					<%= post.getContent() %>
         </div>
         <%
-        if(memberId != null && !writerId.equals(memberId)){
+        if(memberId != null && writerId.equals(memberId)){ // 로그인 멤버 = 판매자
+        	if(post.getDisabled().equals("true")){ // 비공개 글
+       		%>
+           	<p class="warningMessage">비공개 처리된 글입니다.</p>
+         	<%
+        	}
+       		else { // 공개 글
+	       	%>
+	       	<ul class="saleBtn">
+	          <li><span data-marketNo="<%= post.getMarketNo() %>" class="soldOutBtn">판매완료</span></li>
+	        </ul>
+	       	<%
+        	}
+        }
+        else if(memberId != null && !writerId.equals(memberId)){
         %>
         <ul class="saleBtn">
           <li><a href="../chat/chatting.jsp?toNick=<%= writerNick %>" class="chatBtn">채팅</a></li>

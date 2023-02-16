@@ -9,7 +9,7 @@
     %>
 <meta charset="UTF-8">
 <title>채팅방 목록</title>
-<link rel="stylesheet" href="../assets/css/chatMain.css">
+<link rel="stylesheet" href="../assets/css/chatMain.css?v=2">
 <script src="../assets/js/chatMain.js?v=<%=System.currentTimeMillis()%>" defer></script>
 </head>
 <body>

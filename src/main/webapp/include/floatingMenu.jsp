@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<script src="../assets/js/floatingMenu.js?v=3" defer></script>
+
 <section id="rightQuick">
     <div class="rightQuickMenu">
       <h2 class="hidden">rightQuick</h2>
       <nav>
         <ul>
           <li id="chatTag">
-            <a href="../chat/chatMain.jsp">채팅상담</a>
+            <a href="../chat/chatMain.jsp">채팅상담<span class="isNewMsg">새 메세지</span></a>
           </li>
           <li>
             <a href="#">찜목록</a>

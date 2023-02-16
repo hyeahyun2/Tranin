@@ -1,7 +1,17 @@
 @charset "utf-8";
 
 h1.logo {
-	text-align: center;	
+	margin: 0 auto;
+	width: 200px;
+  height: 120px;
+}
+.logo a {
+  display: block;
+	width : 100%;
+  height: 100%;
+  background: url('../image/mainLogo.png') no-repeat center / cover;
+  text-indent: -4000px;
+  top : -20px;
 }
 
 #container {
@@ -12,8 +22,22 @@ h1.logo {
 #registerForm {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 30px;
+	margin-top: 30px;
 }
+#registerForm label {
+	position: relative;	
+}
+#registerForm label > span.explanation {
+	display: block;
+	position: absolute;
+	top: -10px; left: 5%;
+	background-color: #fff;
+	font-size: 12px;
+	padding: 0 5px;
+}
+
+
 #registerForm > * {
 	display: flex;
 	flex-direction: column;

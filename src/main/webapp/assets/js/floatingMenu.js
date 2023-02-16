@@ -41,3 +41,32 @@ chatLink.addEventListener("click", (e)=>{
   e.preventDefault();
   window.open("../chat/chatMain.jsp", "채팅", " width=400, height=500");
 })
+
+/* 메세지창 - 새 메세지 여부 */
+const xhr = new XMLHttpRequest();
+const isNewMsgTag = document.querySelector(".isNewMsg");
+function isNewChat(){
+	xhr.open("POST", "/chatNewCheck", true);
+	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState != XMLHttpRequest.DONE) return;
+		if(xhr.status == 200){ // 준완
+			let data = xhr.response;
+			if(data == "") return; // 공백일 경우 제외
+			else if(data == "false"){ // 새 메세지 있는 경우 (read여부 = false)
+				isNewMsgTag.classList.add("newMsg_false");
+			}
+			else {
+				isNewMsgTag.classList.add("newMsg_true");
+			}
+			console.log(data);
+		}
+	}
+	xhr.send();
+}
+
+// 문서 로딩시 실행
+window.addEventListener("load", function(){
+	isNewChat();
+})

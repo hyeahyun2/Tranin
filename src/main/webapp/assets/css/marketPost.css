@@ -114,12 +114,20 @@ div#headerWrap ul > li > a {
 .postInfo .saleBtn li:hover {
   background-color: #718f94;
 }
-.postInfo .saleBtn li a {
+.postInfo .saleBtn li > * {
   display: block;
   border-radius: 100%;
   width: 100%; height: 100%;
-  text-indent: -9999px;
   background: no-repeat center / 65% 65%;
+}
+.postInfo .saleBtn li .soldOutBtn {
+	cursor: pointer;
+	color: #fff;
+	text-align: center;
+	line-height: 70px;
+}
+.postInfo .saleBtn li a.chatBtn {
+  text-indent: -9999px;
   background-image: url(../image/chat.png);
   filter: invert(100%);
 }

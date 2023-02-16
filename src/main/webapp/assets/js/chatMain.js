@@ -17,7 +17,7 @@ function chatIDListFunction(){
 			console.log(result);
 			for(let i=0; i<result.length; i++){
 				console.log(result[i].otherMemberNick);
-				addIDList(result[i].otherMemberNick);
+				addIDList(result[i].otherMemberNick, result[i].isRead);
 			}
 			// chatID값 가져오기
 			//lastChatID = Number(parsed.last);
@@ -26,11 +26,11 @@ function chatIDListFunction(){
 	xhr.send();
 }
 
-function addIDList(memberNick){
+function addIDList(memberNick, isRead){
 	var template = `<li class="chatUser">
 						<a href="./chatting.jsp?toNick=${memberNick}">
 					        <div></div>
-					        <span>${memberNick}</span>
+					        <span>${memberNick}</span><span class="newMsg_${isRead}">새메세지</span>
 				    	</a>
 				    </li>`;
 	console.log(template);

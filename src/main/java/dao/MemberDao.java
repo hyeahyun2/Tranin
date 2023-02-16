@@ -36,6 +36,34 @@ public class MemberDao {
 		return memberNum > 0;
 	}
 	
+	// 차단멤버인지 확인 (member의 id 이용)
+	public boolean isBanMember(String id) {
+		DBProperty db = new DBProperty();
+		
+		String sql = "SELECT ban_no FROM tranin_banned_member b "
+				+ "JOIN tranin_member m ON b.member_no = m.`no` "
+				+ "WHERE m.id = ?";
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, id);
+			db.rs = db.pstmt.executeQuery();
+			if(db.rs.next()) { // 차단멤버에 해당되는 경우
+				return true;
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false; // 차단멤버에 해당되지 않는 경우
+	}
+	
 	// 회원가입
 	public boolean insertMember(MemberDto member) {
 		DBProperty db = new DBProperty();

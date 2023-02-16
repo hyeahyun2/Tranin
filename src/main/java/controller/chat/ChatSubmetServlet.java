@@ -18,9 +18,9 @@ public class ChatSubmetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServerException, IOException{
-        // 기본 설정
-    	request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=UTF-8");
+    	// 기본 설정
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
         
         String toNick = request.getParameter("toNick");
 

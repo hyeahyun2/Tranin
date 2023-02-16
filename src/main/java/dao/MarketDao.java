@@ -222,6 +222,7 @@ public class MarketDao {
 		}
 		return upd != 0;
 	}
+	
 	// market_no로 해당 게시글 정보 불러오기
 	public MarketDto getPostInfoByNo(int no) {
 		DBProperty db = new DBProperty();
@@ -249,6 +250,7 @@ public class MarketDao {
 				marketPost.setImage(2, db.rs.getString("image_3"));
 				marketPost.setImage(3, db.rs.getString("image_4"));
 				marketPost.setImage(4, db.rs.getString("image_5"));
+				marketPost.setDisabled(db.rs.getString("disabled"));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -317,6 +319,7 @@ public class MarketDao {
 			}
 		}
 	}
+	
 	// 글 수정으로 인한 disalbed 테이블 insert
 	public void insertToDisabledReportUpdate(int marketNo, int newMarketNo) {
 		DBProperty db = new DBProperty();

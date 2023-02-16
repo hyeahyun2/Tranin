@@ -56,6 +56,40 @@ public class ChatDao {
 		return list;
 	}
 	
+	// 마지막 대화 읽음 확인 여부
+	public boolean isReadChat(String myId, String otherNick) {
+		DBProperty db = new DBProperty();
+		boolean status = true;
+		String sql = "SELECT is_read FROM tranin_chat c "
+				+ "JOIN tranin_member m1 ON c.from_no = m1.`no` " // 챗 보낸 사람
+				+ "JOIN tranin_member m2 ON c.to_no = m2.`no` " // 챗 받은 사람
+				+ "WHERE m1.nickname = ? AND m2.id = ? " // 챗 받은 사람 = 로그인한 멤버
+				+ "ORDER BY chat_time DESC " // 최신순 나열
+				+ "LIMIT 1"; // 가장 마지막 채팅 내역
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, otherNick);
+			db.pstmt.setString(2, myId);
+			db.rs = db.pstmt.executeQuery();
+			if(db.rs.next()) {
+				status = db.rs.getString("is_read").equals("true") ? true : false; 
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return status;
+	}
+	
 	// 다른 사람에게 채팅 보내기
 	public int submit(String fromID, String toID, String chatContent) {
 		DBProperty db = new DBProperty();
@@ -85,7 +119,7 @@ public class ChatDao {
 	}
 	
 	// 대화내역 최근 10개 가져오기 (채팅창 열었을 때 1번 실행)
-	public ArrayList<ChatDto> getChatListByRecent(String fromNick, String toNick, int number){
+	public ArrayList<ChatDto> getChatListByRecent(String myNick, String otherNick, int number){
 		DBProperty db = new DBProperty();
 		ArrayList<ChatDto> chatList = null;
 		
@@ -100,14 +134,15 @@ public class ChatDao {
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
-			db.pstmt.setString(1, fromNick);
-			db.pstmt.setString(2, toNick);
-			db.pstmt.setString(3, toNick);
-			db.pstmt.setString(4, fromNick);
+			db.pstmt.setString(1, myNick);
+			db.pstmt.setString(2, otherNick);
+			db.pstmt.setString(3, otherNick);
+			db.pstmt.setString(4, myNick);
 			db.pstmt.setInt(5, number);
 			db.rs = db.pstmt.executeQuery();
 			chatList = new ArrayList<ChatDto>();
 			while(db.rs.next()) {
+				// 채팅 정보 저장
 				ChatDto chat = new ChatDto();
 				chat.setChatNO(db.rs.getLong("chat_no"));
 				chat.setFromNo(db.rs.getInt("from_no"));
@@ -115,6 +150,13 @@ public class ChatDao {
 				chat.setChatContent(db.rs.getString("chat_content"));
 				chat.setChatTime(db.rs.getString("chat_time"));
 				chatList.add(chat);
+				
+				// 채팅 읽음 처리
+				sql = "UPDATE tranin_chat SET is_read = 'true' "
+						+ "WHERE to_no = (SELECT `no` FROM tranin_member WHERE nickname = ?)"; // 받는 사람 = 로그인 멤버
+				db.pstmt = db.conn.prepareStatement(sql);
+				db.pstmt.setString(1, myNick);
+				db.pstmt.executeUpdate();
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -131,7 +173,7 @@ public class ChatDao {
 	}
 	
 	// 새로운 채팅 내역 가져오기
-	public ArrayList<ChatDto> getChatListByNo(String fromNick, String toNick, String chatNo){
+	public ArrayList<ChatDto> getChatListByNo(String myNick, String otherNick, String chatNo){
 		DBProperty db = new DBProperty();
 		ArrayList<ChatDto> chatList = null;
 		
@@ -146,14 +188,15 @@ public class ChatDao {
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
-			db.pstmt.setString(1, fromNick);
-			db.pstmt.setString(2, toNick);
-			db.pstmt.setString(3, toNick);
-			db.pstmt.setString(4, fromNick);
+			db.pstmt.setString(1, myNick);
+			db.pstmt.setString(2, otherNick);
+			db.pstmt.setString(3, otherNick);
+			db.pstmt.setString(4, myNick);
 			db.pstmt.setInt(5, Integer.parseInt(chatNo));
 			db.rs = db.pstmt.executeQuery();
 			chatList = new ArrayList<ChatDto>();
 			while(db.rs.next()) {
+				// 채팅 정보 저장
 				ChatDto chat = new ChatDto();
 				chat.setChatNO(db.rs.getLong("chat_no"));
 				chat.setFromNo(db.rs.getInt("from_no"));
@@ -161,6 +204,13 @@ public class ChatDao {
 				chat.setChatContent(db.rs.getString("chat_content"));
 				chat.setChatTime(db.rs.getString("chat_time"));
 				chatList.add(chat);
+				
+				// 채팅 읽음 처리
+				sql = "UPDATE tranin_chat SET is_read = 'true' "
+						+ "WHERE to_no = (SELECT `no` FROM tranin_member WHERE nickname = ?)"; // 받는 사람 = 로그인 멤버
+				db.pstmt = db.conn.prepareStatement(sql);
+				db.pstmt.setString(1, myNick);
+				db.pstmt.executeUpdate();
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
