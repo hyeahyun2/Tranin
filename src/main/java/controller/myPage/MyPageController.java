@@ -60,7 +60,11 @@ public class MyPageController extends HttpServlet {
 		 */
 		if(Integer.parseInt(param)==2) {
 			MyPageDao dao = new MyPageDao();
-			
+			try {
+				System.out.println(dao.getTime());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			if(request.getParameter("select")!=null) {
 				//writer_no 이자 현재 로그인한 member_no 이기도 함
 		        int writerNo = dao.getMemberNoById((String)request.getSession().getAttribute("memberId"));
@@ -87,6 +91,7 @@ public class MyPageController extends HttpServlet {
 			}
 		
 		}
+		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/myPage/myPage.jsp");
 		requestDispatcher.forward(request, response);
 	}

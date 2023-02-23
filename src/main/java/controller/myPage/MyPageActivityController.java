@@ -42,7 +42,8 @@ public class MyPageActivityController extends HttpServlet {
         String str = getPostList(part, clickNum, oneClickLoad, writerNo);
         
         PrintWriter out = response.getWriter();
-		out.println(str);
+        out.println(str);
+
 	}
 	
 	// 게시글 정보 담기

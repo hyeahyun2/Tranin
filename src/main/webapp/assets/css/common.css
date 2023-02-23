@@ -134,14 +134,13 @@ div#headerWrap.enabled ul > li > a {
   color : black;
   display : block;
 }
-#gnbList > li:nth-child(3):hover,#gnbList > li:nth-child(3):hover ul,
-#gnbList > li:nth-child(4):hover,#gnbList > li:nth-child(4):hover ul {
+#gnbList > li:nth-child(2):hover,#gnbList > li:nth-child(2):hover ul {
   background: white;
 }
-#gnbList > li:nth-child(3):hover ul,#gnbList > li:nth-child(4):hover ul{
+#gnbList > li:nth-child(2):hover ul,#gnbList > li:nth-child(2):hover ul {
   display : block;
 }
-#gnbList > li:nth-child(3):hover a,#gnbList > li:nth-child(4):hover a {
+#gnbList > li:nth-child(2):hover a,#gnbList > li:nth-child(2):hover a {
   color : black;
 }
 #gnbList > li > a {
@@ -222,7 +221,7 @@ div#headerWrap.enabled ul > li > a {
 .rightQuickMenu > nav {
   position: fixed;
   right: 100px;
-  top: calc(50% - 196px);
+  top: calc(50% - 98px);
   z-index: 99;
 }
 .rightQuickMenu ul > li {
@@ -234,7 +233,7 @@ div#headerWrap.enabled ul > li > a {
 .rightQuickMenu ul {
   display: block;
   width: 96px;
-  height: 392px;
+  height: 196px;
   background-color: gold;
   border-radius: 20px;
   border : 4px solid black;
@@ -264,12 +263,6 @@ div#headerWrap.enabled ul > li > a {
 	background-size: contain;
 }
 .rightQuickMenu li:nth-child(2) a {
-  background : url(../image/love.png) no-repeat center / cover;
-}
-.rightQuickMenu li:nth-child(3) a {
-  background : url(../image/shopping-cart.png) no-repeat center / cover;
-}
-.rightQuickMenu li:nth-child(4) a {
   background : url(../image/magnifier.png) no-repeat center / cover;
 }
 #rightSearchPage {

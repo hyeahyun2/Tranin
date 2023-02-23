@@ -14,10 +14,19 @@ import dto.MarketDto;
 import dto.MarketResponseDto;
 import dto.MemberDto;
 import dto.NoticeDto;
+import lombok.Cleanup;
 
 public class MyPageDao {
-	
 	DBProperty dbProperty = null;
+	
+	public String getTime() throws Exception {
+		@Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+		@Cleanup PreparedStatement preparedStatement = connection.prepareStatement("select now()");
+		@Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+		resultSet.next();
+		String now = resultSet.getString(1);
+		return now;
+	}
 
 	public void modifyMyPageInfo(String myPageMyInfoId,String myPageMyInfoPassword,
 			String myPageMyInfoNickName,String myPageMyAddress,String myPageMyZipCode) {
@@ -607,7 +616,10 @@ public class MyPageDao {
 	// part별 게시글 총 개수 구하기
 	public int getPostCount(String part,int no) {
 		DBProperty db = new DBProperty();
+		System.out.println("getPostCount part:"+part);
+		System.out.println("getPostCount no:"+no);
 		int count = 0;
+		//soldout되어버린 글은 disabled가 되기때문에 못찾는중...
 		String sql = "SELECT COUNT(*) FROM tranin_market "
 				+ "WHERE part = ? AND writer_no = ? AND disabled = 'false'";
 		
@@ -1470,7 +1482,7 @@ DBProperty db = new DBProperty();
 		// 페이징 처리
     	int cntListPerPage = 10;
     	int startNum = (pageNum - 1) * cntListPerPage; 
-    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=? ORDER BY market_no DESC LIMIT ?, ?";
+    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='soldOut' AND tranin_market.writer_no=? ORDER BY market_no DESC LIMIT ?, ?";
 		try {
 			pstmt = dbProperty.conn.prepareStatement(sql);
 			pstmt.setInt(1, writerNo);
@@ -1508,7 +1520,7 @@ DBProperty db = new DBProperty();
 	
 	public ResultSet getAllTransactionList(int writerNo) throws SQLException {
 		dbProperty = new DBProperty();
-		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=?";
+		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='soldOut' AND tranin_market.writer_no=?";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
 		pstmt.setInt(1, writerNo);
 		ResultSet rs = pstmt.executeQuery();
@@ -1518,7 +1530,7 @@ DBProperty db = new DBProperty();
 	
 	public ResultSet getAllSearchedTransactionList(int writerNo, String select,String keyword) throws SQLException {
 		dbProperty = new DBProperty();
-		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=? AND tranin_market."+select+" LIKE CONCAT('%',?,'%')";
+		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='soldOut' AND tranin_market.writer_no=? AND tranin_market."+select+" LIKE CONCAT('%',?,'%')";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
 		pstmt.setInt(1, writerNo);
 		pstmt.setString(2, keyword);
@@ -1540,7 +1552,7 @@ DBProperty db = new DBProperty();
 		// 페이징 처리
     	int cntListPerPage = 10;
     	int startNum = (pageNum - 1) * cntListPerPage; 
-    	String sql = "SELECT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='done' AND tranin_market.writer_no=? AND tranin_market."+parameter+" LIKE CONCAT('%',?,'%') ORDER BY tranin_market.market_no DESC LIMIT ?, ?";
+    	String sql = "SELECT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='soldOut' AND tranin_market.writer_no=? AND tranin_market."+parameter+" LIKE CONCAT('%',?,'%') ORDER BY tranin_market.market_no DESC LIMIT ?, ?";
 		try {
 			pstmt = dbProperty.conn.prepareStatement(sql);
 			pstmt.setInt(1, writerNo);

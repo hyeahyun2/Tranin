@@ -9,10 +9,10 @@
   <%@ include file="../include/frontStyle.jsp"%>
   <link rel="stylesheet" href="../assets/css/index.css" />
   <link rel="stylesheet" href="../assets/css/mainPromotion.css" />
-  <script src="../assets/js/onePage.js" defer></script>
   <script src="../assets/js/section1.js" defer></script>
   <script src="../assets/js/section4.js" defer></script>
   <script src="../assets/js/section3.js" defer></script>
+  <script src="../assets/js/onePage.js" defer></script>
 </head>
 
 <body>
@@ -43,10 +43,16 @@
       		MyPageDao myPageDao = new MyPageDao();
       		List<PromotionDto> promo = (List<PromotionDto>)request.getAttribute("promotionList");
       		for(int i=1;i<5;i++){
-      	%>
+      			String imgUrl = "";
+      			String fileName = "";
+      			if(promo.get(i-1).getImage()!=null){
+      				imgUrl = promo.get(i-1).getImage();
+          			fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
+      			}
+      	%>      	
       		<li class="page1_<%=i%> <%if(i==1)out.print("active");%>">
 	        	<article class="promotionContent">
-	        		<img class="promotionContentImage" src="<%=promo.get(i-1).getImage()%>">
+	        		<img src="/img/<%= fileName %>"  alt="<%= fileName %>">
 	        		<p><%=promo.get(i-1).getTitle()%></p>
 	        		<p><%if(promo.get(i-1).getPart().equals("sell")) out.print("현재 판매가는");else out.print("현재 매입가는");%><%=promo.get(i-1).getPrice()%> 원 입니다.</p>
 	        		<p><%=myPageDao.getMemberByNo(promo.get(i-1).getWriterNo()).getNickName()%> 님이 등록하셨습니다!</p>

@@ -15,7 +15,7 @@ public class DBProperty {
 	final String DB_URL = 
 			"jdbc:mariadb://" + DB_IP + ":" + DB_PORT + "/" + DB_NAME;
 	final String DB_URL_TEST = "jdbc:mariadb://runeah.cafe24.com:3306/runeah?autoReconnect=true";
-	
+	//final String DB_URL_TEST = "jdbc:mariadb://localhost:3306/runeah?autoReconnect=true";
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;

@@ -128,7 +128,7 @@ public class AdminMarketDao {
 	
 	public ResultSet getAllBannedMarketList() throws SQLException {
 		dbProperty = new DBProperty();
-		String sql = "SELECT count(*) FROM tranin_market WHERE disabled='true'";
+		String sql = "SELECT COUNT(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no=tranin_market_disabled.market_no WHERE disabled='true' AND tranin_market_disabled.report='remove_admin'";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		return rs;
@@ -136,7 +136,7 @@ public class AdminMarketDao {
 	
 	public ResultSet getAllSearchedBannedMarketList(String select,String keyword) throws SQLException {
 		dbProperty = new DBProperty();
-		String sql = "SELECT count(*) FROM tranin_market WHERE disabled='true' AND "+select+" LIKE CONCAT('%',?,'%')";
+		String sql = "SELECT count(*) FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no=tranin_market_disabled.market_no WHERE disabled='true' AND tranin_market_disabled.report='remove_admin' AND "+select+" LIKE CONCAT('%',?,'%')";
 		PreparedStatement pstmt = dbProperty.conn.prepareStatement(sql);
 		pstmt.setString(1, keyword);
 		ResultSet rs = pstmt.executeQuery();
@@ -217,7 +217,7 @@ public class AdminMarketDao {
 		// 페이징 처리
     	int cntListPerPage = 10;
     	int startNum = (pageNum - 1) * cntListPerPage; 
-    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' ORDER BY market_no DESC LIMIT ?, ?";
+    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market_disabled.report='remove_admin' ORDER BY market_no DESC LIMIT ?, ?";
     	
     	try {
 			pstmt = dbProperty.conn.prepareStatement(sql);
@@ -475,7 +475,7 @@ public class AdminMarketDao {
 		// 페이징 처리
     	int cntListPerPage = 10;
     	int startNum = (pageNum - 1) * cntListPerPage; 
-    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market."+parameter+" LIKE CONCAT('%',?,'%') ORDER BY market_no DESC LIMIT ?, ?";
+    	String sql = "SELECT DISTINCT tranin_market.*, tranin_market_disabled.report FROM tranin_market RIGHT JOIN tranin_market_disabled ON tranin_market.market_no = tranin_market_disabled.market_no WHERE tranin_market.disabled='true' AND tranin_market."+parameter+" LIKE CONCAT('%',?,'%') AND tranin_market_disabled.report='remove_admin' ORDER BY market_no DESC LIMIT ?, ?";
     	try {
 			pstmt = dbProperty.conn.prepareStatement(sql);
 			pstmt.setString(1, parameter2);

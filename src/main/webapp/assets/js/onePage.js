@@ -1,10 +1,10 @@
 /* 제이쿼리 원페이지 */
- let mouse_is_not_in_post_sec4 = true;
- post_sec4.addEventListener("mouseover", function () {
-   mouse_is_not_in_post_sec4 = false;
+ let mouse_is_not_in_sec4_post = true;
+ sec4_post.addEventListener("mouseover", function () {
+   mouse_is_not_in_sec4_post = false;
  });
- post_sec4.addEventListener("mouseout", function () {
-   mouse_is_not_in_post_sec4 = true;
+ sec4_post.addEventListener("mouseout", function () {
+   mouse_is_not_in_sec4_post = true;
  });
 
  let right_quick_bar_activate = false;
@@ -22,7 +22,7 @@
  let nWheel = 1;
  let stateW = 1;
  let wheeling = (e) => {
-   if (e.wheelDelta < 0 && stateW == 1 && mouse_is_not_in_post_sec4==true && right_quick_bar_activate == false) {
+   if (e.wheelDelta < 0 && stateW == 1 && mouse_is_not_in_sec4_post==true && right_quick_bar_activate == false) {
      stateW = 0;
      nWheel++;
      if (nWheel > 6) {
@@ -46,7 +46,7 @@
          headerLeftNavBar.style.height = `${24 * (nWheel)}px`;
        }
      }
-   } else if (e.wheelDelta > 0 && stateW == 1 && mouse_is_not_in_post_sec4==true && right_quick_bar_activate == false) {
+   } else if (e.wheelDelta > 0 && stateW == 1 && mouse_is_not_in_sec4_post==true && right_quick_bar_activate == false) {
      stateW = 0;
      nWheel--;
      if (nWheel < 1) {
@@ -95,5 +95,5 @@
  });
 
  let headerLeftCount = 0;
- headerLeftNavA[0].style.opacity = "1";
- headerLeftNavLi[0].style.opacity = "1";
+ //headerLeftNavA[0].style.opacity = "1";
+ //headerLeftNavLi[0].style.opacity = "1";

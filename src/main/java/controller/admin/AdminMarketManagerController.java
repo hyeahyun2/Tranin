@@ -86,7 +86,7 @@ public class AdminMarketManagerController extends HttpServlet {
 					}else {
 						int adminNo= Integer.parseInt(request.getParameter("marketManagerNo"));
 						ArrayList<MarketDto> marketArrayList = marketDao.getMarketList(adminNo);
-						System.out.println(marketArrayList.get(1).toString());
+						//System.out.println(marketArrayList.get(1).toString());
 						request.setAttribute("marketArrayList", marketArrayList);
 					}
 				}
