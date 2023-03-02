@@ -311,6 +311,28 @@ public class MyPageDao {
 		return list;
 	}
 	
+	public ArrayList<MemberDto> getBannedMemberListNoPaging(){
+		dbProperty = new DBProperty();
+		MemberDto dto = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<MemberDto> list = new ArrayList<>();
+		
+		// 페이징 처리
+    	String sql = "SELECT * FROM tranin_member WHERE banned='true' ORDER BY no DESC";
+		try {
+			pstmt = dbProperty.conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				dto = new MemberDto(rs.getInt("no"), rs.getString("id"), rs.getString("nickname"),rs.getString("address"),rs.getString("zipcode"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	public ArrayList<MemberDto> getMemberList(int pageNum){
 		dbProperty = new DBProperty();
 		MemberDto dto = null;
@@ -540,7 +562,7 @@ public class MyPageDao {
 		}
 		return list;
 	}
-
+	
 	public ArrayList<MemberDto> searchBannedMember(String parameter, String parameter2, int pageNum) {
 		System.out.println("param: "+parameter);
 		System.out.println("param2: "+parameter2);
@@ -569,7 +591,7 @@ public class MyPageDao {
 		}
 		return list;
 	}
-
+	
 	// 글 목록 loadNum만큼 불러오기
 	public ArrayList<MarketDto> getPostList(String part, int clickNum, int loadNum, int no){
 		DBProperty db = new DBProperty();
