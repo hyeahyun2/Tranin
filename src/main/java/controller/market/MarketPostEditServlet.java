@@ -39,7 +39,8 @@ public class MarketPostEditServlet extends HttpServlet {
 	    int maxImgSize = 5 * 1024 * 1024;
 	    String imgPath = "C:/webStudy/uploadFile";
 	    //저장될 위치 정해주기
-	    String realPath = request.getServletContext().getRealPath("resources/images");
+	    //String realPath = request.getServletContext().getRealPath("resources/images");
+	    String realPath = "/runeah/tomcat/webapps/img";
 	    File dir = new File(realPath);
 	    if(!dir.exists()){ // 만약 해당 디렉토리(경로)가 존재하지 않으면
 	    	dir.mkdirs(); // 해당 경로를 만들어주기
