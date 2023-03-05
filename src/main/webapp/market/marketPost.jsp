@@ -39,7 +39,7 @@
          			imgNum ++;
          			String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
           %>
-          		<li><img src="/resources/images/<%= fileName %>"  alt="<%= fileName %>"></li>
+          		<li><img src="/img/<%= fileName %>"  alt="<%= fileName %>"></li>
           <%
          		}
          	}
