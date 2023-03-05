@@ -19,7 +19,6 @@ public class MemberLogout extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String url = req.getParameter("url");
 		req.getSession().invalidate();
 		// 자동 로그인 쿠키 있을 경우
 	    Cookie[] c = req.getCookies();

@@ -29,6 +29,7 @@ public class MemberLoginServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
 		String autoLogin = req.getParameter("autoLogin");
+		System.out.println("autoLogin : " + autoLogin);
 		
 		// 비밀번호 암호화
 		PasswdEncry pwEn = new PasswdEncry();
@@ -45,20 +46,22 @@ public class MemberLoginServlet extends HttpServlet {
 			if(dao.loginMember(id, newPw)) { // 로그인 정보 일치
 				// 차단 멤버인지 확인
 				if(dao.isBanMember(id)) { // 차단 멤버라면
-					req.setAttribute("erroeMsg", "isBanMember"); // 에러메세지 전송
+					req.setAttribute("errorMsg", "isBanMember"); // 에러메세지 전송
 					RequestDispatcher rd = req.getRequestDispatcher("/member/login.jsp"); // 로그인 페이지로 재이동
 					rd.forward(req, resp);
 				}
-				
-				req.getSession().setAttribute("memberId", id); // 세션 굽기
-				
-				/* 자동로그인 관련 코드 작성 */
-				if(autoLogin != null && autoLogin.equals("true")) {
-					Cookie autoLoginCk = new Cookie("autoLogin", id);
-					resp.addCookie(autoLoginCk);
+				else {
+					req.getSession().setAttribute("memberId", id); // 세션 굽기
+					
+					/* 자동로그인 관련 코드 작성 */
+					if(autoLogin != null && autoLogin.equals("true")) {
+						Cookie autoLoginCk = new Cookie("autoLogin", id);
+						autoLoginCk.setMaxAge(60 * 60 * 24 * 30); // 자동로그인 기간 = 30일
+						resp.addCookie(autoLoginCk);
+					}
+					
+					resp.sendRedirect("/index.jsp"); // index 페이지로 이동
 				}
-				
-				resp.sendRedirect("/index.jsp"); // index 페이지로 이동
 				
 			}
 			else { // 로그인 정보 불일치
