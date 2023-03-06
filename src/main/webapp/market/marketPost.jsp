@@ -8,7 +8,7 @@
 <title>marketPost</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/marketPost.css">
-<script src="../assets/js/marketPost.js?v=3" defer></script>
+<script src="../assets/js/marketPost.js" defer></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -47,7 +47,7 @@
         	  imgNum = 1;
         	  // 사이트 기본 이미지
           %>
-          	<li><img src="#" alt="기 본이미지"></li>
+          	<li><img src="#" alt="기본 이미지"></li>
           <%
           }
           %>
@@ -80,6 +80,7 @@
         	}
        		else { // 공개 글
 	       	%>
+	       	<script src="/assets/js/marketPost_soldOut.js" defer></script>
 	       	<ul class="saleBtn">
 	          <li><span data-marketNo="<%= post.getMarketNo() %>" class="soldOutBtn">판매완료</span></li>
 	        </ul>
@@ -111,6 +112,7 @@
 	    } else if(memberId != null){ // 로그인멤버 != 판매자
 	    %>
 	      <li>
+    		<script src="/assets/js/marketPost_report.js" defer></script>
 	      <form name="reportForm" action="/ReportMemberServlet" method="post">
 	      	<input type="hidden" name="postNo" value=<%= post.getMarketNo() %>>
 	      	<input type="hidden" name="writerNo" value=<%= post.getWriterNo() %>>
