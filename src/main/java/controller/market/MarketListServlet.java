@@ -44,18 +44,16 @@ public class MarketListServlet extends HttpServlet {
 		MarketDao marketDao = new MarketDao();
 		MemberInfoDao memberDao = new MemberInfoDao();
 		
-//		int postCount = marketDao.getPostCount(part);
-		int postCount =
+		int postCount = // 총 게시글 수
 				(searchKey == null || searchKey.equals("")) ? // 검색 키워드 있는지 확인
 						marketDao.getPostCount(part) : marketDao.getSearchPostCount(part, searchKey);
 		System.out.println(postCount);
-		if(postCount <= (clickNum * oneClickLoad)) { // 모두 로드된 상황
+		if(postCount <= (clickNum * oneClickLoad)) { // 게시글이 모두 로드된 상황
 			return "";
 		}
 
 		result.append("{\"result\":[");
 		
-//		ArrayList<MarketDto> postList = marketDao.getPostList(part, clickNum, oneClickLoad);
 		ArrayList<MarketDto> postList = 
 				(searchKey == null || searchKey.equals("")) ? // 검색 키워드 있는지 확인
 						marketDao.getPostList(part, clickNum, oneClickLoad) : marketDao.getSearchPostList(part, searchKey, clickNum, oneClickLoad);

@@ -29,7 +29,6 @@ public class MemberLoginServlet extends HttpServlet {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
 		String autoLogin = req.getParameter("autoLogin");
-		System.out.println("autoLogin : " + autoLogin);
 		
 		// 비밀번호 암호화
 		PasswdEncry pwEn = new PasswdEncry();

@@ -14,6 +14,7 @@ public class MarketDao {
 		String sql = "SELECT market_no, writer_no, title, price, write_date, hits, image_1 "
 				+ "FROM tranin_market "
 				+ "WHERE part = ? AND disabled = 'false' "
+				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member)) "
 				+ "ORDER BY write_date DESC "
 				+ "LIMIT ?, ?";
 		try {
@@ -56,6 +57,7 @@ public class MarketDao {
 		String sql = "SELECT market_no, writer_no, title, price, write_date, hits, image_1 "
 				+ "FROM tranin_market "
 				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false' "
+				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member)) "
 				+ "ORDER BY write_date DESC "
 				+ "LIMIT ?, ?";
 		try {
@@ -96,7 +98,8 @@ public class MarketDao {
 		DBProperty db = new DBProperty();
 		int count = 0;
 		String sql = "SELECT COUNT(*) FROM tranin_market "
-				+ "WHERE part = ? AND disabled = 'false'";
+				+ "WHERE part = ? AND disabled = 'false' "
+				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member))";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
@@ -123,7 +126,8 @@ public class MarketDao {
 		DBProperty db = new DBProperty();
 		int count = 0;
 		String sql = "SELECT COUNT(*) FROM tranin_market "
-				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false'";
+				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false' "
+				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member))";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
@@ -229,7 +233,8 @@ public class MarketDao {
 		MarketDto marketPost = null;
 		
 		String sql = "SELECT * FROM tranin_market "
-				+ "WHERE market_no = ? AND disabled = 'false'";
+				+ "WHERE market_no = ? AND disabled = 'false' "
+				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member))";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
