@@ -5,15 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 가입</title>
-<link rel="stylesheet" href="../assets/css/reset.css?v=2" />
-<link rel="stylesheet" href="../assets/css/register.css" />
-<link rel="stylesheet" href="../assets/css/footer.css?v=2" />
+<link rel="stylesheet" href="/assets/css/reset.css?v=2" />
+<link rel="stylesheet" href="/assets/css/register.css?v=2" />
+<link rel="stylesheet" href="/assets/css/footer.css" />
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
-<script src="../assets/js/register.js?v=2" defer></script>
+<script src="/assets/js/register.js?v=2" defer></script>
 </head>
 <body>
 	<div id="container">
-		<h1 class="logo"><a href="../mainPage/welcome.jsp">트레닌 회원가입</a></h1>
+		<h1 class="logo"><a href="/mainPage">트레닌 회원가입</a></h1>
 		<form name="registerForm" id="registerForm" method="post">
 			<label>
 				<span class="explanation">이메일</span>

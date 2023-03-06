@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>marketPost</title>
 <%@ include file="../include/frontStyle.jsp"%>
-<link rel="stylesheet" href="../assets/css/marketPost.css?v=3">
+<link rel="stylesheet" href="../assets/css/marketPost.css">
 <script src="../assets/js/marketPost.js?v=3" defer></script>
 </head>
 <body>
@@ -126,6 +126,6 @@
     <a class="prevBtn" href="/marketPostInfo?no=<%= post.getMarketNo() - 1 %>">이전 게시물로 이동</a>
     <a class="nextBtn" href="/marketPostInfo?no=<%= post.getMarketNo() + 1 %>">다음 게시물로 이동</a>
   </div>
-  <%@ include file="../include/footer.jsp"%>
+  <%@ include file="/include/footer.jsp"%>
 </body>
 </html>

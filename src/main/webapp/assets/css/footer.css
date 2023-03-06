@@ -1,6 +1,25 @@
 @charset "utf-8";
+.footerWrap {
+	max-width: 500px;
+	margin: 20px auto;
+	text-align: center;
+}
+#footer > * {
+	margin: 10px 0;
+}
 
-#membersWrap {
+#footer .us {
+	font-size: 24px;
+	font-weight: 600;
+	font-style: italic;
+	color: #808080;
+}
+#footer > div {
 	display: flex;
 	gap: 10px;
+	justify-content: center;
+}
+
+#footer .footer_other {
+	font-weight: 600;
 }

@@ -33,7 +33,6 @@ public class MarketPostInsertServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 기본 설정
-		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 				
 	    int maxImgSize = 5 * 1024 * 1024;

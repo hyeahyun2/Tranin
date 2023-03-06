@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link rel="stylesheet" href="../assets/css/reset.css" />
-<link rel="stylesheet" href="../assets/css/login.css?v=2" />
+<link rel="stylesheet" href="../assets/css/login.css?v=3" />
 <script src="../assets/js/login.js" defer></script>
 </head>
 <body>
 	<div id="container">
-		<h1 class="logo"><a href="../mainPage/welcome.jsp">트레닌 로그인</a></h1>
+		<h1 class="logo"><a href="/mainPage">트레닌 로그인</a></h1>
 		<%
 		String errorMsg = (String)request.getAttribute("errorMsg");
 		if(errorMsg != null && errorMsg.equals("loginFail")){ // 로그인 실패
@@ -33,8 +33,8 @@
 			<input type="hidden" name="url" value="<%= request.getParameter("url") %>">
 			<input type="text" name="id" placeholder="이메일을 입력해주세요.">
 			<input type="password" name="pw" placeholder="비밀번호를 입력헤주세요.">
-			<input type="checkbox" name="autoLogin" value="true">자동 로그인
-			<a href="/member/findPw.jsp">비밀번호 찾기</a>
+			<span><input type="checkbox" name="autoLogin" value="true"> 자동 로그인</span>
+			<a class="findPw" href="/member/findPw.jsp">비밀번호 찾기</a>
 			<span class="loginBtn">로그인</span>
 		</form>
 		<ul class="socialLogin">

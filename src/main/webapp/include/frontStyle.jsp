@@ -7,7 +7,7 @@
 	rel="stylesheet" />
 <link rel="stylesheet" href="../assets/css/common.css?v=2">
 <link rel="stylesheet" href="../assets/css/reset.css">
-<link rel="stylesheet" href="../assets/css/footer.css">
+<link rel="stylesheet" href="../assets/css/footer.css?v=3">
 
 <script type="text/javascript" src="../assets/js/jquery-3.6.1.js"></script>
 <script type="text/javascript"
