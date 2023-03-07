@@ -12,9 +12,10 @@ public class MarketDao {
 		ArrayList<MarketDto> postList = new ArrayList<MarketDto>();
 
 		String sql = "SELECT market_no, writer_no, title, price, write_date, hits, image_1 "
-				+ "FROM tranin_market "
+				+ "FROM tranin_market k "
+				+ "JOIN tranin_member m ON k.writer_no = m.`no` "
 				+ "WHERE part = ? AND disabled = 'false' "
-				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member)) "
+				+ "AND m.banned = 'false' "
 				+ "ORDER BY write_date DESC "
 				+ "LIMIT ?, ?";
 		try {
@@ -55,9 +56,10 @@ public class MarketDao {
 		ArrayList<MarketDto> postList = new ArrayList<MarketDto>();
 
 		String sql = "SELECT market_no, writer_no, title, price, write_date, hits, image_1 "
-				+ "FROM tranin_market "
+				+ "FROM tranin_market k "
+				+ "JOIN tranin_member m ON k.writer_no = m.`no` "
 				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false' "
-				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member)) "
+				+ "AND m.banned = 'false' " 
 				+ "ORDER BY write_date DESC "
 				+ "LIMIT ?, ?";
 		try {
@@ -97,9 +99,11 @@ public class MarketDao {
 	public int getPostCount(String part) {
 		DBProperty db = new DBProperty();
 		int count = 0;
-		String sql = "SELECT COUNT(*) FROM tranin_market "
+		String sql = "SELECT COUNT(*) "
+				+ "FROM tranin_market k "
+				+ "JOIN tranin_member m ON k.writer_no = m.`no` "
 				+ "WHERE part = ? AND disabled = 'false' "
-				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member))";
+				+ "AND m.banned = 'false' " ;
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
@@ -125,9 +129,11 @@ public class MarketDao {
 	public int getSearchPostCount(String part, String searchKey) {
 		DBProperty db = new DBProperty();
 		int count = 0;
-		String sql = "SELECT COUNT(*) FROM tranin_market "
+		String sql = "SELECT COUNT(*) "
+				+ "FROM tranin_market k "
+				+ "JOIN tranin_member m ON k.writer_no = m.`no` "
 				+ "WHERE part = ? AND title LIKE ? AND disabled = 'false' "
-				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member))";
+				+ "AND m.banned = 'false' ";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
@@ -233,8 +239,7 @@ public class MarketDao {
 		MarketDto marketPost = null;
 		
 		String sql = "SELECT * FROM tranin_market "
-				+ "WHERE market_no = ? AND disabled = 'false' "
-				+ "AND NOT(writer_no IN (SELECT member_no FROM tranin_banned_member))";
+				+ "WHERE market_no = ? AND disabled = 'false' ";
 		
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);

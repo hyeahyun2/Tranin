@@ -40,9 +40,7 @@ public class MemberDao {
 	public boolean isBanMember(String id) {
 		DBProperty db = new DBProperty();
 		
-		String sql = "SELECT ban_no FROM tranin_banned_member b "
-				+ "JOIN tranin_member m ON b.member_no = m.`no` "
-				+ "WHERE m.id = ?";
+		String sql = "SELECT * from tranin_member where id=? and banned='true'";
 		try {
 			db.pstmt = db.conn.prepareStatement(sql);
 			db.pstmt.setString(1, id);
