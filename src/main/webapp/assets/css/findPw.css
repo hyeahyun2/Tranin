@@ -19,6 +19,7 @@ h1.logo {
 	max-width: 500px;
 	border: 1px solid #000;
 	border-radius: 5px;
+	padding: 30px;
 }
 
 #container > * {
@@ -33,19 +34,24 @@ h1.logo {
 	gap: 10px;
 }
 #findPwForm input[type=text] {
-	width: 90%; height: 30px;
+	width: 100%; height: 40px;
 	padding: 0 10px;
 }
-#findPwForm span {
+#findPwForm span.emailAuthBtn {
 	display: block;
 	width: 30%;
-	padding: 5px 0;
+	padding: 10px 0;
 	border: 1px solid #000;
 	border-radius: 5px;
 	cursor: pointer;
 }
 
-span.emailAuthCheck:hover {
-	border: 1px solid #f7e75b;
-	background-color: #f7e75b;
+#findPwForm span.emailAuthCheck {
+	display: block;
+	width: 100%;
+	padding: 10px 0;
+	background-color: #00AAFF;
+	color: #fff;
+	border-radius: 5px;
+	cursor: pointer;
 }

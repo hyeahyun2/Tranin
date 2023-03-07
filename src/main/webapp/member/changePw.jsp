@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
 <link rel="stylesheet" href="../assets/css/reset.css" />
-<link rel="stylesheet" href="../assets/css/changePw.css" />
+<link rel="stylesheet" href="../assets/css/changePw.css?v=2" />
 <script src="../assets/js/changePw.js" defer></script>
 <%
 String memberId = (String)request.getAttribute("memberId");
@@ -14,6 +14,7 @@ String memberId = (String)request.getAttribute("memberId");
 </head>
 <body>
 	<div id="container">
+		<h1 class="logo"><a href="/mainPage">비밀번호 찾기</a></h1>
 		<form name="changePwForm" id="changePwForm" method="post">
 			<input type="hidden" name="id" value="<%= memberId %>">
 			<label>
