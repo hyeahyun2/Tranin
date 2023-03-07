@@ -82,7 +82,7 @@
 	       	%>
 	       	<script src="/assets/js/marketPost_soldOut.js" defer></script>
 	       	<ul class="saleBtn">
-	          <li><span data-marketNo="<%= post.getMarketNo() %>" class="soldOutBtn">판매완료</span></li>
+	          <li><span data-marketNo="<%= post.getMarketNo() %>" class="soldOutBtn"><%= part %>완료</span></li>
 	        </ul>
 	       	<%
         	}

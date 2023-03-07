@@ -38,11 +38,14 @@ public class MarketPostSoldOutServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 
 		if(postWriterNo != memberNo) { // 로그인멤버 != 판매자
-			out.append("<script>alert('게시글 작성자가 아닙니다. 로그인 정보를 확인해주세요.')</script>");
+			out.append("<script>"
+					+ "if(!alert('게시글 작성자가 아닙니다. 로그인 정보를 확인해주세요.')){"
+					+ "location.href='/marketPostInfo?no=" +  marketNo 
+					+ "'}</script>");
 			out.flush();
             out.close();
-			resp.sendRedirect("/marketPostInfo?no=" + marketNo);
-			return;
+//			resp.sendRedirect("/marketPostInfo?no=" + marketNo);
+//			return;
 		}
 		else {
 			// 게시글 비활성화
@@ -51,11 +54,20 @@ public class MarketPostSoldOutServlet extends HttpServlet {
 			if(state) {
 				// 해당 글 market_disabled table에 insert
 				marketDao.insertToDisabled("soldOut", Integer.parseInt(marketNo));		
-				out.append("<script>alert('판매 완료 처리가 완료되었습니다.')</script>");
+				out.append("<script>"
+						+ "if(!alert('판매 완료 처리가 완료되었습니다.')){"
+						+ "location.href='/market/market.jsp'"
+						+ "}</script>");
 				out.flush();
 	            out.close();
-				resp.sendRedirect("/market/market.jsp");
-				return;
+			}
+			else {
+				out.append("<script>"
+						+ "if(!alert('판매 완료 처리에 실패했습니다. 다시 시도해주세요.')){"
+						+ "location.href='/marketPostInfo?no="+ marketNo +"'"
+						+ "}</script>");
+				out.flush();
+	            out.close();
 			}
 		}
 	}
