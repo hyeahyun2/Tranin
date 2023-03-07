@@ -7,7 +7,7 @@
 <title>장터 글쓰기</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/writeMarket.css?v=<%= System.currentTimeMillis() %>">
-<script src="../assets/js/writeMarket.js" defer></script>
+<script src="../assets/js/writeMarket.js?v=3" defer></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp"%>

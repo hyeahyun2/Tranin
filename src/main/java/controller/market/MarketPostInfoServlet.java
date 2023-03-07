@@ -78,6 +78,10 @@ public class MarketPostInfoServlet extends HttpServlet {
         else { // 아닌 경우 -> 정상적으로 상품 상세 페이지로 이동
         	// 글쓴이 정보
         	MemberDto member = new MemberInfoDao().getMemberByNo(post.getWriterNo());
+        	
+        	// 엔터 전환
+        	String postContent = post.getContent();
+        	post.setContent(postContent.replace("\n", "<br>"));
         	// 전달할 파라미터
         	request.setAttribute("post", post); // 글 정보
         	request.setAttribute("writerNick", member.getNickName()); // 글쓴이 닉네임

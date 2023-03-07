@@ -47,6 +47,9 @@ div#headerWrap ul > li > a {
   display: block;
   width: 100%; height: 100%;
 }
+.postImg .mainImg li img {
+	width: 100%; height: 100%;
+}
 .postImg .imgBtn {
   position: absolute;
   display: flex;

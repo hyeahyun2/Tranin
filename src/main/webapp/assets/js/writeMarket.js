@@ -5,6 +5,8 @@ const submitBtn = document.getElementById("submitBtn");
 function doSubmit() {
 	/* 유효성검사 추가하기!! */
 	let regExpPrice = /^[0-9]*$/;
+	const imgDiv_num = document.querySelectorAll(".imgDiv");
+	
 	if(form.title.value == ""){
 		alert("제목을 입력해주세요!");
 		form.title.focus();
@@ -23,6 +25,10 @@ function doSubmit() {
 	else if(Number(form.price.value) < 0){
 		alert("가격은 0원 이상으로 적어주세요!");
 		form.price.focus();
+		return false;
+	}
+	else if(imgDiv_num.length > 5){
+		alert("이미지는 5개까지 첨부 가능합니다!");
 		return false;
 	}
 	
