@@ -34,11 +34,10 @@ public class SendEmailAuth {
 		// mail server 설정
 		String host = "smtp.googlemail.com";
 		String user = "hyhyDevelop@gmail.com"; // 자신의 구글 계정
-		String password = "bnvvuuyfocjgehxc";// 구글 메일 2차 인증 번호
+		String password = "";// 구글 메일 2차 인증 번호
 		
 		// 메일 받을 주소
 		String to_email = mail;
-		System.out.println("inputedEmail : " + mail);
 
 		// SMTP 서버 정보를 설정한다.
 		Properties prop = new Properties();
