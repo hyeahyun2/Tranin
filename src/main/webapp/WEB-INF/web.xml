@@ -20,4 +20,14 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  
+  <!-- 에러 페이지 설정 -->
+  <error-page>
+		<error-code>404</error-code>
+		<location>/errorPage/errorNotFountPage.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errorPage/errorServerResponseFail.jsp</location>
+	</error-page>
 </web-app>
