@@ -1,11 +1,4 @@
 /* 제이쿼리 원페이지 */
- let mouse_is_not_in_sec4_post = true;
- sec4_post.addEventListener("mouseover", function () {
-   mouse_is_not_in_sec4_post = false;
- });
- sec4_post.addEventListener("mouseout", function () {
-   mouse_is_not_in_sec4_post = true;
- });
 
  let right_quick_bar_activate = false;
  rightSearch.addEventListener("click", function () {
@@ -22,7 +15,7 @@
  let nWheel = 1;
  let stateW = 1;
  let wheeling = (e) => {
-   if (e.wheelDelta < 0 && stateW == 1 && mouse_is_not_in_sec4_post==true && right_quick_bar_activate == false) {
+   if (e.wheelDelta < 0 && stateW == 1 && right_quick_bar_activate == false) {
      stateW = 0;
      nWheel++;
      if (nWheel > 6) {
@@ -46,7 +39,7 @@
          headerLeftNavBar.style.height = `${24 * (nWheel)}px`;
        }
      }
-   } else if (e.wheelDelta > 0 && stateW == 1 && mouse_is_not_in_sec4_post==true && right_quick_bar_activate == false) {
+   } else if (e.wheelDelta > 0 && stateW == 1 && right_quick_bar_activate == false) {
      stateW = 0;
      nWheel--;
      if (nWheel < 1) {

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../assets/css/mainPromotion.css" />
   <script src="../assets/js/section1.js" defer></script>
   <script src="../assets/js/section3.js" defer></script>
-  <script src="../assets/js/onePage.js" defer></script>
+  <script src="../assets/js/onePage.js?v=2" defer></script>
 </head>
 
 <body>
@@ -192,8 +192,8 @@
         </div>
       </div>
     </section>
+    <section class="page4 page onePage4">
     </section>
-    
     <section class="page5 page onePage5">
       <div>
         <div id="noticeWrap_hj">
