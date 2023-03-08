@@ -124,10 +124,6 @@
 	    %>
     </ul>
   </div>
-  <div id="PageBtn">
-    <a class="prevBtn" href="/marketPostInfo?no=<%= post.getMarketNo() - 1 %>">이전 게시물로 이동</a>
-    <a class="nextBtn" href="/marketPostInfo?no=<%= post.getMarketNo() + 1 %>">다음 게시물로 이동</a>
-  </div>
   <%@ include file="/include/footer.jsp"%>
 </body>
 </html>
