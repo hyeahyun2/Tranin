@@ -7,7 +7,7 @@
 <title>장터</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/market.css">
-<script src="../assets/js/market.js" defer></script>
+<script src="../assets/js/market.js?v=3" defer></script>
 </head>
 <%
 String searchKey = request.getParameter("searchKey");
@@ -17,7 +17,7 @@ String part = request.getParameter("part");
 	<%@ include file="../include/header.jsp"%>
 	<div id="content">
 		<h1>
-			<a href="./market.jsp">장터</a>
+			<a href="./market.jsp?part=<%= part %>">장터</a>
 		</h1>
 		<div id="contentWrap">
 			<div id="selectWrap">

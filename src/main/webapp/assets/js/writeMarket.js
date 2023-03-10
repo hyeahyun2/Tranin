@@ -16,18 +16,10 @@ function doSubmit() {
 		alert("가격을 입력해주세요!");
 		form.price.focus();
 		return false;
+	} else { // 가격 유효성 통과 시 (가격 입력 완료시)
+		form.price.value = Number(form.price.value.replaceAll(',', ''));
 	}
-	else if(!regExpPrice.test(form.price.value)){
-		alert("가격은 숫자만 사용 가능합니다.")
-		form.price.focus();
-		return false;
-	}
-	else if(Number(form.price.value) < 0){
-		alert("가격은 0원 이상으로 적어주세요!");
-		form.price.focus();
-		return false;
-	}
-	else if(imgDiv_num.length > 5){
+	if(imgDiv_num.length > 5){
 		alert("이미지는 5개까지 첨부 가능합니다!");
 		return false;
 	}
@@ -39,23 +31,24 @@ function doSubmit() {
 // 등록버튼 클릭 -> 글 등록하기
 submitBtn.addEventListener("click", doSubmit);
 
+// 가격 입력 숫자만 입력되도록
+const priceTag = form.price;
+priceTag.addEventListener("input", (e)=>{
+	e.currentTarget.value = 
+				e.currentTarget.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+	// 숫자 사이에 단위 추가
+	let value = e.currentTarget.value;
+	value = Number(value.replaceAll(',', ''));
+  if(isNaN(value)) {
+    input.value = "";
+  }
+  else {
+    const formatValue = value.toLocaleString('ko-KR');
+    priceTag.value = formatValue;
+  }
+});
 
-// let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
-// let container = new DataTransfer(); 
-// container.items.add(file);
-// document.querySelector('#file_input').files = container.files;
-// https://curryyou.tistory.com/442
-// 검색 : js File 객체 생성
-/*
-	export const convertURLtoFile = async (url: string) => {
-  const response = await fetch(url);
-  const data = await response.blob();
-  const ext = url.split(".").pop(); // url 구조에 맞게 수정할 것
-  const filename = url.split("/").pop(); // url 구조에 맞게 수정할 것
-  const metadata = { type: `image/${ext}` };
-  return new File([data], filename!, metadata);
-};
- */
+
 /* 수정페이지 기존 이미지 제거 */
 console.log(location.pathname.substring(1));
 if(location.pathname.substring(1) == "marketGoEditPage"){

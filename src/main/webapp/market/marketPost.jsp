@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dto.MarketDto" %>
+<%@ page import="java.text.NumberFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,8 @@
 	String writerNick = (String)request.getAttribute("writerNick");
 	String writerId = (String)request.getAttribute("writerId");
 	
+	NumberFormat numberFormat = NumberFormat.getInstance();
+	
 	String part = null;
 	if(post.getPart().equals("sell")){
 		part = "판매";
@@ -27,7 +30,7 @@
 	%>
 	<!-- contents -->
   <div id="content">
-    <h1><a href="/market/market.jsp"><%= part %>글</a></h1>
+    <h1><a href="/market/market.jsp?part=<%= post.getPart() %>"><%= part %>글</a></h1>
     <div id="contentWrap">
       <div class="postImg">
         <ul class="mainImg">
@@ -67,7 +70,7 @@
         <p><%= writerNick %></p>
         <p>조회수 <%= post.getHits() %></p>
         <p class="date"><%= post.getWriteDate() %></p>
-        <p>가격 : <span class="price"><%= post.getPrice() %>원</span></p>
+        <p>가격 : <span class="price"><%= numberFormat.format(post.getPrice()) %>원</span></p>
         <div class="mainText">
 					<%= post.getContent() %>
         </div>

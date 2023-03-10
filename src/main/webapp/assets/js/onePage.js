@@ -18,8 +18,8 @@
    if (e.wheelDelta < 0 && stateW == 1 && right_quick_bar_activate == false) {
      stateW = 0;
      nWheel++;
-     if (nWheel > 6) {
-       nWheel = 6;
+     if (nWheel > 4) {
+       nWheel = 4;
        stateW = 1;
      } else {
        console.log(nWheel, $(".onePage" + nWheel).position().top);
@@ -28,15 +28,15 @@
          .animate({ scrollTop: $(".onePage" + nWheel).position().top }, function () {
            stateW = 1;
          });
-       for (let i = 0; i < headerLeftNavLi.length - 1; i++) {
+       for (let i = 0; i < headerLeftNavLi.length; i++) {
          headerLeftNavLi[i].style.opacity = "0";
        }
-       if (nWheel == 6) {
+       if (nWheel == 4) {
          headerLeftNavLi[nWheel - 1].style.opacity = "1";
-         headerLeftNavBar.style.height = `${24 * (nWheel) - 2}px`;
+         headerLeftNavBar.style.height = `${36 * (nWheel) - 2}px`;
        } else {
          headerLeftNavLi[nWheel - 1].style.opacity = "1";
-         headerLeftNavBar.style.height = `${24 * (nWheel)}px`;
+         headerLeftNavBar.style.height = `${36 * (nWheel)}px`;
        }
      }
    } else if (e.wheelDelta > 0 && stateW == 1 && right_quick_bar_activate == false) {
@@ -52,11 +52,11 @@
          .animate({ scrollTop: $(".onePage" + nWheel).position().top }, function () {
            stateW = 1;
          });
-       for (let i = 0; i < headerLeftNavLi.length - 1; i++) {
+       for (let i = 0; i < headerLeftNavLi.length; i++) {
          headerLeftNavLi[i].style.opacity = "0";
        }
        headerLeftNavLi[nWheel - 1].style.opacity = "1";
-       headerLeftNavBar.style.height = `${24 * (nWheel)}px`;
+       headerLeftNavBar.style.height = `${36 * (nWheel)}px`;
      }
    }
  };

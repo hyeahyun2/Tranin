@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.MarketDao;
 import dao.PromotionDao;
+import dto.MarketDto;
 import dto.PromotionDto;
 
 @WebServlet("/mainPage")
@@ -31,7 +33,12 @@ public class MainPageController extends HttpServlet {
 		List<PromotionDto> promotionList = new ArrayList<>();
 		promotionList = dao.getPromotionList();
 		
+		// 장터글(판매글) 리스트
+		MarketDao marketDao = new MarketDao();
+		ArrayList<MarketDto> postList = marketDao.getPostList("sell", 1, 8);
+		
 		request.setAttribute("promotionList", promotionList);
+		request.setAttribute("postList", postList);
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mainPage/welcome.jsp");
 		requestDispatcher.forward(request, response);

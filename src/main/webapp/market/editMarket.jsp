@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="dto.MarketDto" %>
+<%@ page import="java.text.NumberFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +15,12 @@
 	<%@ include file="../include/header.jsp"%>
 	<%
 	MarketDto post = (MarketDto)request.getAttribute("post");
+	
+	NumberFormat numberFormat = NumberFormat.getInstance();
 	%>
 	<div id="content">
 		<h1>
-			<a href="./market.jsp">
+			<a href="/market/market.jsp?part=<%= post.getPart() %>">
 			<%
 			if(post.getPart().equals("sell")){
 				out.print("판매");
@@ -41,7 +44,7 @@
 				</div>
 				<div>
 					<label for="price"><% if(post.getPart().equals("buy")) out.print("희망"); %>가격</label>
-					<input type="text" id="price" name="price" placeholder="<% if(post.getPart().equals("buy")) out.print("희망"); %>가격을 입력하세요.(숫자만 입력)" value="<%= post.getPrice() %>"> 원
+					<input type="text" id="price" name="price" placeholder="<% if(post.getPart().equals("buy")) out.print("희망"); %>가격을 입력하세요.(숫자만 입력)" value="<%= numberFormat.format(post.getPrice()) %>"> 원
 				</div>
 				<div>
 					<label for="postContent">글 내용</label>

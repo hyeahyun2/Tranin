@@ -74,18 +74,22 @@ function boardList(result){
 		if(result[i].writeDate.includes(date)){ // 오늘 날짜면
 			isToday = "toDay";
 		}
-		// 	http://localhost:8080/resources/images/P1234.png
+		// 썸네일이미지 설정
 		let titleImg = 
 				result[i].titleImage == "" ? 
 						"/assets/image/default_image.png" : `/img/${result[i].titleImage}`;
 		if(result[i].titleImage == ""){result[i].tileImage = "defualtImg.png"}
+		// 가격 포멧팅
+		let priceFormat = Number(result[i].price).toLocaleString('ko-KR');
+		console.log("priceFormat : " + priceFormat);
+		// 게시글 템플릿
 		var post = `<li class="post">
 	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
 	    			<img src="${titleImg}" alt="${result[i].no}번 글 이미지">
 	    		</a>
 	    		<dl>
 	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title} <span class="${isToday}">새글</span></a></dt>
-	      		<dd class="price">${result[i].price}원</dd>
+	      		<dd class="price">${priceFormat}원</dd>
 	     		 <dd class="writer">${result[i].writerNick}</dd>
 	      		<dd class="hits_date"><span class="hits">조회수 ${result[i].hits}</span><span class="writeDate">${result[i].writeDate}</span></dd>
 	   		 	</dl>

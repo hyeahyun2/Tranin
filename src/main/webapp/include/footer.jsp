@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,java.lang.*"%>
-  <div class="footerWrap page onePage6">
+  <div class="footerWrap page onePage4">
     <footer class="page8" id="footer">
       <p class="us">about us</p>
       <div class="membersWrap">

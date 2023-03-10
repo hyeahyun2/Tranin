@@ -16,7 +16,7 @@
 	%>
 	<div id="content">
 		<h1>
-			<a href="./market.jsp">
+			<a href="/market/market.jsp?part=<%= part %>">
 			<%
 			if(part.equals("sell")){
 				out.print("판매");

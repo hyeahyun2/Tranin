@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,java.lang.*,dto.PromotionDto,dto.MemberDto,dao.MyPageDao"%>
+<%@ page import="dao.NoticeDao" %>
+<%@ page import="dto.NoticeDto" %>
+<%@ page import="dao.MarketDao" %>
+<%@ page import="dto.MarketDto" %>
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
 
@@ -7,11 +11,11 @@
   <meta charset="utf-8" />
   <title>포트폴리오</title>
   <%@ include file="../include/frontStyle.jsp"%>
-  <link rel="stylesheet" href="../assets/css/index.css" />
+  <link rel="stylesheet" href="../assets/css/index.css?v=3" />
   <link rel="stylesheet" href="../assets/css/mainPromotion.css" />
   <script src="../assets/js/section1.js" defer></script>
   <script src="../assets/js/section3.js" defer></script>
-  <script src="../assets/js/onePage.js?v=2" defer></script>
+  <script src="../assets/js/onePage.js" defer></script>
 </head>
 
 <body>
@@ -24,10 +28,6 @@
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
         <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">6</a></li>
-        <li><a href="#">6</a></li>
       </ul>
       <span id="headerBar"></span>
     </div>
@@ -102,9 +102,7 @@
          -->
       </ul>
     </section>
-    <section class="page2 page onePage2">
-    </section>
-    <section class="Wrap_hj page3 page onePage3">
+    <section class="Wrap_hj page3 page onePage2">
       <div class="firstDiv_hj">
         <div id="headerWrap_hj">
           <h2 class="Header3_hj">최근 올라온 판매 상품!</h2>
@@ -112,78 +110,26 @@
         </div>
         <div id="SliderWrap_hj">
           <ul class="Slider_hj">
+	          <%
+	          ArrayList<MarketDto> postList = (ArrayList<MarketDto>)request.getAttribute("postList");
+	          if(postList != null){
+	        	  for(MarketDto post : postList){
+	        		  String titleImg = post.getImage()[0] == null ?
+	        				  "/assets/image/default_image.png" : "/img/" + post.getImage()[0];
+	          %>
             <li>
-              <a href="#">
+              <a href="/marketPostInfo?no=<%= post.getMarketNo()%>">
                 <div>
-                  이미지
+                  <img src=<%= titleImg %> alt="<%= post.getMarketNo() %>번 글 이미지">
                 </div>
-                <p class="title_hj">닌텐도 팝니다!1</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
+                <p class="title_hj"><%= post.getTitle() %></p>
+                <p><%= post.getWriteDate() %></p>
               </a>
             </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!2</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!3</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!4</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!5</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!6</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!7</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div>
-                  이미지
-                </div>
-                <p class="title_hj">닌텐도 팝니다!8</p>
-                <p>2021년도 상품이고, 거의 새거입니다.</p>
-              </a>
-            </li>
+            <%
+	        	  }
+	          }
+            %>
           </ul>
         </div>
         <div id="btnWrap_hj">
@@ -192,43 +138,36 @@
         </div>
       </div>
     </section>
-    <section class="page4 page onePage4">
-    </section>
-    <section class="page5 page onePage5">
+    <section class="page5 page onePage3">
       <div>
         <div id="noticeWrap_hj">
           <h2 class="Header_hj"><span>공지사항</span></h2>
           <ul class="noticeUl_hj">
-            <li>
-              <p>4</p>
-              <p><a href="#">공지사항입니다.</a></p>
-              <p>조회수</p>
+	          <%
+	          // 공지사항 리스트 불러오기
+	          ArrayList<NoticeDto> noticeList = new NoticeDao().showNotice(1);
+	          if(noticeList == null){
+        	  %>
+        	  	<li>
+              <p>0</p>
+              <p><a href="#">아직 공지사항이 없습니다.</a></p>
+              <p>-</p>
             </li>
-            <li>
-              <p>3</p>
-              <p><a href="#">공지사항입니다.</a></p>
-              <p>조회수</p>
-            </li>
-            <li>
-              <p>2</p>
-              <p><a href="#">공지사항입니다.</a></p>
-              <p>조회수</p>
-            </a></li>
-            <li>
-              <p>1</p>
-              <p><a href="#">공지사항입니다.</a></p>
-              <p>조회수</p>
-            </li>
+        	  <%
+	          } else {
+		          for(int i=0; i<4; i++){
+		          %>
+	            <li>
+	              <p><%=noticeList.get(i).getNoticeNo() %></p>
+	              <p><a href="/notice/showNotice.jsp?noticeNo=<%=noticeList.get(i).getNoticeNo()%>"><%=noticeList.get(i).getTitle() %></a></p>
+	              <p><%=noticeList.get(i).getRegDate() %></p>
+	            </li>
+	            <%
+	          	}
+	          }
+            %>
           </ul>
           <a href="#" class="gopage_hj">공지사항 바로가기</a>
-        </div>
-        <div id="reportWrap_hj">
-          <h2 class="Header_hj"><span>부정거래 신고</span></h2>
-          <div class="reportExplan">
-            <p>공정한 거래를 위해 부정거래 발생 시 신고해주세요.</p>
-            <div>이미지</div>
-          </div>
-          <a href="#" class="gopage_hj">신고하기 바로가기</a>
         </div>
       </div>
     </section>

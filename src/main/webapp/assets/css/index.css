@@ -4,9 +4,7 @@
 @import "common.css";
 @import "section1.css";
 @import "section2.css";
-@import "section3.css";
-@import "section4.css";
-@import "section5.css";
+@import "section3.css?v=2";
 @import "footer.css";
 
 body {
