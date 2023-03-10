@@ -7,11 +7,13 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MarketDao;
+import dao.MemberInfoDao;
 import dao.PromotionDao;
 import dto.MarketDto;
 import dto.PromotionDto;
@@ -36,6 +38,19 @@ public class MainPageController extends HttpServlet {
 		// 장터글(판매글) 리스트
 		MarketDao marketDao = new MarketDao();
 		ArrayList<MarketDto> postList = marketDao.getPostList("sell", 1, 8);
+		
+		// 자동 로그인 확인
+		Cookie[] c = request.getCookies();
+	    if (c != null && request.getSession().getAttribute("memberId") == null) {
+	      for (Cookie cf : c) {
+	        if (cf.getName().equals("autoLogin")){
+	          String ids = cf.getValue();
+	          MemberInfoDao mInfoDao = new MemberInfoDao();
+	          request.getSession().setAttribute("memberId", ids);
+	          request.getSession().setAttribute("memberNick", mInfoDao.getNicknameById(ids));
+	        }
+	      }
+	    }
 		
 		request.setAttribute("promotionList", promotionList);
 		request.setAttribute("postList", postList);

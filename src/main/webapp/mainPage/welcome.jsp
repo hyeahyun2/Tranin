@@ -167,7 +167,7 @@
 	          }
             %>
           </ul>
-          <a href="#" class="gopage_hj">공지사항 바로가기</a>
+          <a href="/notice/notice.jsp" class="gopage_hj">공지사항 바로가기</a>
         </div>
       </div>
     </section>

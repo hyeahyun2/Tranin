@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>장터</title>
 <%@ include file="../include/frontStyle.jsp"%>
-<link rel="stylesheet" href="../assets/css/market.css">
-<script src="../assets/js/market.js?v=3" defer></script>
+<link rel="stylesheet" href="../assets/css/market.css?v=2">
+<script src="../assets/js/market.js?v=4" defer></script>
 </head>
 <%
 String searchKey = request.getParameter("searchKey");
@@ -23,7 +23,8 @@ String part = request.getParameter("part");
 			<div id="selectWrap">
 				<form action="#" name="search" id="inputSearch" method="get">
 					<input type="text" name="searchText" class="searchText"
-						placeholder="search" <%if(searchKey != null){ out.print("value=\""+ searchKey +"\""); }%>> <input type="button" name="searchBtn" class="submit">
+						placeholder="search" <%if(searchKey != null){ out.print("value=\""+ searchKey +"\""); }%>> 
+					<input type="button" name="searchBtn" class="submitBtn">
 					<a href="https://www.flaticon.com/kr/free-icons/" title="확대경 아이콘">확대경
 						아이콘 제작자: Freepik - Flaticon</a>
 				</form>

@@ -7,7 +7,7 @@
 <title>로그인</title>
 <link rel="stylesheet" href="../assets/css/reset.css" />
 <link rel="stylesheet" href="../assets/css/login.css?v=3" />
-<script src="../assets/js/login.js" defer></script>
+<script src="../assets/js/login.js?v=2" defer></script>
 </head>
 <body>
 	<div id="container">

@@ -1,6 +1,7 @@
 const fixedBtn = document.getElementById("fixedBtn");
 const topBtn = fixedBtn.querySelector(".topBtn");
 const searchText = document.search.searchText;
+
 topBtn.addEventListener("click",(e)=>{
   e.preventDefault();
   // 스크롤 스무스하게 올라가게
@@ -107,11 +108,19 @@ moreBtn.addEventListener("click", function(){
 
 // 검색
 const searchBtn = document.search.searchBtn;
-searchBtn.addEventListener("click", function(){
+searchBtn.addEventListener("click", function(){ // 돋보기 클릭
 	location.href = "/market/market.jsp?part=" + nowPart
 						+ "&searchKey=" + searchText.value;
 });
-
+searchText.addEventListener("keydown", (e)=>{ // 엔터의 원래 이벤트 방지
+	e.preventDefault();
+});
+searchText.addEventListener("keyup", function(e){ // 엔터 검색
+	if( window.event.keyCode == 13 ){
+		location.href = "/market/market.jsp?part=" + nowPart
+							+ "&searchKey=" + searchText.value;
+	}
+});
 
 // sell/buy(#array)에 따른 리스트 재나열
 const array = document.getElementById("array");

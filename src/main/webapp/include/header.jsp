@@ -10,16 +10,6 @@
     String manager = null;
     manager = (String)session.getAttribute("manager");
 
-    // 자동 로그인 쿠키 있을 경우
-    Cookie[] c = request.getCookies();
-    if (c != null) {
-      for (Cookie cf : c) {
-        if (cf.getName().equals("autoLogin")){
-          String ids = cf.getValue();
-          session.setAttribute("memberId", ids);
-        }
-      }
-    }
     memberId = (String)session.getAttribute("memberId");
     memberNick = (String)session.getAttribute("memberNick");
     String id = (String) session.getAttribute("id");

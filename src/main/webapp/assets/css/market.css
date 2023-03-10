@@ -49,7 +49,7 @@ div#headerWrap ul > li > a {
 #inputSearch .searchText:focus {
   border: 1px solid #000;
 }
-#inputSearch .submit {
+#inputSearch .submitBtn {
   position: absolute; right: 5%;
   width: 20px; height: 20px;
   top: 50%; transform: translateY(-50%);
