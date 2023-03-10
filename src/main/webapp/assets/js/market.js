@@ -1,7 +1,6 @@
 const fixedBtn = document.getElementById("fixedBtn");
 const topBtn = fixedBtn.querySelector(".topBtn");
 const searchText = document.search.searchText;
-console.log(topBtn);
 topBtn.addEventListener("click",(e)=>{
   e.preventDefault();
   // 스크롤 스무스하게 올라가게
@@ -14,21 +13,20 @@ const xhr = new XMLHttpRequest();
 const contentWrap = document.getElementById("contentWrap");
 const posts = document.getElementById("posts");
 const moreBtn = contentWrap.querySelector(".moreBtn");
+const partTag = document.querySelector("#array .select");
 
 let clickNum = 0; // 클릭 수
-let nowPart = "sell"; // part 초기값
+let nowPart =  // 페이지 로딩 시 part 초기값
+			partTag.getAttribute("class").includes("sell")? "sell" : "buy";
 let searchKey = searchText.value; // 검색 키워드 초기값
 
 function moreList(part, searchKey){
-	console.log("clickNum : " + clickNum);
-  // page = this.getAttribute();
-  //xhr.open('GET', `./marketList.jsp?`); //HTTP 요청 초기화. 통신 방식과 url 결정
   xhr.open("POST", "../marketListServlet", true);
   xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 
   xhr.onreadystatechange = ()=>{
     if(xhr.readyState !== XMLHttpRequest.DONE) return;
-    console.log(xhr.status, xhr.statusText);
+    //console.log(xhr.status, xhr.statusText);
     if(xhr.status === 200){ // 서버(url)에 문서가 존재할 때
       //posts.insertAdjacentHTML("beforeend", xhr.response);
       let data = xhr.response;
@@ -49,7 +47,7 @@ function moreList(part, searchKey){
         element.style.height = `${100 / clickNum}%`
       })
       // postUl.style.height = `${100 / clickNum}%`
-      console.log(80 * clickNum);
+      //console.log(80 * clickNum);
     }
     else { // 서버(url)에 문서가 존재하지 않을 때
       console.log("Error", xhr.status, xhr.statusText);
@@ -97,14 +95,14 @@ function boardList(result){
 
 window.addEventListener("load", moreList(nowPart, searchKey)); // 페이지 로드시 디폴트 리스트
 moreBtn.addEventListener("click", function(){
-	console.log("click");
 	moreList(nowPart, searchKey);
 }); // 클릭시 리스트 추가
 
 // 검색
 const searchBtn = document.search.searchBtn;
 searchBtn.addEventListener("click", function(){
-	location.href = "/market/market.jsp?searchKey=" + searchText.value;
+	location.href = "/market/market.jsp?part=" + nowPart
+						+ "&searchKey=" + searchText.value;
 });
 
 
@@ -120,37 +118,15 @@ arrList.forEach(element => {
     nowPart = e.currentTarget.getAttribute("class");
     e.currentTarget.classList.add("select"); // 선택된 정렬방식 표시
     
-    // 리스트 초기화 및 다시 불러오기
+    // 파라미터 변경 후 페이지 새로고침
+    location.href = 
+    		e.currentTarget.getAttribute("class").includes("sell")?
+    			"/market/market.jsp?part=sell" : "/market/market.jsp?part=buy";
+    /*
     posts.innerHTML = null;
     clickNum = 0;
     moreList(nowPart, searchKey);
+     */
   })
 });
 
-
-// category 선택
-const category = document.getElementById("category");
-const goryPTag = category.querySelector("p");
-const goryList = category.querySelector(".goryList");
-const goryItem = goryList.querySelectorAll("li");
-console.log(goryItem);
-goryPTag.addEventListener("mouseenter",()=>{
-  category.style.height = "175px";
-  goryList.style.border = "1px solid #000";
-})
-category.addEventListener("mouseleave", (e)=>{
-  e.currentTarget.style.height = "25px";
-  goryList.style.border = "unset";
-})
-
-goryItem.forEach(element => {
-  element.addEventListener("click",(e)=>{
-    let pTagText = e.currentTarget.innerText;
-    goryPTag.innerText = element.innerText;
-    element.innerText = pTagText;
-    // 리스트 초기화 및 다시 불러오기
-    posts.innerHTML = null;
-    clickNum = 0;
-    moreList(nowPart, searchKey);
-  })
-});

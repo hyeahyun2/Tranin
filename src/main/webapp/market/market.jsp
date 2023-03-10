@@ -7,10 +7,11 @@
 <title>장터</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/market.css">
-<script src="../assets/js/market.js?v=2" defer></script>
+<script src="../assets/js/market.js" defer></script>
 </head>
 <%
 String searchKey = request.getParameter("searchKey");
+String part = request.getParameter("part");
 %>
 <body>
 	<%@ include file="../include/header.jsp"%>
@@ -27,8 +28,8 @@ String searchKey = request.getParameter("searchKey");
 						아이콘 제작자: Freepik - Flaticon</a>
 				</form>
 				<ul id="array">
-					<li class="select sell">팝니다</li>
-					<li class="buy">삽니다</li>
+					<li class="<%if(part.equals("sell")){ out.print("select"); }%> sell">팝니다</li>
+					<li class="<%if(part.equals("buy")){ out.print("select"); }%> buy">삽니다</li>
 				</ul>
 			</div>
 			<div id="posts">

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberDao;
+import dao.MemberInfoDao;
 
 @WebServlet("/memberLogin")
 public class MemberLoginServlet extends HttpServlet {
@@ -50,7 +51,11 @@ public class MemberLoginServlet extends HttpServlet {
 					rd.forward(req, resp);
 				}
 				else {
-					req.getSession().setAttribute("memberId", id); // 세션 굽기
+					// 닉넴 얻기
+					String nickname = new MemberInfoDao().getNicknameById(id);
+					// 세션 굽기
+					req.getSession().setAttribute("memberId", id); 
+					req.getSession().setAttribute("memberNick", nickname); 
 					
 					/* 자동로그인 관련 코드 작성 */
 					if(autoLogin != null && autoLogin.equals("true")) {
