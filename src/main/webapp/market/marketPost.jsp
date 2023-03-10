@@ -47,7 +47,7 @@
         	  imgNum = 1;
         	  // 사이트 기본 이미지
           %>
-          	<li><img src="#" alt="기본 이미지"></li>
+          	<li><img src="/assets/image/default_image.png" alt="기본 이미지"></li>
           <%
           }
           %>

@@ -75,10 +75,13 @@ function boardList(result){
 			isToday = "toDay";
 		}
 		// 	http://localhost:8080/resources/images/P1234.png
+		let titleImg = 
+				result[i].titleImage == "" ? 
+						"/assets/image/default_image.png" : `/img/${result[i].titleImage}`;
 		if(result[i].titleImage == ""){result[i].tileImage = "defualtImg.png"}
 		var post = `<li class="post">
 	    		<a href="/marketPostInfo?no=${result[i].no}" class="postImg">
-	    			<img src="/img/${result[i].titleImage}" alt="${result[i].no}번 글 이미지">
+	    			<img src="${titleImg}" alt="${result[i].no}번 글 이미지">
 	    		</a>
 	    		<dl>
 	     		 <dt><a href="/marketPostInfo?no=${result[i].no}" class="postTitle">${result[i].title} <span class="${isToday}">새글</span></a></dt>
