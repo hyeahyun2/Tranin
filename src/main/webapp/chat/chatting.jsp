@@ -15,9 +15,9 @@
 	%>
 <meta charset="UTF-8">
 <title>채팅</title>
-<link rel="stylesheet" href="../assets/css/chatting.css?v=2">
+<link rel="stylesheet" href="../assets/css/chatting.css?v=3">
 <link rel="stylesheet" href="../assets/css/reset.css">
-<script src="../assets/js/chatting.js?v=2" defer></script>
+<script src="../assets/js/chatting.js?v=3" defer></script>
 </head>
 <body>
 	<div id="head">

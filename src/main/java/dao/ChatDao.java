@@ -225,4 +225,59 @@ public class ChatDao {
 		}
 		return chatList;
 	}
+	
+	// 이전 대화내역 10개 가져오기
+	public ArrayList<ChatDto> getPrevChatListByfirstNo(String myNick, String otherNick, String numOfChat, int number){
+		DBProperty db = new DBProperty();
+		ArrayList<ChatDto> chatList = null;
+		
+		// chat_no, from_no, to_no, cht_content, chat_time
+		String sql = "SELECT chat_no, from_no, to_no, chat_content, chat_time "
+				+ "from tranin_chat c "
+				+ "join tranin_member m1 on c.from_no = m1.`no` " // m1 : from member의 정보
+				+ "join tranin_member m2 on c.to_no = m2.`no` " // m2 : to member의 정보
+				+ "WHERE ((m1.nickname = ? and m2.nickname = ?) or (m1.nickname = ? and m2.nickname = ?)) " // 챗 받은사람과 보낸사람 일치
+				+ "order by chat_time DESC " // 시간 역순 (최신순)
+				+ "limit ?, ?"; // 불러올 리스트 수
+		
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, myNick);
+			db.pstmt.setString(2, otherNick);
+			db.pstmt.setString(3, otherNick);
+			db.pstmt.setString(4, myNick);
+			db.pstmt.setInt(5, Integer.parseInt(numOfChat));
+			db.pstmt.setInt(6, number);
+			db.rs = db.pstmt.executeQuery();
+			chatList = new ArrayList<ChatDto>();
+			while(db.rs.next()) {
+				// 채팅 정보 저장
+				ChatDto chat = new ChatDto();
+				chat.setChatNO(db.rs.getLong("chat_no"));
+				chat.setFromNo(db.rs.getInt("from_no"));
+				chat.setToNo(db.rs.getInt("to_no"));
+				chat.setChatContent(db.rs.getString("chat_content"));
+				chat.setChatTime(db.rs.getString("chat_time"));
+				chatList.add(chat);
+				
+				// 채팅 읽음 처리
+				sql = "UPDATE tranin_chat SET is_read = 'true' "
+						+ "WHERE to_no = (SELECT `no` FROM tranin_member WHERE nickname = ?)"; // 받는 사람 = 로그인 멤버
+				db.pstmt = db.conn.prepareStatement(sql);
+				db.pstmt.setString(1, myNick);
+				db.pstmt.executeUpdate();
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return chatList;
+	}
 }

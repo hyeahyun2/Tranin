@@ -91,6 +91,34 @@ public class MemberInfoDao {
 		
 		return id; // 존재하지 않을 경우 null 반환
 	}
+	// nickname으로 No 얻기
+	public int getNoByNick(String nickname) {
+		DBProperty db = new DBProperty();
+		
+		int no = -1;
+		
+		String sql = "SELECT `no` from tranin_member where nickname = ?";
+		try {
+			db.pstmt = db.conn.prepareStatement(sql);
+			db.pstmt.setString(1, nickname);
+			db.rs = db.pstmt.executeQuery();
+			if(db.rs.next()) {
+				no = db.rs.getInt("no"); // id 얻기
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(db.rs != null) db.rs.close();
+				if(db.pstmt != null) db.pstmt.close();
+				if(db.conn != null) db.conn.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return no; // 존재하지 않을 경우 -1 반환
+	}
 	
 	// no로 member 정보 얻기
 	public MemberDto getMemberByNo(int no) {

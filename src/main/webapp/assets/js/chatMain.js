@@ -11,10 +11,8 @@ function chatIDListFunction(){
 		if(xhr.status == 200){ // 준완
 			let data = xhr.response;
 			if(data == "") return; // 공백일 경우 제외
-			console.log("ajax 연결 성공");
 			let parsed = JSON.parse(data); // json형태로 파싱
 			let result = parsed.result;	
-			console.log(result);
 			for(let i=0; i<result.length; i++){
 				console.log(result[i].otherMemberNick);
 				addIDList(result[i].otherMemberNick, result[i].isRead);
