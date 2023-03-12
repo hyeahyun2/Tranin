@@ -89,7 +89,7 @@
 </head>
 <body>
 	<header>
-		<a href="../mainPage/welcome.jsp"><img src="../assets/image/mainLogo.png"></a>
+		<a href="../mainPage"><img src="../assets/image/mainLogo.png"></a>
    		<h1>회원가입</h1>
 		<h2>Tranin 회원으로 가입하기 위해서는 이용약관, 개인정보처리방침에 동의하셔야 합니다.</h2>
 	</header>

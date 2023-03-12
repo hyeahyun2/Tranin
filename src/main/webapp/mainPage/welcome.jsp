@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,java.lang.*,dto.PromotionDto,dto.MemberDto,dao.MyPageDao"%>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page import="dao.NoticeDao" %>
 <%@ page import="dto.NoticeDto" %>
 <%@ page import="dao.MarketDao" %>
@@ -39,6 +40,8 @@
       </div>
       <ul class="page1_slides">
       	<%	
+      	  NumberFormat numberFormat = NumberFormat.getInstance();
+      	
       		MyPageDao myPageDao = new MyPageDao();
       		List<PromotionDto> promo = (List<PromotionDto>)request.getAttribute("promotionList");
       		for(int i=1;i<5;i++){
@@ -53,7 +56,7 @@
 	        	<article class="promotionContent">
 	        		<img src="/img/<%= fileName %>"  alt="<%= fileName %>">
 	        		<p><%=promo.get(i-1).getTitle()%></p>
-	        		<p><%if(promo.get(i-1).getPart().equals("sell")) out.print("현재 판매가는");else out.print("현재 매입가는");%><%=promo.get(i-1).getPrice()%> 원 입니다.</p>
+	        		<p><%if(promo.get(i-1).getPart().equals("sell")) out.print("현재 판매가는");else out.print("현재 매입가는");%><%=numberFormat.format(promo.get(i-1).getPrice())%> 원 입니다.</p>
 	        		<p><%=myPageDao.getMemberByNo(promo.get(i-1).getWriterNo()).getNickName()%> 님이 등록하셨습니다!</p>
 	        		<p><%=promo.get(i-1).getWriteDate()%> 에 등록되었습니다!</p>
 	        	</article>
@@ -106,7 +109,7 @@
       <div class="firstDiv_hj">
         <div id="headerWrap_hj">
           <h2 class="Header3_hj">최근 올라온 판매 상품!</h2>
-          <a href="#" class="more_hj">더보기</a>
+          <a href="/market/market.jsp?part=sell" class="more_hj">더보기</a>
         </div>
         <div id="SliderWrap_hj">
           <ul class="Slider_hj">

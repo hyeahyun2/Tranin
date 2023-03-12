@@ -39,7 +39,7 @@
 				</div>
 				<div>
 					<label for="price"><% if(part.equals("buy")) out.print("희망"); %>가격</label>
-					<input type="text" id="price" name="price" placeholder="<% if(part.equals("buy")) out.print("희망"); %>가격을 입력하세요.(숫자만 입력)"> 원
+					<input type="text" id="price" name="price" placeholder="<% if(part.equals("buy")) out.print("희망"); %>가격을 입력하세요."> 원
 				</div>
 				<div>
 					<textarea id="postContent" name="content" cols="100" rows="30" placeholder="글 내용을 입력하시오"></textarea>

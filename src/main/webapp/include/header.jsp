@@ -56,7 +56,7 @@
       <nav id="gnb">
         <h2 class="hidden">주요이용메뉴</h2>
         <ul id="gnbList">
-          <li class="gnbListChild"><a href="../market/market.jsp?part=sell">장터</a></li>
+          <li class="gnbListChild"><a href="/market/market.jsp?part=sell">장터</a></li>
           <li class="gnbListChild"><a href="#">고객센터</a>
             <ul class="snb">
               <li><a href="../notice/notice.jsp">공지사항</a></li>

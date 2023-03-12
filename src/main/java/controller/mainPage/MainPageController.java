@@ -38,6 +38,14 @@ public class MainPageController extends HttpServlet {
 		// 장터글(판매글) 리스트
 		MarketDao marketDao = new MarketDao();
 		ArrayList<MarketDto> postList = marketDao.getPostList("sell", 1, 8);
+		for(int i=0; i<postList.size(); i++) {
+			String imgName = "";
+			String imgUrl = postList.get(i).getImage()[0];
+			if(imgUrl != null) {
+				imgName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
+				postList.get(i).setImage(0, imgName);
+			}
+		}
 		
 		// 자동 로그인 확인
 		Cookie[] c = request.getCookies();
