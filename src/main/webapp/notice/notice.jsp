@@ -30,10 +30,10 @@
       <table class="table_hj">
         <thead class="thead_hj">
           <tr>
-            <td>글번호</td>
-            <td>제목</td>
+            <td class="theadNo">글번호</td>
+            <td class="theadTitle">제목</td>
            <!-- <td>작성자</td> --> 
-            <td>작성일</td>
+            <td class="theadDate">작성일</td>
            <!-- <td>조회수</td> -->
           </tr>
         </thead>
@@ -68,9 +68,9 @@
 			for(NoticeDto a : list) {
 		%>
 		  <tr>
-            <td><%=a.getNoticeNo() %></td>
-            <td><a href="./showNotice.jsp?noticeNo=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
-            <td><%=a.getRegDate() %></td>
+            <td align="center" valign="middle" class="noticeNo"><%=a.getNoticeNo() %></td>
+            <td align="center" valign="middle" class="noticeTitle"><a href="./showNotice.jsp?noticeNo=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
+            <td align="center" valign="middle" class="noticeDate"><%=a.getRegDate() %></td>
           </tr>
 		<% 		
 			}
@@ -232,15 +232,15 @@
         <li><a href="#" class="num">5</a></li>
         --%>
     </div>
-       <%--
+       <%
           if(manager != null) {
-       --%>
+       %>
     <div>
     	<a href="./writeNotice.jsp">글쓰기</a>
     </div>
-    <%--
+    <%
     	}
-    --%>
+    %>
   </section>
  <%@ include file="../include/footer.jsp"%>
   
