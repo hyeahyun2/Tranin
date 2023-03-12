@@ -26,6 +26,10 @@
             <option value="장터">장터</option>
             <option value="공지사항">공지사항</option>
           </select>
+          <select id="rightSearchAdditionalSelect" name="searchAdditionalCategory" id="searchCategory">
+            <option value="buy">삽니다</option>
+            <option value="sell">팝니다</option>
+          </select>
           <input id="rightSearchBtn" class="button-68" type="submit" value="검색">
         </fieldset>
       </form>

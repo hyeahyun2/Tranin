@@ -448,3 +448,37 @@ div#headerWrap ul > li > a {
 	left : 35%;
 	top : 50%;
 }
+#dialog1,#dialog2 {
+	background : white;
+	
+}
+.ui-dialog {
+	background : black;
+	border : 4px solid black;
+}
+.ui-button {
+	position : absolute;
+	bottom : 5px;
+	width : 60px;
+	right : 10px;
+}
+.ui-dialog-title {
+	display : block;
+	width : 100%;
+	height : 30px;
+	text-align : center;
+	background : gray;
+}
+.ui-dialog-titlebar-close {
+	position : absolute;
+	bottom : 5px;
+	width : 60px;
+	left : 10px;
+}
+#dialog1 > input,#dialog2 > input {
+	margin : 0px;
+	position : absolute;
+	left : 0;
+	top : 40%;
+	width : 100%;
+}

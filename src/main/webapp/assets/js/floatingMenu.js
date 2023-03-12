@@ -11,6 +11,8 @@
  const rightSearch = document.querySelector("#rightSearch");
  const rightSearchPage = document.querySelector("#rightSearchPage");
  const rightSearchClose = document.querySelector("#rightSearchClose");
+ const rightSearchSelect = document.querySelector("#rightSearchSelect");
+ const rightSearchAdditionalSelect = document.querySelector("#rightSearchAdditionalSelect");
  const upperSmallNav = document.querySelector("#upperSmallNav");
  const chat = document.querySelector("#chatTag");
  const chatLink = chat.querySelector("a");
@@ -34,6 +36,17 @@
    headerLeftNav.style.opacity=1;
    headerWrap.style.opacity=1;
  });
+ rightSearchSelect.addEventListener("change",function(){
+	if(rightSearchSelect.value=="장터"){
+		rightSearchAdditionalSelect.value="삽니다";
+		rightSearchAdditionalSelect.style.display="inline-block";
+	}else if(rightSearchSelect.value=="공지사항"){
+		rightSearchAdditionalSelect.value="";
+		rightSearchAdditionalSelect.style.display="none";
+	}else {
+		alert("검색 오류!");
+	}
+});
  
  
  /* 채팅 새 창으로 열기 */
