@@ -5,6 +5,13 @@ const imgBtn = contentWrap.querySelector(".imgBtn");
 const imgList = imgWrap.querySelectorAll("li");
 const imgbtnList = imgBtn.querySelectorAll("li");
 
+const imgAll = imgWrap.querySelectorAll("img");
+imgAll.forEach(img => { // img 태그 기본 기능 없애기
+  img.addEventListener("mousedown", (e)=>{
+    e.preventDefault();
+  })
+});
+
 window.addEventListener("load", function(){
 	imgList[0].classList.add("checkImg");
 	imgWrap.style.width = `${imgList.length * 100}%`;
