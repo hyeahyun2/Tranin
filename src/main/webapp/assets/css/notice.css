@@ -9,7 +9,7 @@ div#headerWrap ul > li > a {
 }
 
 #noticeWrap_hj { 
-  width: 100%; 
+  width: 1200px; 
   max-width: 70%;
   height: 100%;
   position: relative;
@@ -45,26 +45,69 @@ div#headerWrap ul > li > a {
 
 #board_hj { }
 #board_hj .table_hj {
-  width: 100%;
+  width: 1000px;
   font-size: 18px;
   text-align: center;
   border-collapse: collapse;
 }
+/*
 .thead_hj td { 
   padding: 10px;
   background-color: #ffb0b0;
   font-weight: bold;
   color: #4f4f4f;
 }
-.tbody_hj td {
+*/
+.theadNo {
+  width: 100px;
+  padding: 10px;
+  background-color: #ffb0b0;
+  font-weight: bold;
+  color: #4f4f4f;
+}
+
+.theadTitle {
+  width: 300px;
+  padding: 10px;
+  background-color: #ffb0b0;
+  font-weight: bold;
+  color: #4f4f4f;
+}
+
+.theadDate {
+  width: 100px;
+  padding: 10px;
+  background-color: #ffb0b0;
+  font-weight: bold;
+  color: #4f4f4f;
+}
+
+
+.tbody_hj .noticeNo {
+  width: 100px;
   padding: 10px;
   border-bottom: 2px solid #ffeddb;
   color: #828282;
 }
-.tbody_hj td a {
+
+.tbody_hj .noticeTitle {
+  width: 300px;
+  padding: 10px;
+  border-bottom: 2px solid #ffeddb;
+  color: #828282;	
+}
+
+.tbody_hj .noticeDate {
+  width: 100px;
+  padding: 10px;
+  border-bottom: 2px solid #ffeddb;
+  color: #828282;	
+}
+
+.tbody_hj .noticeTitle a {
   color: #828282;
 }
-.tbody_hj td a:hover { 
+.tbody_hj .noticeTitle a:hover { 
   background-color: #6a625d;
   color: #fff;
   transition: 0.5s;
