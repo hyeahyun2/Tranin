@@ -19,18 +19,24 @@ public class MemberLogout extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String id = (String) req.getSession().getAttribute("memberId");
 		req.getSession().invalidate();
-		// 자동 로그인 쿠키 있을 경우
-	    Cookie[] c = req.getCookies();
-	    if (c != null) {
-	      for (Cookie cf : c) {
-	        if (cf.getName().equals("autoLogin")){
-	        	cf.setMaxAge(0);
-	        	resp.addCookie(cf);
-	        }
-	      }
-	    }
-	    resp.sendRedirect("/index.jsp"); // 아니라면 원래 페이지로 이동
+		if(id.contains("kakao@")) {
+			resp.sendRedirect("https://kauth.kakao.com/oauth/logout?client_id=04938764cd5055a91180bd7367981503&logout_redirect_uri=http://127.0.0.1:8080/oauth/kakaoLogout");
+		}
+		else {
+			// 자동 로그인 쿠키 있을 경우
+			Cookie[] c = req.getCookies();
+			if (c != null) {
+				for (Cookie cf : c) {
+					if (cf.getName().equals("autoLogin")){
+						cf.setMaxAge(0);
+						resp.addCookie(cf);
+					}
+				}
+			}
+			resp.sendRedirect("/index.jsp"); // 아니라면 원래 페이지로 이동
+		}
 	}
 
 }

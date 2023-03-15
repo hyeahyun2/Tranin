@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link rel="stylesheet" href="../assets/css/reset.css" />
-<link rel="stylesheet" href="../assets/css/login.css?v=3" />
-<script src="../assets/js/login.js?v=2" defer></script>
+<link rel="stylesheet" href="../assets/css/login.css?v=2" />
+<script src="../assets/js/login.js?v=4" defer></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>
 <body>
@@ -39,12 +39,13 @@
 			<span class="loginBtn">로그인</span>
 		</form>
 		<ul class="socialLogin">
-			<li class="kakaoLogin"><a href="javascript:kakaoLogin();">카카오 로그인</a></li>
+			<li class="kakaoLogin"><a href="#" id="kakao_Login">카카오 로그인</a></li>
 			<li class="naverLogin">네이버 로그인</li>
 		</ul>
 	</div>
 </body>
 <script>
+/*
 	window.Kakao.init("ca3c33329662fff494d49918872b1ad2");
 	
 	function kakaoLogin() {
@@ -62,5 +63,6 @@
 			}
 		});
 	}
+	*/
 </script>
 </html>
