@@ -1,4 +1,4 @@
-package tranin;
+package oauth;
 
 import java.io.IOException;
 
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/oauth/kakao")
-public class KakaoOauth extends HttpServlet {
+public class KakaoOauthServlet extends HttpServlet {
 	private final static String TAG = "KakaoController : ";
 	private static final long serialVersionUID = 1L;
        
-    public KakaoOauth() {
+    public KakaoOauthServlet() {
         super();
     }
 

@@ -1,4 +1,4 @@
-package tranin;
+package oauth;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Response;
 
 @WebServlet("/oauth/kakaoLogout")
-public class KakaoLogout extends HttpServlet {
+public class KakaoLogoutServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

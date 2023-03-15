@@ -1,4 +1,4 @@
-package tranin;
+package oauth;
 
 import lombok.Data;
 
