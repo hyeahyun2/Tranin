@@ -110,7 +110,7 @@
 				--%>
 			</ul>
 		</div>
-		<div>
+		<div id="pagingWrap_hj">
 			<%
 	    	int cntListPerPage = 10;
 	   		
@@ -130,17 +130,17 @@
 			// out.println(blockThisLastPage);
 			blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage; 
 	    	%>
-	        <a href="notice.jsp?pageNum=1">첫 페이지</a>
+	        <a href="faq.jsp?pageNum=1"  class="firstPage_hj">첫 페이지</a>
 	        <% 
 	        if (blockThis > 1) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>">앞으로</a>
+	        <a href="faq.jsp?pageNum=<%=(blockThisFirstPage - 1)%>" class="prevPage_hj">앞으로</a>
 	        <% 
 	        }
 	        
 	       	for(int i = blockThisFirstPage; i <= blockThisLastPage; i++) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=i%>" class="num"><%=i%></a>
+	        <a href="faq.jsp?pageNum=<%=i%>" class="num"><%=i%></a>
 	        <%
 	        }
 	        %>
@@ -153,11 +153,11 @@
 	        <%
 	        if(blockThis < blockTotal) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>">뒤로</a>
+	        <a href="faq.jsp?pageNum=<%=(blockThisLastPage + 1)%>" class="nextPage_hj">뒤로</a>
 	        <%
 	        }
 	        %>
-	        <a href="notice.jsp?pageNum=<%=totalPage%>">마지막 페이지</a>
+	        <a href="faq.jsp?pageNum=<%=totalPage%>" class="lastPage_hj">마지막 페이지</a>
 		</div>
 		<div id="counsel_hj">
 			<a href="#">상담사 연결</a>
@@ -166,7 +166,7 @@
          		if(manager != null) {
        		--%>
 		<div>
-			<a href="./writeFaq.jsp">글쓰기</a>
+			<a href="./writeFaq.jsp" class="writeFaq_hj">글쓰기</a>
 		</div>
 			<%--
     			}

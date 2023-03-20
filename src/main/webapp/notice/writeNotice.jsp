@@ -9,12 +9,12 @@
     <title>공지사항 글쓰기</title>
     <link rel="stylesheet" href="../assets/css/common.css">
 	<link rel="stylesheet" href="../assets/css/reset.css">
-	<link rel="stylesheet" href="../assets/css/footer.css">
 	<link rel="stylesheet" href="../assets/css/writeNotice.css">
-	<script src="assets/js/common.js" defer></script>
+	<link rel="stylesheet" href="../assets/css/footer.css">
 	<script src="assets/js/header.js" defer></script>
 </head>
 <body>
+<%@ include file="../include/header.jsp"%>
 	<script>
 		
 		function checkForm() {
@@ -45,7 +45,7 @@
 			
 		}
 	</script>
-	<%@ include file="../include/header.jsp"%>
+
     <section id="writeNoticeWrap_hj">
         <div id="writeNoticeHeaderWrap_hj">
             <h2 class="writeNoticeHeader_hj">공지 사항 글쓰기</h2>
@@ -55,7 +55,7 @@
         	<p><input type="hidden" name="noticeNo"> 
             <p>제목<br><input type="text" name="title" id="title" size="50" placeholder="제목을 입력하세요."></p>
             <p>내용<br><textarea name="content" id="content" cols="48" rows="30" placeholder="내용을 입력하세요."></textarea></p>
-            <input type="button" value="등록" onclick="checkForm()">  
+            <input type="button" value="등록" class="registerNotice_hj" onclick="checkForm()">  
         </form> 
         <a href="notice.jsp" id="goBack_hj">돌아가기</a>
     </section>

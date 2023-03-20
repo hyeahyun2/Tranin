@@ -124,3 +124,98 @@ ul.sub_hj li {
   100% { box-shadow: 0px 0px 50px #35c9ff; }
 
 }
+
+#pagingWrap_hj {
+  display: flex;
+  justify-content: space-around;
+  width: 500px;
+  margin: 50px auto;
+}
+
+#pagingWrap_hj .firstPage_hj {
+	display: block;
+	width: 130px;
+	height: 30px;
+	margin: 0 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 3px solid #adadad;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+#pagingWrap_hj .prevPage_hj {
+	display: block;
+	width: 60px;
+	height: 30px;
+	margin: 0 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 3px solid #adadad;
+	border-radius: 5px;	
+	background-color: #fff;
+}
+
+#pagingWrap_hj .num {
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: 0 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 3px solid #f7d26d;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+#pagingWrap_hj .num.clicked {
+	display: block;
+	width: 30px;
+	height: 30px;
+	margin: 0 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 3px solid #f7d26d;
+	border-radius: 5px;
+	background-color: #fcf7a4;
+}
+
+.clicked {
+	background-color: #fcf7a4;
+}
+
+#pagingWrap_hj .nextPage_hj {
+	display: block;
+	width: 60px;
+	height: 30px;
+	margin: 0 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 3px solid #adadad;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+#pagingWrap_hj .lastPage_hj {
+	display: block;
+	width: 150px;
+	height: 30px;
+	margin: 0 5px;
+	text-align: center;
+	font-weight: bold;
+	border: 3px solid #adadad;
+	border-radius: 5px;
+	background-color: #fff;
+}
+
+.writeFaq_hj {
+	float: right;
+	display: block;
+	width: 80px;
+	height: 30px;
+	background-color: #c8ff8a;
+	border: 3px solid #b4ff5e;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold;
+}

@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+#upperSmallNav a {
+  color: #000;
+}
+
+div#headerWrap ul > li > a {
+  color: #000;
+}
+
 #showNoticeWrap_hj { 
   width: 100%; 
   max-width: 70%;
@@ -8,4 +16,12 @@
   top: 150px;
   margin: 0 auto;
   padding-bottom: 25vh; 
+}
+
+.showNoticeHeader_hj {
+  border-bottom: 1px;
+}
+
+.showNoticeP_hj {
+	
 }
