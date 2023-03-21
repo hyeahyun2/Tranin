@@ -62,7 +62,7 @@
 	         			String fileName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1);
 	          %>
 	          <div class="imgDiv imgDiv_load">
-          		<img class="imgImg imgImg_load" src="/resources/images/<%= fileName %>"  alt="<%= fileName %>">
+          		<img class="imgImg imgImg_load" src="/img/<%= fileName %>"  alt="<%= fileName %>">
 	          	<input type="button" value="x" delfile="<%= fileName %>" class="imgCheck imgCheck_load">
 	          </div>
 	          <%
