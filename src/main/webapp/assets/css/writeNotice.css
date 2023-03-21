@@ -1,5 +1,13 @@
 @charset "UTF-8";
 
+#upperSmallNav a {
+  color: #000;
+}
+
+div#headerWrap ul > li > a {
+  color: #000;
+}
+
 #writeNoticeWrap_hj { 
   width: 100%; 
   max-width: 70%;

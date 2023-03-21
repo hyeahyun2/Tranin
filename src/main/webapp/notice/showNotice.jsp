@@ -6,12 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공지사항</title>
 <link rel="stylesheet" href="../assets/css/common.css">
 <link rel="stylesheet" href="../assets/css/reset.css">
-<link rel="stylesheet" href="../assets/css/notice.css">
-<link rel="stylesheet" href="../assets/css/footer.css">
 <link rel="stylesheet" href="../assets/css/showNotice.css">
+<link rel="stylesheet" href="../assets/css/footer.css">
+<script src="../assets/js/header.js" defer></script>
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 <script>
 		
@@ -82,11 +84,11 @@
 </script>
 </head>
 <body>
-	<%@ include file="../include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
     <section id="showNoticeWrap_hj">
         <div id="showNoticeHeaderWrap_hj">
             <h2 class="showNoticeHeader_hj">공지 사항</h2>
-            <p>공지 내용을 확인하세요.</p>
+            <p class="showNoticeP_hj">공지 내용을 확인하세요.</p>
         </div>
         <%
         	int noticeNo= Integer.parseInt(request.getParameter("noticeNo"));
@@ -95,8 +97,11 @@
         	
         	for(NoticeDto a : list) {
         %>
-        제목 : <p><%=a.getTitle()%></p>
-        내용 : <p><%=a.getContent() %></p>
+        <form>
+        
+        </form>
+        	<p>제목<br><input type="text" name="title" size="50" value="<%=a.getTitle()%>" readonly></p>
+        	<p>내용<br><textarea name="content" id="content" cols="48" rows="30" readonly><%=a.getContent() %></textarea></p>
         <form>
         	<input type="hidden" id="noticeNo" value="<%=noticeNo%>">
             <input type="hidden" id="title" value="<%=a.getTitle()%>">
@@ -110,8 +115,16 @@
         --%>
        	<a href="./updateNotice.jsp?noticeNo=<%=noticeNo%>">수정하기</a>
        	<%-- <a id="button" href="/deleteNoticeServlet?noticeNo=<%=noticeNo%>">삭제하기</a> --%>
-       	<a id="button">삭제하기</a>
+       	<a id="button" style="cursor: pointer;">삭제하기</a>
+       	<%
+       	String searchText = (String)session.getAttribute("searchText");
+       	if(searchText == null) { %>
        	<a href="./notice.jsp">목록</a>
+       	<% }
+       	if (searchText != null) {
+       	%>
+       	<a href="./notice.jsp?searchText=<%=searchText%>">목록</a>
+       	<% } %>
        	<%--
           }
        	--%>

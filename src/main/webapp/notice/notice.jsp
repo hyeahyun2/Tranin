@@ -24,7 +24,16 @@
   <section id="noticeWrap_hj">
     <div id="headerWrap_hj">
       <h2 class="header_hj">공지사항</h2>
-      <form action="./notice.jsp" method="get"><input type="text" name="searchText" size="47" placeholder="검색어를 입력하세요."><input type="submit" value="검색"></form>
+      <form action="./notice.jsp" method="get">
+        <input type="search" name="searchText" size="47" placeholder="검색어를 입력하세요.">
+      	<input type="submit" value="검색">
+      	<input type="button" value="취소" onclick="document.location.href='./notice.jsp'">
+      </form>
+      <%
+      	request.setCharacterEncoding("UTF-8");
+        String search = request.getParameter("searchText");
+        session.setAttribute("searchText", search);
+      %> 
     </div>
     <div id="board_hj">
       <table class="table_hj">
@@ -175,11 +184,11 @@
 		blockThisLastPage = (blockThisLastPage > totalPage) ? totalPage : blockThisLastPage;
 		if(isSearch) {
     	%>
-	        <a href="notice.jsp?pageNum=1&searchText=<%=searchText%>">첫 페이지</a>
+	        <a href="notice.jsp?pageNum=1&searchText=<%=searchText%>" class="firstPage_hj">첫 페이지</a>
 	        <% 
 	        if (blockThis > 1) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>&searchText=<%=searchText%>">앞으로</a>
+	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>&searchText=<%=searchText%>" class="prevPage_hj">앞으로</a>
 	        <% 
 	        }
 	        
@@ -188,23 +197,22 @@
 	        <a href="notice.jsp?pageNum=<%=i%>&searchText=<%=searchText%>" class="num"><%=i%></a>
 	        <%
 	        }
-	        %>
-	        <%
 	        if(blockThis < blockTotal) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>&searchText=<%=searchText%>">뒤로</a>
+	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>&searchText=<%=searchText%>" class="nextPage_hj">뒤로</a>
 	        <%
 	        }
 	        %>
-	        <a href="notice.jsp?pageNum=<%=totalPage%>&searchText=<%=searchText%>">마지막 페이지</a>
+	        <a href="notice.jsp?pageNum=<%=totalPage%>&searchText=<%=searchText%>" class="lastPage_hj">마지막 페이지</a>
         <%
-		} else {
+		}
+		else {
         %>
-           <a href="notice.jsp?pageNum=1">첫 페이지</a>
+           <a href="notice.jsp?pageNum=1" class="firstPage_hj">첫 페이지</a>
 	        <% 
 	        if (blockThis > 1) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>">앞으로</a>
+	        <a href="notice.jsp?pageNum=<%=(blockThisFirstPage - 1)%>" class="prevPage_hj">앞으로</a>
 	        <% 
 	        }
 	        
@@ -217,11 +225,11 @@
 	        <%
 	        if(blockThis < blockTotal) {
 	        %>
-	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>">뒤로</a>
+	        <a href="notice.jsp?pageNum=<%=(blockThisLastPage + 1)%>" class="nextPage_hj">뒤로</a>
 	        <%
 	        }
 	        %>
-	        <a href="notice.jsp?pageNum=<%=totalPage%>">마지막 페이지</a>
+	        <a href="notice.jsp?pageNum=<%=totalPage%>" class="lastPage_hj">마지막 페이지</a>
         <%
 		}
         %>
@@ -236,13 +244,41 @@
           if(manager != null) {
        %>
     <div>
-    	<a href="./writeNotice.jsp">글쓰기</a>
+    	<a href="./writeNotice.jsp" class="writeNotice_hj">글쓰기</a>
     </div>
     <%
     	}
     %>
   </section>
  <%@ include file="../include/footer.jsp"%>
+ <script type="text/javascript">
+	 var num = document.getElementsByClassName("num");
+	
+	 function handleClick(event) {
+	   console.log(event.target);
+	   // console.log(this);
+	   // 콘솔창을 보면 둘다 동일한 값이 나온다
+	
+	   console.log(event.target.classList);
+	
+	   if (event.target.classList[1] === "clicked") {
+	     event.target.classList.remove("clicked");
+	   } else {
+	     for (var i = 0; i < num.length; i++) {
+	       num[i].classList.remove("clicked");
+	     }
+	
+	     event.target.classList.add("clicked");
+	   }
+	 }
+	
+	 function init() {
+	   for (var i = 0; i < num.length; i++) {
+	     num[i].addEventListener("click", handleClick);
+	     console.log(i);
+	   }
+	 }
+ </script>
   
 </body>
 </html>
