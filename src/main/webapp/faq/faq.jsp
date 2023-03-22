@@ -159,18 +159,20 @@
 	        %>
 	        <a href="faq.jsp?pageNum=<%=totalPage%>" class="lastPage_hj">마지막 페이지</a>
 		</div>
+		<!--  
 		<div id="counsel_hj">
 			<a href="#">상담사 연결</a>
 		</div>
-			<%--
+		-->
+			<%
          		if(manager != null) {
-       		--%>
+       		%>
 		<div>
 			<a href="./writeFaq.jsp" class="writeFaq_hj">글쓰기</a>
 		</div>
-			<%--
+			<%
     			}
-    		--%>
+    		%>
 	</section>
 	<%@ include file="../include/footer.jsp" %>
 </body>
