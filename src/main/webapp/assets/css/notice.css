@@ -153,22 +153,6 @@ div#headerWrap ul > li > a {
 	border-radius: 5px;
 }
 
-#pagingWrap_hj .num.clicked {
-	display: block;
-	width: 30px;
-	height: 30px;
-	margin: 0 5px;
-	text-align: center;
-	font-weight: bold;
-	border: 3px solid #f7d26d;
-	border-radius: 5px;
-	background-color: #fcf7a4;
-}
-
-.clicked {
-	background-color: #fcf7a4;
-}
-
 #pagingWrap_hj .nextPage_hj {
 	display: block;
 	width: 60px;

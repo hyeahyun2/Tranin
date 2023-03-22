@@ -252,6 +252,7 @@
   </section>
  <%@ include file="../include/footer.jsp"%>
  <script type="text/javascript">
+ 	<%--
 	 var num = document.getElementsByClassName("num");
 	
 	 function handleClick(event) {
@@ -278,6 +279,25 @@
 	     console.log(i);
 	   }
 	 }
+	 --%>
+	 
+	 let pagingVar = document.querySelectorAll("#pagingWrap_hj a");
+	 let pagingServerVar = <%=Integer.parseInt((String)request.getParameter("pageNum"))%>;
+			
+	
+		if(pagingServerVar != null){
+			if(pagingServerVar>5){
+				pagingServerVar = (pagingServerVar%5)+2;
+			}else {
+				pagingServerVar++;
+			}
+			let a = document.querySelector(".num:nth-child("+pagingServerVar+")");
+			console.log(pagingServerVar);
+			console.log(a);
+			a.classList.add("active");
+			a.style.color = "black";
+		}
+	
  </script>
   
 </body>

@@ -39,8 +39,10 @@
 			<span class="loginBtn">로그인</span>
 		</form>
 		<ul class="socialLogin">
-			<li class="kakaoLogin"><a href="#" id="kakao_Login">카카오 로그인</a></li>
-			<li class="naverLogin">네이버 로그인</li>
+			<!-- 카카오 로그인 -->
+			<li class="kakaoLogin"><a href="#" id="kakao_Login"><img height="55" src="/assets/image/kakao_login_large_narrow.png"/></a></li>
+			<!-- 네이버 로그인 -->
+			<li class="naverLogin"><a href="/oauth/naver"><img height="55" src="/assets/image/btnG_완성형.png"/></a></li>
 		</ul>
 	</div>
 </body>

@@ -121,7 +121,7 @@
 	        				  "/assets/image/default_image.png" : "/img/" + post.getImage()[0];
 	          %>
             <li>
-              <a href="/marketPostInfo?no=<%= post.getMarketNo()%>">
+	          <a href="/marketPostInfo?no=<%= post.getMarketNo()%>">
                 <div>
                   <img src=<%= titleImg %> alt="<%= post.getMarketNo() %>번 글 이미지">
                 </div>

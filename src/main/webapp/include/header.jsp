@@ -59,7 +59,7 @@
           <li class="gnbListChild"><a href="/market/market.jsp?part=sell">장터</a></li>
           <li class="gnbListChild"><a href="#">고객센터</a>
             <ul class="snb">
-              <li><a href="../notice/notice.jsp?v=4">공지사항</a></li>
+              <li><a href="../notice/notice.jsp?pageNum=1">공지사항</a></li>
               <li><a href="../faq/faq.jsp">FAQ</a></li>
             </ul>
           </li>
