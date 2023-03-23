@@ -9,7 +9,6 @@
       <ul>
         <li><a href="statementManagerPage?myPageManagerCategory=2&statusManager=0">통계</a></li>
         <li><a href="marketManagerPage?myPageManagerCategory=2&marketManager=0&marketManagerNo=1">게시판관리</a></li>
-        <li><a href="managerPage?myPageManagerCategory=2&repManager=0">댓글관리</a></li>
         <li><a href="memberManagerPage?myPageManagerCategory=2&memberManager=0&memberManagerNo=1">멤버관리</a></li>
         <li><a href="managerPage?myPageManagerCategory=2&reportManager=0">신고관리</a></li>
       </ul>
@@ -29,35 +28,6 @@
     	}else if((request.getParameter("marketManager")!=null)&&(request.getAttribute("bannedMarketArrayList")==null)){
     %>
     <jsp:include page="../adminTemplate/marketManager.jsp" />
-    <%
-    	}else if(request.getParameter("repManager")!=null){
-    %>
-    <section id="myPageAdminBoardManage">
-      <a href="#">댓글관리</a>
-      <div id="myPageAdminBoardManage">
-        <ul id="myPageAdminBoardManageHeader">
-          <li>컬럼1</li>
-          <li>컬럼2</li>
-          <li>컬럼3</li>
-          <li>컬럼4</li>
-          <li>컬럼5</li>
-        </ul>
-        <ul class="myPageAdminBoardManageContent">
-          <li>필드1</li>
-          <li>필드2</li>
-          <li>필드3</li>
-          <li>필드4</li>
-          <li>필드5</li>
-        </ul>
-        <ul class="myPageAdminBoardManageContent">
-          <li>필드1</li>
-          <li>필드2</li>
-          <li>필드3</li>
-          <li>필드4</li>
-          <li>필드5</li>
-        </ul>
-      </div>
-    </section>
 	<%
     	}else if((request.getParameter("memberManager")!=null)&&(request.getAttribute("bannedMemberArrayList")!=null)){
     		int memberManagerNo = Integer.parseInt((String)request.getParameter("memberManagerNo"));

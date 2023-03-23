@@ -25,7 +25,17 @@
   </div>
     <%@ include file="../include/floatingMenu.jsp"%>
     <section id="myPageTab">
+      <%
+      	if(session.getAttribute("memberId")!=null){
+      %>
       <h2>마이페이지</h2>
+      <%
+      	} else {
+      %>
+      <h2>관리자페이지</h2>
+      <%
+      	}
+      %>
       <ul>
       <%
       	if(session.getAttribute("memberId")!=null){

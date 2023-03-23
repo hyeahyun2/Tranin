@@ -158,10 +158,10 @@
 </section>
 <script>
 	document.addEventListener('DOMContentLoaded',function(){
-		let status = document.querySelector("#myPageAdminNav ul li:nth-child(4)");
+		let status = document.querySelector("#myPageAdminNav ul li:nth-child(3)");
 		status.classList.add("active");
 		
-		let statusA = document.querySelector("#myPageAdminNav ul li:nth-child(4) a");
+		let statusA = document.querySelector("#myPageAdminNav ul li:nth-child(3) a");
 		statusA.classList.add("active");
 		
 		let statusC = document.querySelector("#memberBanManagerPageAnchor");

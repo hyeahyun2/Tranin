@@ -50,9 +50,10 @@ div#headerWrap ul > li > a {
   border-bottom: 2px solid white;
   padding-bottom: 60px;
 }
-#myPageProfile img {
-  width : 200px;
-  height : 200px;
+img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
 }
 #myPageProfile div {
   display : flex;

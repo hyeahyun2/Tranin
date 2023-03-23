@@ -146,7 +146,7 @@
 				    			let td = document.createElement('td');
 				    			let img = document.createElement('img');
 					    		// /resources/images/s1_back02.png
-				    			img.src = "/resources/images/"+Object.values(arr.result[key])[j];
+				    			img.src = "/img/"+Object.values(arr.result[key])[j];
 					    		td.append(img);
 					    		tr.append(td);
 					    		let key2 = keys2[j];

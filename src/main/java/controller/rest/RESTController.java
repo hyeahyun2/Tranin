@@ -43,7 +43,7 @@ import dto.NoticeDto;
  	- 장터글의 제목을 패러미터로 입력하여 검색 가능. 예시) /marketAllList.REST?part=sell&keyword=abc123
  	- 어느 경우든 part 패러미터가 없으면 출력 불가능
  /completedMarketList.REST : 회원번호를 패러미터로 그 회원의 완료된 모든 장터글의 목록 출력
- 	- 글쓴이 회원번호를 입력해야만 목록 출력. 예시) /completedMarketList.REST?writerNo=33
+ 	- 글쓴이 회원번호를 입력해야만 목록 출력. 예시) /completedMarketList.REST?writerNo=55
  	- 장터글의 제목을 패러미터로 입력하여 검색 가능. 예시) /completedMarketList.REST?writerNo=33&keyword=abc123
  	- 어느 경우든 writerNo 패러미터가 없으면 출력 불가능
  /marketOne.REST : 글 번호를 패러미터로 해당 장터글 하나를 출력
