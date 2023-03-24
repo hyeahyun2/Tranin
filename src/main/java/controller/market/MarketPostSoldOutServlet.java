@@ -56,7 +56,7 @@ public class MarketPostSoldOutServlet extends HttpServlet {
 				marketDao.insertToDisabled("soldOut", Integer.parseInt(marketNo));		
 				out.append("<script>"
 						+ "if(!alert('판매 완료 처리가 완료되었습니다.')){"
-						+ "location.href='/market/market.jsp'"
+						+ "location.href='/market/market.jsp?part=sell'"
 						+ "}</script>");
 				out.flush();
 	            out.close();
@@ -64,7 +64,7 @@ public class MarketPostSoldOutServlet extends HttpServlet {
 			else {
 				out.append("<script>"
 						+ "if(!alert('판매 완료 처리에 실패했습니다. 다시 시도해주세요.')){"
-						+ "location.href='/marketPostInfo?no="+ marketNo +"'"
+						+ "location.href='/marketPostInfo??part=sell&no="+ marketNo +"'"
 						+ "}</script>");
 				out.flush();
 	            out.close();

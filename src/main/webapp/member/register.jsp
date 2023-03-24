@@ -12,6 +12,16 @@
 <script src="../assets/js/register.js?v=2" defer></script>
 </head>
 <body>
+<%
+String errorMsg = (String)request.getAttribute("errorMsg");
+if(errorMsg != null && errorMsg.equals("registerfail")){ // 로그인 실패
+	%>
+	<script>
+		alert("회원가입에 실패했습니다! 다시 진행해주세요.");
+	</script>
+	<%
+}
+%>
 	<div id="container">
 		<h1 class="logo"><a href="/mainPage">트레닌 회원가입</a></h1>
 		<form name="registerForm" id="registerForm" method="post">
