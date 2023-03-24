@@ -113,7 +113,9 @@ searchBtn.addEventListener("click", function(){ // 돋보기 클릭
 						+ "&searchKey=" + searchText.value;
 });
 searchText.addEventListener("keydown", (e)=>{ // 엔터의 원래 이벤트 방지
-	e.preventDefault();
+	if( window.event.keyCode == 13 ){
+		e.preventDefault();
+	}
 });
 searchText.addEventListener("keyup", function(e){ // 엔터 검색
 	if( window.event.keyCode == 13 ){

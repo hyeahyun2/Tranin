@@ -37,14 +37,16 @@ public class MemberRegisterServlet extends HttpServlet {
 		if(command.contains("/registerSubmit")) { // 회원 가입 버튼 클릭
 			PrintWriter out = resp.getWriter();
 			if(reqRegister(req)) { // 회원가입 성공
-				out.append("<script>alert('회원가입에 성공했습니다!')</script>");
-				out.flush();
-	            out.close();
+//				out.append("<script>alert('회원가입에 성공했습니다!')</script>");
+//				out.flush();
+//	            out.close();
+				req.setAttribute("successMsg", "registerSuccess");
 				RequestDispatcher rd = req.getRequestDispatcher("/member/login.jsp");
 				rd.forward(req, resp);
 			}
 			else { // 회원가입 실패
-				out.append("<script>alert('회원가입에 실패했습니다! 다시 진행해주세요.')</script>");
+//				out.append("<script>alert('회원가입에 실패했습니다! 다시 진행해주세요.')</script>");
+				req.setAttribute("errorMsg", "registerfail");
 				RequestDispatcher rd = req.getRequestDispatcher("/member/register.jsp");
 				rd.forward(req, resp);
 			}

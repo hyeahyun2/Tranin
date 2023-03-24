@@ -15,6 +15,7 @@
 		<h1 class="logo"><a href="/mainPage">트레닌 로그인</a></h1>
 		<%
 		String errorMsg = (String)request.getAttribute("errorMsg");
+		
 		if(errorMsg != null && errorMsg.equals("loginFail")){ // 로그인 실패
 		%>
 			<div class="errorWrap">
@@ -27,6 +28,15 @@
 			<div class="errorWrap">
 				<span>! 관리자에의해 차단된 회원입니다.</span>
 			</div>
+		<%
+		}
+		
+		String successMsg = (String)request.getAttribute("successMsg");
+		if(successMsg != null && successMsg.equals("registerSuccess")){
+		%>
+		<script>
+			alert("회원가입에 성공했습니다! 로그인을 진행해주세요!");
+		</script>
 		<%
 		}
 		%>

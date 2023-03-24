@@ -7,7 +7,7 @@
 <title>장터</title>
 <%@ include file="../include/frontStyle.jsp"%>
 <link rel="stylesheet" href="../assets/css/market.css?v=2">
-<script src="../assets/js/market.js?v=4" defer></script>
+<script src="../assets/js/market.js?v=5" defer></script>
 </head>
 <%
 String searchKey = request.getParameter("searchKey");

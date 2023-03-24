@@ -14,8 +14,8 @@ public enum ConnectionUtil {
 	ConnectionUtil(){
 		HikariConfig config = new HikariConfig();
 		config.setDriverClassName("org.mariadb.jdbc.Driver");
-		config.setJdbcUrl("jdbc:mariadb://runeah.cafe24.com:3306/runeah?autoReconnect=true");
-		//config.setJdbcUrl("jdbc:mariadb://localhost:3306/runeah?autoReconnect=true");
+		//config.setJdbcUrl("jdbc:mariadb://runeah.cafe24.com:3306/runeah?autoReconnect=true");
+		config.setJdbcUrl("jdbc:mariadb://localhost:3306/runeah?autoReconnect=true");
 		config.setUsername("runeah");
 		config.setPassword("tranin1!");
 		config.addDataSourceProperty("cachePrepStmts", "true");
