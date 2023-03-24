@@ -77,10 +77,7 @@
                     }
                 });
             };
-            
-     
-        })
-        
+        });
 </script>
 </head>
 <body>
@@ -110,12 +107,15 @@
         <%
         	}
         %>
-        <%--
+        <%
          if(manager != null){
-        --%>
+        %>
        	<a href="./updateNotice.jsp?noticeNo=<%=noticeNo%>">수정하기</a>
        	<%-- <a id="button" href="/deleteNoticeServlet?noticeNo=<%=noticeNo%>">삭제하기</a> --%>
        	<a id="button" style="cursor: pointer;">삭제하기</a>
+       	<%
+         }
+       	%>
        	<%
        	String searchText = (String)session.getAttribute("searchText");
        	if(searchText == null) { %>

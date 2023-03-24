@@ -280,7 +280,7 @@
 	   }
 	 }
 	 --%>
-	 
+	 <%--
 	 let pagingVar = document.querySelectorAll("#pagingWrap_hj a");
 	 let pagingServerVar = <%=Integer.parseInt((String)request.getParameter("pageNum"))%>;
 			
@@ -297,6 +297,7 @@
 			a.classList.add("active");
 			a.style.color = "black";
 		}
+		--%>
 	
  </script>
   
