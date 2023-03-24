@@ -78,7 +78,7 @@
 		%>
 		  <tr>
             <td align="center" valign="middle" class="noticeNo"><%=a.getNoticeNo() %></td>
-            <td align="center" valign="middle" class="noticeTitle"><a href="./showNotice.jsp?noticeNo=<%=a.getNoticeNo()%>" role="button"><%=a.getTitle() %></a></td>
+            <td align="center" valign="middle" class="noticeTitle"><a href="./showNotice.jsp?noticeNo=<%=a.getNoticeNo()%>&pageNum=<%=pageNum%>" role="button"><%=a.getTitle() %></a></td>
             <td align="center" valign="middle" class="noticeDate"><%=a.getRegDate() %></td>
           </tr>
 		<% 		

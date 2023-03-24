@@ -118,8 +118,9 @@
        	%>
        	<%
        	String searchText = (String)session.getAttribute("searchText");
+       	String pageNum = request.getParameter("pageNum");
        	if(searchText == null) { %>
-       	<a href="./notice.jsp">목록</a>
+       	<a href="./notice.jsp?pageNum=<%=pageNum%>">목록</a>
        	<% }
        	if (searchText != null) {
        	%>
