@@ -7,7 +7,7 @@
 <title>로그인</title>
 <link rel="stylesheet" href="../assets/css/reset.css" />
 <link rel="stylesheet" href="../assets/css/login.css?v=2" />
-<script src="../assets/js/login.js?v=4" defer></script>
+<script src="../assets/js/login.js?v=5" defer></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 </head>
 <body>

@@ -23,7 +23,8 @@ form.pw.addEventListener("keyup", ()=>{
 function kakaoLogin() {
   const url = "https://kauth.kakao.com/oauth/authorize?" + 
   		"client_id=04938764cd5055a91180bd7367981503" + 
-  		"&redirect_uri=http://127.0.0.1:8080/oauth/kakao?cmd=callback" + 
+//  		"&redirect_uri=http://127.0.0.1:8080/oauth/kakao?cmd=callback" + 
+  		"&redirect_uri=http://runeah.cafe24.com/oauth/kakao?cmd=callback" + 
   		"&response_type=code";
   kakao_Login.setAttribute("href", url);
 }

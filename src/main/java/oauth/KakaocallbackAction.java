@@ -34,7 +34,7 @@ public class KakaocallbackAction implements Action {
 		
 		String bodyData="grant_type=authorization_code&";
 		bodyData += "client_id=04938764cd5055a91180bd7367981503&";
-		bodyData += "redirect_uri=http://127.0.0.1:8080/oauth/kakao?cmd=callback&";
+		bodyData += "redirect_uri=http://runeah.cafe24.com/oauth/kakao?cmd=callback&";
 		bodyData += "code="+code;
 		
 		//Stream 연결
